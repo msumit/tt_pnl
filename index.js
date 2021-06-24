@@ -28,12 +28,13 @@ const TELEGRAM_POST_URL = new URL('https://api.telegram.org/bot' + process.env.T
 TELEGRAM_POST_URL.searchParams.append("chat_id", process.env.TELEGRAM_CHAT_ID);
 TELEGRAM_POST_URL.searchParams.append("parse_mode", "HTML");
 
+console.log("Application fully loaded, waiting for cron to do magic");
 //Schedule tasks to be run on the server.
 //“At every 15th minute past every hour from 4 through 10 UTC time on every day-of-week from Monday through Friday.”
 //*/15 4-10 * * 1-5
 cron.schedule(process.env.CRONEXP, function() {
     //if (isDuringTradeingHours()) {
-        console.log('running a task every minute between 10am and 3pm IST');
+        console.log('running a task every minute between 10am and 3pm IST, current time is ', new Date().toString());
         fetch(TT_URL.href, options)
         .then(res => res.json())
         .then((strategies) => {
