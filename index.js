@@ -46,13 +46,13 @@ cron.schedule(process.env.CRONEXP, function () {
                     let total_pnl = 0.0;
                     strategies.data.forEach(deployment => {
                         //Only report the Live or exited PNL
-                        if ((deployment.status.search('Live-Entered') || deployment.status.search('Exited')) >= 0) {
+                        if ((deployment.status.search('Live-Entered') >=0) || (deployment.status.search('Exited') >=0 )) {
                             let pnl = parseFloat(deployment.sum_of_pnl).toFixed(2);
                             total_pnl += parseFloat(deployment.sum_of_pnl);
 
                             //pruning only the strategy name by removing anything after //
                             let name = deployment.template.name.slice(0, deployment.template.name.indexOf('/'));
-                            //console.log(deployment.status + " " + process.env.TRADE_TYPE + " >> " + name + " >> " + deployment.currency + pnl);
+                            console.log(deployment.status + " " + process.env.TRADE_TYPE + " >> " + name + " >> " + deployment.currency + pnl);
 
                             //TODO : Google sheet integration to send each deployment PNL
 
