@@ -116,7 +116,7 @@ function getDatestamp() {
 
 function getTimestamp() {
     var today = moment.utc().tz("Asia/Kolkata");
-    return today.format("h:mm").toString();
+    return today.format("HH:MM").toString();
 }
 
 async function googleSheetUpdater() {
@@ -195,5 +195,4 @@ cron.schedule(process.env.CRON_DAILY_SYSTEM_INIT, () => {
 // let full_telegram_url = new URL(TELEGRAM_POST_URL.toString());
 // full_telegram_url.searchParams.append("text", new Date().toString());
 // fetch(full_telegram_url, {method: 'POST'});
-
 app.listen(process.env.PORT);
