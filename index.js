@@ -2,7 +2,8 @@ const cron = require('node-cron');
 const express = require('express');
 const fetch = require('node-fetch');
 const TT_URL = new URL('https://tradetron.tech/api/deployed-strategies');
-const CREATOR_ID = 193528;
+let holidayList = require('./foHolidays.json');
+const TZ_INDIA = "Asia/Kolkata";
 
 const PROFIT = '🟢';
 const LOSS = '🔴';
@@ -13,7 +14,6 @@ var app = express();
 const dotenv = require('dotenv');
 dotenv.config();
 
-
 const options = {
     headers: {
         'Accept': 'application/json',
@@ -23,7 +23,7 @@ const options = {
 }
 
 TT_URL.searchParams.append("execution", process.env.TRADE_TYPE);
-TT_URL.searchParams.append("creator_id", CREATOR_ID);
+TT_URL.searchParams.append("creator_id", process.env.TT_CREATOR_ID);
 
 const TELEGRAM_POST_URL = new URL('https://api.telegram.org/bot' + process.env.TELEGRAM_BOT_TOKEN + '/sendMessage');
 TELEGRAM_POST_URL.searchParams.append("chat_id", process.env.TELEGRAM_CHAT_ID);
@@ -33,6 +33,19 @@ TELEGRAM_DEBUG.searchParams.append("chat_id", process.env.TELEGRAM_CHAT_ID_DEBUG
 
 console.log("Application fully loaded, waiting for all the crons to do magic");
 
+//Compute holiday checker once a day or on server restart.
+let isTodayHoliday = null;
+function isHoliday() {
+    //Check if it is a weekend.
+    let weekend = new Date().getDay()%6 == 0; //Sunday is 0 and Saturday is 6. 0%6 and 6%6 will be zero
+    if(weekend) return weekend;
+
+    let holidayArray = holidayList.FO.filter((dt) => {return moment().isSame(new Date(dt.tradingDate), 'day')});
+    return (holidayArray.length > 0);
+
+}
+
+//Telegram transporter. Needs to be refactored to be used only for transporting by taking a payload
 async function telegram() {
     const res = await fetch(TT_URL.href, options);
     if(!res.ok) throw { name: 'Fetch API Error', message: res.statusText, status: res.status };
@@ -70,7 +83,12 @@ async function telegram() {
 //Schedule tasks to be run on the server.
 //“At every 15th minute past every hour from 4 through 10 UTC time on every day-of-week from Monday through Friday.”
 //*/15 4-9 * * 1-5
-cron.schedule(process.env.CRONEXP, function () {
+cron.schedule(process.env.CRONEXP, () => {
+    if(isTodayHoliday == null) isTodayHoliday = isHoliday();
+    if(isTodayHoliday) {
+        console.log("Weekend or NSE Holiday, skipping telegram task");
+        return;
+    }
     console.log("cron task1 runs basis ", process.env.CRONEXP);
     console.log('running a task every 15 minutes between 09:30 and 15:30 IST, current time is ', new Date().toString());
 
@@ -80,6 +98,9 @@ cron.schedule(process.env.CRONEXP, function () {
         fetch(url, { method: 'POST' })
         console.error(error);
     });
+}, {
+    scheduled: true,
+    timezone: TZ_INDIA
 });
 
 
@@ -104,18 +125,18 @@ let autoRefreshingTokens = null;
 
 const moment = require('moment-timezone');
 function getRangeName(range) {
-    var today = moment.utc().tz("Asia/Kolkata");
+    var today = moment.utc().tz(TZ_INDIA);
 
     return today.format("DDMMMYYYY").concat(range).toString();
 }
 
 function getDatestamp() {
-    var today = moment.utc().tz("Asia/Kolkata");
+    var today = moment.utc().tz(TZ_INDIA);
     return today.format("DDMMMYYYY").toString();
 }
 
 function getTimestamp() {
-    var today = moment.utc().tz("Asia/Kolkata");
+    var today = moment.utc().tz(TZ_INDIA);
     return today.format("HH:mm").toString();
 }
 
@@ -153,12 +174,20 @@ async function googleSheetUpdater() {
 }
 
 //Schedule tasks to be run on the server.
-//“At every 15th minute past every hour from 4 through 10 UTC time on every day-of-week from Monday through Friday.”
-//*/5 4-9 * * 1-5
+//“At every 15th minute past every hour from 9 through 15 on every day-of-week from Monday through Friday.”
+//*/5 9-14 * * 1-5
 cron.schedule(process.env.CRONEXP2, function () {
-    console.log("cron task2 runs basis ", process.env.CRONEXP2);
-    console.log('running a task every 5 minutes between 09:30 and 15:30 IST, current time is ', new Date().toString());
+    if(isTodayHoliday == null) isTodayHoliday = isHoliday();
+    if(isTodayHoliday) {
+        console.log("Weekend or NSE Holiday, skipping google sheet task");
+        return;
+    }
+    console.log("cron google sheet task runs basis ", process.env.CRONEXP2);
+    console.log('running a task every 5 minutes between 09:00 and 15:00 IST, current time is ', new Date().toString());
     googleSheetUpdater().catch(console.error);
+}, {
+    scheduled: true,
+    timezone: TZ_INDIA
 });
 
 async function googleSheetInit() {
@@ -186,13 +215,23 @@ async function googleSheetInit() {
 //“At 01:00 on every day-of-week from Monday through Friday.”
 //0 1 * * 1-5
 cron.schedule(process.env.CRON_DAILY_SYSTEM_INIT, () => {
-    console.log("cron task3 runs once ", process.env.CRON_DAILY_SYSTEM_INIT);
+    if(isTodayHoliday == null) isTodayHoliday = isHoliday();
+    if(isTodayHoliday) {
+        console.log("Weekend or NSE Holiday, skipping 1am housekeeping task");
+        return;
+    }
+    console.log("cron housekeeping task runs once ", process.env.CRON_DAILY_SYSTEM_INIT);
     console.log('running a task once a day, current time is ', new Date().toString());
     googleSheetInit().catch(console.error);
+}, {
+    scheduled: true,
+    timezone: TZ_INDIA
 });
 
-// TEST CODE, to see if deployment works on remote server
-// let full_telegram_url = new URL(TELEGRAM_POST_URL.toString());
-// full_telegram_url.searchParams.append("text", new Date().toString());
-// fetch(full_telegram_url, {method: 'POST'});
+// Holiday checker at startup
+isTodayHoliday = isHoliday();
+if(isTodayHoliday) {
+    console.log("Its is a holiday, so lets hope no crons are awake");
+}
+
 app.listen(process.env.PORT);

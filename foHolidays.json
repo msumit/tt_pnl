@@ -1,0 +1,112 @@
+{
+    "FO": [
+      {
+        "tradingDate": "26-Jan-2021",
+        "weekDay": "Tuesday",
+        "description": "Republic Day",
+        "Sr_no": 1
+      },
+      {
+        "tradingDate": "11-Mar-2021",
+        "weekDay": "Thursday",
+        "description": "Mahashivratri",
+        "Sr_no": 2
+      },
+      {
+        "tradingDate": "29-Mar-2021",
+        "weekDay": "Monday",
+        "description": "Holi",
+        "Sr_no": 3
+      },
+      {
+        "tradingDate": "02-Apr-2021",
+        "weekDay": "Friday",
+        "description": "Good Friday",
+        "Sr_no": 4
+      },
+      {
+        "tradingDate": "14-Apr-2021",
+        "weekDay": "Wednesday",
+        "description": "Dr.Baba Saheb Ambedkar Jayanti",
+        "Sr_no": 5
+      },
+      {
+        "tradingDate": "21-Apr-2021",
+        "weekDay": "Wednesday",
+        "description": "Ram Navami",
+        "Sr_no": 6
+      },
+      {
+        "tradingDate": "25-Apr-2021",
+        "weekDay": "Sunday",
+        "description": "Mahavir Jayanti",
+        "Sr_no": 7
+      },
+      {
+        "tradingDate": "01-May-2021",
+        "weekDay": "Saturday",
+        "description": "Maharashtra Day",
+        "Sr_no": 8
+      },
+      {
+        "tradingDate": "13-May-2021",
+        "weekDay": "Thursday",
+        "description": "Id-Ul-Fitr (Ramzan ID)",
+        "Sr_no": 9
+      },
+      {
+        "tradingDate": "21-Jul-2021",
+        "weekDay": "Wednesday",
+        "description": "Bakri Id",
+        "Sr_no": 10
+      },
+      {
+        "tradingDate": "15-Aug-2021",
+        "weekDay": "Sunday",
+        "description": "Independence Day",
+        "Sr_no": 11
+      },
+      {
+        "tradingDate": "19-Aug-2021",
+        "weekDay": "Thursday",
+        "description": "Moharram",
+        "Sr_no": 12
+      },
+      {
+        "tradingDate": "10-Sep-2021",
+        "weekDay": "Friday",
+        "description": "Ganesh Chaturthi",
+        "Sr_no": 13
+      },
+      {
+        "tradingDate": "02-Oct-2021",
+        "weekDay": "Saturday",
+        "description": "Mahatma Gandhi Jayanti",
+        "Sr_no": 14
+      },
+      {
+        "tradingDate": "15-Oct-2021",
+        "weekDay": "Friday",
+        "description": "Dussehra",
+        "Sr_no": 15
+      },
+      {
+        "tradingDate": "05-Nov-2021",
+        "weekDay": "Friday",
+        "description": "Diwali-Balipratipada",
+        "Sr_no": 16
+      },
+      {
+        "tradingDate": "19-Nov-2021",
+        "weekDay": "Friday",
+        "description": "Gurunanak Jayanti",
+        "Sr_no": 17
+      },
+      {
+        "tradingDate": "25-Dec-2021",
+        "weekDay": "Saturday",
+        "description": "Christmas",
+        "Sr_no": 18
+      }
+    ]
+  }
