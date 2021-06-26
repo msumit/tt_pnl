@@ -116,7 +116,7 @@ function getDatestamp() {
 
 function getTimestamp() {
     var today = moment.utc().tz("Asia/Kolkata");
-    return today.format("HH:MM").toString();
+    return today.format("HH:mm").toString();
 }
 
 async function googleSheetUpdater() {
