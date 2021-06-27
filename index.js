@@ -4,6 +4,7 @@ const fetch = require('node-fetch');
 const TT_URL = new URL('https://tradetron.tech/api/deployed-strategies');
 let holidayList = require('./foHolidays.json');
 const TZ_INDIA = "Asia/Kolkata";
+require( 'console-stamp' )( console ); //Adds timestamps to all console messages
 
 const PROFIT = '🟢';
 const LOSS = '🔴';
@@ -152,21 +153,33 @@ async function googleSheetUpdater() {
         console.log("Tokens have expired, fetching new tokens...");
         autoRefreshingTokens = await client.authorize();
     }
-    let mockData = [];
-    mockData.push(getTimestamp()); //Time
-    mockData.push(parseFloat(Math.random()*1000)).toFixed(2); //Strategy 1
-    mockData.push(parseFloat(Math.random()*1000)).toFixed(2); //Strategy 2
-    mockData.push(parseFloat(Math.random()*1000)).toFixed(2); //Strategy 3
-    mockData.push(parseFloat(Math.random()*1000)).toFixed(2); //Strategy 4
-    mockData.push(parseFloat(Math.random()*1000)).toFixed(2); //Strategy 5
-    mockData.push(parseFloat(Math.random()*1000)).toFixed(2); //Total
+
+    const res = await fetch(TT_URL.href, options);
+    if(!res.ok) throw { name: 'Fetch API Error', message: res.statusText, status: res.status };
+    const strategies = await res.json();
+    let valueArray = new Array(HEADER_ROW_DATA.length);
+    valueArray[0] = getTimestamp();//Time is pushed to the first column.
+    let total_pnl = 0.0;
+    strategies.data.forEach(deployment => {
+        //Only report the Live or Exited PNL
+        if ((deployment.status.search('Live-Entered') >= 0) || (deployment.status.search('Exited') >= 0)) {
+            let pnl = parseFloat(deployment.sum_of_pnl).toFixed(2);
+            total_pnl += parseFloat(deployment.sum_of_pnl);
+
+            //pruning only the strategy name by removing anything after //
+            let name = deployment.template.name.slice(0, deployment.template.name.indexOf('/')).trim();
+            valueArray[HEADER_ROW_DATA.indexOf(name)] = pnl;
+        }
+    });
+    valueArray[HEADER_ROW_DATA.length - 1] = total_pnl;//Total pnl is pushed to the last column
+
     const sheets = google.sheets('v4');
     let rangeName = getRangeName(SHEET_RANGE);
     const results = await sheets.spreadsheets.values.append({
         spreadsheetId: process.env.GSHEET_ID,
         valueInputOption: "USER_ENTERED",
         range: rangeName,
-        resource: {range: rangeName, majorDimension: "ROWS", values: [mockData]},
+        resource: {range: rangeName, majorDimension: "ROWS", values: [valueArray]},
         auth: client
     });
 
