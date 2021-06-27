@@ -1,10 +1,13 @@
 const cron = require('node-cron');
 const express = require('express');
 const fetch = require('node-fetch');
+const moment = require('moment-timezone');
 const TT_URL = new URL('https://tradetron.tech/api/deployed-strategies');
 let holidayList = require('./foHolidays.json');
 const TZ_INDIA = "Asia/Kolkata";
-require( 'console-stamp' )( console ); //Adds timestamps to all console messages
+require('console-stamp')(console); //Adds timestamps to all console messages
+const TRADING_STARTTIME = moment.utc().tz(TZ_INDIA).startOf('date').set('hour', 9).set('minute', 14);
+const TRADING_ENDTIME = moment.utc().tz(TZ_INDIA).startOf('date').set('hour', 15).set('minute', 31);
 
 const PROFIT = '🟢';
 const LOSS = '🔴';
@@ -34,14 +37,34 @@ TELEGRAM_DEBUG.searchParams.append("chat_id", process.env.TELEGRAM_CHAT_ID_DEBUG
 
 console.info("START : Application fully loaded, waiting for all the crons to do magic");
 
+function getRangeName(range) {
+    var today = moment.utc().tz(TZ_INDIA);
+    return today.format("DDMMMYYYY").concat(range).toString();
+}
+
+function getDatestamp() {
+    var today = moment.utc().tz(TZ_INDIA);
+    return today.format("DDMMMYYYY").toString();
+}
+
+function getTimestamp() {
+    var today = moment.utc().tz(TZ_INDIA);
+    return today.format("HH:mm").toString();
+}
+
+//TODO : To be removed later if cron exp can be found to wire 9:15-15:30 scenario in single or multiple expressions
+function withinTradingHours() {
+    return (moment.utc().tz(TZ_INDIA).isAfter(TRADING_STARTTIME)) && (moment.utc().tz(TZ_INDIA).isBefore(TRADING_ENDTIME));
+}
+
 //Compute holiday checker once a day or on server restart.
 let isTodayHoliday = null;
 function isHoliday() {
     //Check if it is a weekend.
-    let weekend = new Date().getDay()%6 == 0; //Sunday is 0 and Saturday is 6. 0%6 and 6%6 will be zero
-    if(weekend) return weekend;
+    let weekend = new Date().getDay() % 6 == 0; //Sunday is 0 and Saturday is 6. 0%6 and 6%6 will be zero
+    if (weekend) return weekend;
 
-    let holidayArray = holidayList.FO.filter((dt) => {return moment().isSame(new Date(dt.tradingDate), 'day')});
+    let holidayArray = holidayList.FO.filter((dt) => { return moment().isSame(new Date(dt.tradingDate), 'day') });
     return (holidayArray.length > 0);
 
 }
@@ -49,7 +72,7 @@ function isHoliday() {
 //Telegram transporter. Needs to be refactored to be used only for transporting by taking a payload
 async function telegram() {
     const res = await fetch(TT_URL.href, options);
-    if(!res.ok) throw { name: 'Fetch API Error', message: res.statusText, status: res.status };
+    if (!res.ok) throw { name: 'Fetch API Error', message: res.statusText, status: res.status };
 
     const strategies = await res.json();
     console.log('Number of strategies = ', strategies.data.length);
@@ -67,7 +90,7 @@ async function telegram() {
 
             //Construct the message to be passed to telegram
             telegram_msg += (pnl >= 0) ? PROFIT : LOSS;
-            telegram_msg += (deployment.status.search('Exited')>=0) ? ` <s>${name}</s>` : `${name}`;
+            telegram_msg += (deployment.status.search('Exited') >= 0) ? ` <s>${name}</s>` : `${name}`;
             telegram_msg += ` <b>${deployment.currency}${pnl}</b>\r\n`;
         }
     });
@@ -85,9 +108,13 @@ async function telegram() {
 //“At every 15th minute past every hour from 4 through 10 UTC time on every day-of-week from Monday through Friday.”
 //*/15 9-15 * * MON-FRI
 cron.schedule(process.env.CRONEXP, () => {
-    if(isTodayHoliday == null) isTodayHoliday = isHoliday();
-    if(isTodayHoliday) {
-        console.log("Weekend or NSE Holiday, skipping telegram task");
+    if (isTodayHoliday == null) isTodayHoliday = isHoliday();
+    if (isTodayHoliday) {
+        console.error("TASK1 : Weekend or NSE Holiday, skipping telegram task");
+        return;
+    }
+    if (!withinTradingHours()) {
+        console.error("TASK1 : Task will not be executed during off trade hours ", getDatestamp(), getTimestamp());
         return;
     }
     console.log("TASK1 : cron telegram task runs basis ", process.env.CRONEXP);
@@ -107,56 +134,39 @@ cron.schedule(process.env.CRONEXP, () => {
 
 //GOOGLE SHEET INTEGRATION
 
-const {JWT} = require('google-auth-library');
+const { JWT } = require('google-auth-library');
 const pkEmail = process.env.PK_EMAIL;
 const pkpk = process.env.PK_PK.replace(/\\n/g, '\n'); //This is workaround to read the private key which already has \n in it.
-const {google} = require('googleapis');
+const { google } = require('googleapis');
 const HEADER_ROW_DATA = ['Time', 'Apache', 'Brahmos', 'Falcon', 'Amogha', 'Shaurya', 'Total']; // This will be injected to a fresh google sheet on its creation
 const SHEET_RANGE = "!A1:G1"; //Represents the above 7 cells 
 const SHEET_CLEAR_RANGE = "!A2:Z1000"; //Choosen all cells except the header
 
 //Do once to create the JWT client on server start
 const client = new JWT({
-  email: pkEmail,
-  key: pkpk,
-  scopes: ['https://www.googleapis.com/auth/spreadsheets']
+    email: pkEmail,
+    key: pkpk,
+    scopes: ['https://www.googleapis.com/auth/spreadsheets']
 });
 
 //Global variable to keep the token, just before expiry we will refresh it to get new
 let autoRefreshingTokens = null;
 
-const moment = require('moment-timezone');
-function getRangeName(range) {
-    var today = moment.utc().tz(TZ_INDIA);
-
-    return today.format("DDMMMYYYY").concat(range).toString();
-}
-
-function getDatestamp() {
-    var today = moment.utc().tz(TZ_INDIA);
-    return today.format("DDMMMYYYY").toString();
-}
-
-function getTimestamp() {
-    var today = moment.utc().tz(TZ_INDIA);
-    return today.format("HH:mm").toString();
-}
-
 async function googleSheetUpdater() {
     let validTokens = false;
-    if(autoRefreshingTokens) {
+    if (autoRefreshingTokens) {
         let diff = autoRefreshingTokens.expiry_date - new Date().getTime();
-        if(diff > 6*60*1000) { //if diff is less than 6 minutes
+        if (diff > 6 * 60 * 1000) { //if diff is less than 6 minutes
             validTokens = true;
         }
     }
-    if(!validTokens) {
+    if (!validTokens) {
         console.log("Google Tokens have expired, fetching new tokens...");
         autoRefreshingTokens = await client.authorize();
     }
 
     const res = await fetch(TT_URL.href, options);
-    if(!res.ok) throw { name: 'Fetch API Error', message: res.statusText, status: res.status };
+    if (!res.ok) throw { name: 'Fetch API Error', message: res.statusText, status: res.status };
     console.info("TASK2 : TT fetch deployments API done");
     const strategies = await res.json();
     let valueArray = new Array(HEADER_ROW_DATA.length).fill(0);
@@ -181,7 +191,7 @@ async function googleSheetUpdater() {
         spreadsheetId: process.env.GSHEET_ID,
         valueInputOption: "USER_ENTERED",
         range: rangeName,
-        resource: {range: rangeName, majorDimension: "ROWS", values: [valueArray]},
+        resource: { range: rangeName, majorDimension: "ROWS", values: [valueArray] },
         auth: client
     });
     console.info("TASK2 : Sheet updated with ticker data");
@@ -198,9 +208,13 @@ function errorCB(error) {
 //“At every 15th minute past every hour from 9 through 15 on every day-of-week from Monday through Friday.”
 //*/5 9-15 * * 1-5
 cron.schedule(process.env.CRONEXP2, function () {
-    if(isTodayHoliday == null) isTodayHoliday = isHoliday();
-    if(isTodayHoliday) {
-        console.info("TASK2 : Weekend or NSE Holiday, skipping google sheet task");
+    if (isTodayHoliday == null) isTodayHoliday = isHoliday();
+    if (isTodayHoliday) {
+        console.error("TASK2 : Weekend or NSE Holiday, skipping google sheet task");
+        return;
+    }
+    if (!withinTradingHours()) {
+        console.error("TASK2 : Task will not be executed during off trade hours ", getDatestamp(), getTimestamp());
         return;
     }
     console.log("TASK2 : Cron google sheet task runs basis ", process.env.CRONEXP2);
@@ -230,16 +244,16 @@ async function googleSheetInit() {
     let requests = [];
     requests.push({
         duplicateSheet: {
-            insertSheetIndex:0,
+            insertSheetIndex: 0,
             newSheetName: getDatestamp(),
             sourceSheetId: sourceSheetId
         }
     });
-    
+
     await sheets.spreadsheets.batchUpdate({
         auth: client,
         spreadsheetId: process.env.GSHEET_ID,
-        resource: {requests}
+        resource: { requests }
     });
     console.log("TASK3 : Duplicate Sheet created with name ", getDatestamp());
 
@@ -273,9 +287,9 @@ async function googleSheetInit() {
 //“At 01:00 on every day-of-week from Monday through Friday.”
 //0 1 * * MON-FRI
 cron.schedule(process.env.CRON_DAILY_SYSTEM_INIT, () => {
-    if(isTodayHoliday == null) isTodayHoliday = isHoliday();
-    if(isTodayHoliday) {
-        console.log("Weekend or NSE Holiday, skipping 1am housekeeping task");
+    if (isTodayHoliday == null) isTodayHoliday = isHoliday();
+    if (isTodayHoliday) {
+        console.error("TASK3 : Weekend or NSE Holiday, skipping 1am housekeeping task");
         return;
     }
     console.info("TASK3 : Cron housekeeping task runs once ", process.env.CRON_DAILY_SYSTEM_INIT);
@@ -288,7 +302,7 @@ cron.schedule(process.env.CRON_DAILY_SYSTEM_INIT, () => {
 
 // Holiday checker at startup
 isTodayHoliday = isHoliday();
-if(isTodayHoliday) {
+if (isTodayHoliday) {
     console.info("Its is a holiday, so lets hope no workers work today");
 }
 
