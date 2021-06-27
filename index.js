@@ -37,7 +37,6 @@ console.info("START : Application fully loaded, waiting for all the crons to do 
 //Compute holiday checker once a day or on server restart.
 let isTodayHoliday = null;
 function isHoliday() {
-    return false;
     //Check if it is a weekend.
     let weekend = new Date().getDay()%6 == 0; //Sunday is 0 and Saturday is 6. 0%6 and 6%6 will be zero
     if(weekend) return weekend;
