@@ -32,7 +32,7 @@ TELEGRAM_POST_URL.searchParams.append("parse_mode", "HTML");
 const TELEGRAM_DEBUG = new URL('https://api.telegram.org/bot' + process.env.TELEGRAM_BOT_TOKEN + '/sendMessage');
 TELEGRAM_DEBUG.searchParams.append("chat_id", process.env.TELEGRAM_CHAT_ID_DEBUG);
 
-console.log("Application fully loaded, waiting for all the crons to do magic");
+console.info("START : Application fully loaded, waiting for all the crons to do magic");
 
 //Compute holiday checker once a day or on server restart.
 let isTodayHoliday = null;
@@ -80,19 +80,19 @@ async function telegram() {
     let full_telegram_url = new URL(TELEGRAM_POST_URL.toString());
     full_telegram_url.searchParams.append("text", telegram_msg);
     fetch(full_telegram_url, { method: 'POST' });
-
+    console.info("TASK1 : Telegram notification for PNL sent");
 }
 //Schedule tasks to be run on the server.
 //“At every 15th minute past every hour from 4 through 10 UTC time on every day-of-week from Monday through Friday.”
-//*/15 4-9 * * 1-5
+//*/15 9-15 * * MON-FRI
 cron.schedule(process.env.CRONEXP, () => {
     if(isTodayHoliday == null) isTodayHoliday = isHoliday();
     if(isTodayHoliday) {
         console.log("Weekend or NSE Holiday, skipping telegram task");
         return;
     }
-    console.log("cron task1 runs basis ", process.env.CRONEXP);
-    console.log('running a task every 15 minutes between 09:30 and 15:30 IST, current time is ', new Date().toString());
+    console.log("TASK1 : cron telegram task runs basis ", process.env.CRONEXP);
+    console.log('TASK1 : Running a task every 15 minutes between 09:30 and 15:30 IST, current time is ', new Date().toString());
 
     telegram().catch(error => {
         let url = new URL(TELEGRAM_DEBUG.toString());
@@ -114,6 +114,7 @@ const pkpk = process.env.PK_PK.replace(/\\n/g, '\n'); //This is workaround to re
 const {google} = require('googleapis');
 const HEADER_ROW_DATA = ['Time', 'Apache', 'Brahmos', 'Falcon', 'Amogha', 'Shaurya', 'Total']; // This will be injected to a fresh google sheet on its creation
 const SHEET_RANGE = "!A1:G1"; //Represents the above 7 cells 
+const SHEET_CLEAR_RANGE = "!A2:Z1000"; //Choosen all cells except the header
 
 //Do once to create the JWT client on server start
 const client = new JWT({
@@ -151,12 +152,13 @@ async function googleSheetUpdater() {
         }
     }
     if(!validTokens) {
-        console.log("Tokens have expired, fetching new tokens...");
+        console.log("Google Tokens have expired, fetching new tokens...");
         autoRefreshingTokens = await client.authorize();
     }
 
     const res = await fetch(TT_URL.href, options);
     if(!res.ok) throw { name: 'Fetch API Error', message: res.statusText, status: res.status };
+    console.info("TASK2 : TT fetch deployments API done");
     const strategies = await res.json();
     let valueArray = new Array(HEADER_ROW_DATA.length).fill(0);
     valueArray[0] = getTimestamp();//Time is pushed to the first column.
@@ -183,9 +185,10 @@ async function googleSheetUpdater() {
         resource: {range: rangeName, majorDimension: "ROWS", values: [valueArray]},
         auth: client
     });
+    console.info("TASK2 : Sheet updated with ticker data");
 }
 
-function errorCB(error, response) {
+function errorCB(error) {
     console.error(error.response);
     let url = new URL(TELEGRAM_DEBUG.toString());
     url.searchParams.append("text", "Error in Google Sheets " + JSON.stringify(error.response.data));
@@ -194,15 +197,15 @@ function errorCB(error, response) {
 
 //Schedule tasks to be run on the server.
 //“At every 15th minute past every hour from 9 through 15 on every day-of-week from Monday through Friday.”
-//*/5 9-14 * * 1-5
+//*/5 9-15 * * 1-5
 cron.schedule(process.env.CRONEXP2, function () {
     if(isTodayHoliday == null) isTodayHoliday = isHoliday();
     if(isTodayHoliday) {
-        console.log("Weekend or NSE Holiday, skipping google sheet task");
+        console.info("TASK2 : Weekend or NSE Holiday, skipping google sheet task");
         return;
     }
-    console.log("cron google sheet task runs basis ", process.env.CRONEXP2);
-    console.log('running a task every 5 minutes between 09:00 and 15:00 IST, current time is ', new Date().toString());
+    console.log("TASK2 : Cron google sheet task runs basis ", process.env.CRONEXP2);
+    console.log('TASK2 : Running a task every 5 minutes between 09:00 and 15:00 IST, current time is ', new Date().toString());
     googleSheetUpdater().catch(errorCB);
 }, {
     scheduled: true,
@@ -213,34 +216,71 @@ async function googleSheetInit() {
     //Authorize the client to generate fresh tokens. We need not check for validity. Just do it.
     autoRefreshingTokens = await client.authorize();
     const sheets = google.sheets('v4');
-    //TODO : create a new sheet once per day (only working days)
-    const newSheet = await sheets.spreadsheets.batchUpdate({
-        spreadsheetId: process.env.GSHEET_ID,
-        resource: {requests: [{"addSheet":{"properties":{"title": getDatestamp()}}}]},
-        auth: client
-    });
 
-    let rangeName = getRangeName(SHEET_RANGE);
-    const results = await sheets.spreadsheets.values.append({
+    //Get the sheet properties, we need the first sheetID only
+    const sheetProperties = await sheets.spreadsheets.get({
         spreadsheetId: process.env.GSHEET_ID,
-        valueInputOption: "USER_ENTERED",
-        range: rangeName,
-        resource: {range: rangeName, majorDimension: "ROWS", values: [HEADER_ROW_DATA]},
+        fields: "sheets.properties",
         auth: client
     });
+    console.log("TASK3 : Get all sheet properties fetched");
+
+    //There is always a first sheet, so just take the id from it
+    let sourceSheetId = sheetProperties.data.sheets[0].properties.sheetId;
+    //Using the sheetID, we will duplicate it with a new name and give it index=0 so that it is the first tab
+    let requests = [];
+    requests.push({
+        duplicateSheet: {
+            insertSheetIndex:0,
+            newSheetName: getDatestamp(),
+            sourceSheetId: sourceSheetId
+        }
+    });
+    
+    await sheets.spreadsheets.batchUpdate({
+        auth: client,
+        spreadsheetId: process.env.GSHEET_ID,
+        resource: {requests}
+    });
+    console.log("TASK3 : Duplicate Sheet created with name ", getDatestamp());
+
+    //Now that we have today's sheet copied, we will clear the cells.
+    await sheets.spreadsheets.values.clear({
+        spreadsheetId: process.env.GSHEET_ID,
+        range: getRangeName(SHEET_CLEAR_RANGE),
+        auth: client
+    });
+    console.log("TASK3 : New Sheet has been cleared");
+
+    //TODO: Old code, delete later
+    // //Using the sheetID, we will duplicate it with a new name and give it index=0 so that it is the first tab
+    // const newSheet = await sheets.spreadsheets.batchUpdate({
+    //     spreadsheetId: process.env.GSHEET_ID,
+    //     resource: {requests: [{"addSheet":{"properties":{"title": getDatestamp()}}}]},
+    //     auth: client
+    // });
+
+    // let rangeName = getRangeName(SHEET_RANGE);
+    // const results = await sheets.spreadsheets.values.append({
+    //     spreadsheetId: process.env.GSHEET_ID,
+    //     valueInputOption: "USER_ENTERED",
+    //     range: rangeName,
+    //     resource: {range: rangeName, majorDimension: "ROWS", values: [HEADER_ROW_DATA]},
+    //     auth: client
+    // });
 }
 
 //Schedule tasks to be run on the server.
 //“At 01:00 on every day-of-week from Monday through Friday.”
-//0 1 * * 1-5
+//0 1 * * MON-FRI
 cron.schedule(process.env.CRON_DAILY_SYSTEM_INIT, () => {
     if(isTodayHoliday == null) isTodayHoliday = isHoliday();
     if(isTodayHoliday) {
         console.log("Weekend or NSE Holiday, skipping 1am housekeeping task");
         return;
     }
-    console.log("cron housekeeping task runs once ", process.env.CRON_DAILY_SYSTEM_INIT);
-    console.log('running a task once a day, current time is ', new Date().toString());
+    console.info("TASK3 : Cron housekeeping task runs once ", process.env.CRON_DAILY_SYSTEM_INIT);
+    console.info('TASK3 : Running a task once a day, current time is ', new Date().toString());
     googleSheetInit().catch(errorCB);
 }, {
     scheduled: true,
@@ -250,10 +290,11 @@ cron.schedule(process.env.CRON_DAILY_SYSTEM_INIT, () => {
 // Holiday checker at startup
 isTodayHoliday = isHoliday();
 if(isTodayHoliday) {
-    console.log("Its is a holiday, so lets hope no crons are awake");
+    console.info("Its is a holiday, so lets hope no workers work today");
 }
 
-console.log(`Cron check ${process.env.CRONEXP} => ` + cron.validate(process.env.CRONEXP));
-console.log(`Cron check ${process.env.CRONEXP2} => ` + cron.validate(process.env.CRONEXP2));
-console.log(`Cron check ${process.env.CRON_DAILY_SYSTEM_INIT} =>` + cron.validate(process.env.CRON_DAILY_SYSTEM_INIT));
+console.info(`TASK1 : Cron check ${process.env.CRONEXP} => ` + cron.validate(process.env.CRONEXP));
+console.info(`TASK2 : Cron check ${process.env.CRONEXP2} => ` + cron.validate(process.env.CRONEXP2));
+console.info(`TASK3 : Cron check ${process.env.CRON_DAILY_SYSTEM_INIT} =>` + cron.validate(process.env.CRON_DAILY_SYSTEM_INIT));
+
 app.listen(process.env.PORT);
