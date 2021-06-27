@@ -37,6 +37,7 @@ console.log("Application fully loaded, waiting for all the crons to do magic");
 //Compute holiday checker once a day or on server restart.
 let isTodayHoliday = null;
 function isHoliday() {
+    return false;
     //Check if it is a weekend.
     let weekend = new Date().getDay()%6 == 0; //Sunday is 0 and Saturday is 6. 0%6 and 6%6 will be zero
     if(weekend) return weekend;
@@ -157,7 +158,7 @@ async function googleSheetUpdater() {
     const res = await fetch(TT_URL.href, options);
     if(!res.ok) throw { name: 'Fetch API Error', message: res.statusText, status: res.status };
     const strategies = await res.json();
-    let valueArray = new Array(HEADER_ROW_DATA.length);
+    let valueArray = new Array(HEADER_ROW_DATA.length).fill(0);
     valueArray[0] = getTimestamp();//Time is pushed to the first column.
     let total_pnl = 0.0;
     strategies.data.forEach(deployment => {
@@ -182,8 +183,13 @@ async function googleSheetUpdater() {
         resource: {range: rangeName, majorDimension: "ROWS", values: [valueArray]},
         auth: client
     });
+}
 
-
+function errorCB(error, response) {
+    console.error(error.response);
+    let url = new URL(TELEGRAM_DEBUG.toString());
+    url.searchParams.append("text", "Error in Google Sheets " + JSON.stringify(error.response.data));
+    fetch(url, { method: 'POST' })
 }
 
 //Schedule tasks to be run on the server.
@@ -197,7 +203,7 @@ cron.schedule(process.env.CRONEXP2, function () {
     }
     console.log("cron google sheet task runs basis ", process.env.CRONEXP2);
     console.log('running a task every 5 minutes between 09:00 and 15:00 IST, current time is ', new Date().toString());
-    googleSheetUpdater().catch(console.error);
+    googleSheetUpdater().catch(errorCB);
 }, {
     scheduled: true,
     timezone: TZ_INDIA
@@ -235,7 +241,7 @@ cron.schedule(process.env.CRON_DAILY_SYSTEM_INIT, () => {
     }
     console.log("cron housekeeping task runs once ", process.env.CRON_DAILY_SYSTEM_INIT);
     console.log('running a task once a day, current time is ', new Date().toString());
-    googleSheetInit().catch(console.error);
+    googleSheetInit().catch(errorCB);
 }, {
     scheduled: true,
     timezone: TZ_INDIA
@@ -247,4 +253,7 @@ if(isTodayHoliday) {
     console.log("Its is a holiday, so lets hope no crons are awake");
 }
 
+console.log(`Cron check ${process.env.CRONEXP} => ` + cron.validate(process.env.CRONEXP));
+console.log(`Cron check ${process.env.CRONEXP2} => ` + cron.validate(process.env.CRONEXP2));
+console.log(`Cron check ${process.env.CRON_DAILY_SYSTEM_INIT} =>` + cron.validate(process.env.CRON_DAILY_SYSTEM_INIT));
 app.listen(process.env.PORT);
