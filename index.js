@@ -61,10 +61,18 @@ function withinTradingHours() {
 let isTodayHoliday = null;
 function isHoliday() {
     //Check if it is a weekend.
-    let weekend = new Date().getDay() % 6 == 0; //Sunday is 0 and Saturday is 6. 0%6 and 6%6 will be zero
+    let weekend = ((new Date().getDay() % 6) == 0); //Sunday is 0 and Saturday is 6. 0%6 and 6%6 will be zero
+    console.info("Is it weekend? ", weekend);
     if (weekend) return weekend;
 
-    let holidayArray = holidayList.FO.filter((dt) => { return moment().isSame(new Date(dt.tradingDate), 'day') });
+    let currentDate = moment.utc().tz(TZ_INDIA);
+    console.info("Current India datetime ", currentDate);
+    let holidayArray = holidayList.FO.filter((dt) => {
+        let holidayDate = moment.utc(new Date(dt.tradingDate)).tz(TZ_INDIA);
+        console.info("Holiday Datetime ", holidayDate);
+        console.info("Is it holiday? ", currentDate.isSame(holidayDate, 'day'));
+        return currentDate.isSame(holidayDate, 'day'); 
+    });
     return (holidayArray.length > 0);
 
 }
@@ -289,7 +297,7 @@ async function googleSheetInit() {
 cron.schedule(process.env.CRON_DAILY_SYSTEM_INIT, () => {
     if (isTodayHoliday == null) isTodayHoliday = isHoliday();
     if (isTodayHoliday) {
-        console.error("TASK3 : Weekend or NSE Holiday, skipping 1am housekeeping task");
+        console.error("TASK3 : Weekend or NSE Holiday, skipping 6AM housekeeping task");
         return;
     }
     console.info("TASK3 : Cron housekeeping task runs once ", process.env.CRON_DAILY_SYSTEM_INIT);
