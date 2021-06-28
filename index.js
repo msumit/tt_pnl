@@ -88,7 +88,6 @@ async function telegram() {
     let telegram_msg = `<b>💰 PNL - </b> ${process.env.TRADE_TYPE} 💰 \r\n\r\n`;
     let total_pnl = 0.0;
     strategies.data.forEach(deployment => {
-        console.log(deployment);
         //Only report the Live or Exited PNL
         if ((deployment.status.search('Live-Entered') >= 0) || (deployment.status.search('Exited') >= 0)) {
             let pnl = parseFloat(deployment.sum_of_pnl).toFixed(2);
