@@ -296,7 +296,8 @@ async function googleSheetInit() {
 //“At 01:00 on every day-of-week from Monday through Friday.”
 //0 1 * * MON-FRI
 cron.schedule(process.env.CRON_DAILY_SYSTEM_INIT, () => {
-    if (isTodayHoliday == null) isTodayHoliday = isHoliday();
+    //Compute this in the beginning of this task because after 00:00 it should reset ( Sunday to Monday rollover )
+    isTodayHoliday = isHoliday();
     if (isTodayHoliday) {
         console.error("TASK3 : Weekend or NSE Holiday, skipping 6AM housekeeping task");
         return;
