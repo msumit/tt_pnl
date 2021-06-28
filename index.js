@@ -61,18 +61,19 @@ function withinTradingHours() {
 let isTodayHoliday = null;
 function isHoliday() {
     //Check if it is a weekend.
-    let weekend = ((new Date().getDay() % 6) == 0); //Sunday is 0 and Saturday is 6. 0%6 and 6%6 will be zero
-    console.info("Is it weekend? ", weekend);
+    let weekend = ((moment.utc().tz(TZ_INDIA).day() % 6) == 0); //Sunday is 0 and Saturday is 6. 0%6 and 6%6 will be zero
+    console.info("Is it Weekend? => ", weekend ? 'Yes' : 'No');
     if (weekend) return weekend;
 
     let currentDate = moment.utc().tz(TZ_INDIA);
-    console.info("Current India datetime ", currentDate);
+    // console.info("Current India datetime ", currentDate);
     let holidayArray = holidayList.FO.filter((dt) => {
         let holidayDate = moment.utc(new Date(dt.tradingDate)).tz(TZ_INDIA);
-        console.info("Holiday Datetime ", holidayDate);
-        console.info("Is it holiday? ", currentDate.isSame(holidayDate, 'day'));
-        return currentDate.isSame(holidayDate, 'day'); 
+        // console.info("Holiday Datetime ", holidayDate);
+        // console.info("Is it holiday? ", currentDate.isSame(holidayDate, 'day'));
+        return currentDate.isSame(holidayDate, 'day');
     });
+    console.info("Is it NSE holiday? => ", (holidayArray.length > 0) ? 'Yes' : 'No');
     return (holidayArray.length > 0);
 
 }
@@ -301,7 +302,7 @@ cron.schedule(process.env.CRON_DAILY_SYSTEM_INIT, () => {
         return;
     }
     console.info("TASK3 : Cron housekeeping task runs once ", process.env.CRON_DAILY_SYSTEM_INIT);
-    console.info('TASK3 : Running a task once a day, current time is ', new Date().toString());
+    console.info('TASK3 : Running a task once a day, current time is ', moment.utc().tz(TZ_INDIA).toString());
     googleSheetInit().catch(errorCB);
 }, {
     scheduled: true,
@@ -314,8 +315,8 @@ if (isTodayHoliday) {
     console.info("Its is a holiday, so lets hope no workers work today");
 }
 
-console.info(`TASK1 : Cron check ${process.env.CRONEXP} => ` + cron.validate(process.env.CRONEXP));
-console.info(`TASK2 : Cron check ${process.env.CRONEXP2} => ` + cron.validate(process.env.CRONEXP2));
-console.info(`TASK3 : Cron check ${process.env.CRON_DAILY_SYSTEM_INIT} =>` + cron.validate(process.env.CRON_DAILY_SYSTEM_INIT));
+console.info(`TASK1 : Cron check ${process.env.CRONEXP} => ` + (cron.validate(process.env.CRONEXP) ? 'Valid' : 'Invalid'));
+console.info(`TASK2 : Cron check ${process.env.CRONEXP2} => ` + (cron.validate(process.env.CRONEXP2) ? 'Valid' : 'Invalid'));
+console.info(`TASK3 : Cron check ${process.env.CRON_DAILY_SYSTEM_INIT} => ` + (cron.validate(process.env.CRON_DAILY_SYSTEM_INIT) ? 'Valid' : 'Invalid'));
 
 app.listen(process.env.PORT);
