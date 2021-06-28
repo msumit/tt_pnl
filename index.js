@@ -7,7 +7,7 @@ let holidayList = require('./foHolidays.json');
 const TZ_INDIA = "Asia/Kolkata";
 require('console-stamp')(console); //Adds timestamps to all console messages
 const TRADING_STARTTIME = moment.utc().tz(TZ_INDIA).startOf('date').set('hour', 9).set('minute', 14);
-const TRADING_ENDTIME = moment.utc().tz(TZ_INDIA).startOf('date').set('hour', 15).set('minute', 31);
+const TRADING_ENDTIME = moment.utc().tz(TZ_INDIA).startOf('date').set('hour', 15).set('minute', 16);
 
 const PROFIT = '🟢';
 const LOSS = '🔴';
@@ -88,6 +88,7 @@ async function telegram() {
     let telegram_msg = `<b>💰 PNL - </b> ${process.env.TRADE_TYPE} 💰 \r\n\r\n`;
     let total_pnl = 0.0;
     strategies.data.forEach(deployment => {
+        console.log(deployment);
         //Only report the Live or Exited PNL
         if ((deployment.status.search('Live-Entered') >= 0) || (deployment.status.search('Exited') >= 0)) {
             let pnl = parseFloat(deployment.sum_of_pnl).toFixed(2);
