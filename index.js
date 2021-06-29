@@ -59,7 +59,7 @@ function getTimestamp() {
 
 //TODO : To be removed later if cron exp can be found to wire 9:15-15:30 scenario in single or multiple expressions
 function withinTradingHours() {
-    console.debug("current server time ", (moment.utc().tz(TZ_INDIA));
+    console.debug("current server time ", (moment.utc().tz(TZ_INDIA)));
     let after = (moment.utc().tz(TZ_INDIA).isAfter(TRADING_STARTTIME));
     let before = (moment.utc().tz(TZ_INDIA).isBefore(TRADING_ENDTIME));
     console.debug("After opening : ", after);
