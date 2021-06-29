@@ -54,7 +54,11 @@ function getTimestamp() {
 
 //TODO : To be removed later if cron exp can be found to wire 9:15-15:30 scenario in single or multiple expressions
 function withinTradingHours() {
-    return (moment.utc().tz(TZ_INDIA).isAfter(TRADING_STARTTIME)) && (moment.utc().tz(TZ_INDIA).isBefore(TRADING_ENDTIME));
+    let after = (moment.utc().tz(TZ_INDIA).isAfter(TRADING_STARTTIME));
+    let before = (moment.utc().tz(TZ_INDIA).isBefore(TRADING_ENDTIME));
+    console.debug("After opening : ", after);
+    console.debug("Before closing : ", before);
+    return (after && before);
 }
 
 //Compute holiday checker once a day or on server restart.
