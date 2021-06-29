@@ -20,6 +20,8 @@ const TRADE_WINDOW = { start: { hour: process.env.TRADE_START_HOUR, minutes: pro
 
 const TRADING_STARTTIME = moment.utc().tz(TZ_INDIA).startOf('date').set('hour', TRADE_WINDOW.start.hour).set('minute', TRADE_WINDOW.start.minutes);
 const TRADING_ENDTIME = moment.utc().tz(TZ_INDIA).startOf('date').set('hour', TRADE_WINDOW.end.hour).set('minute', TRADE_WINDOW.end.minutes);
+console.debug("TRADING_STARTTIME ", TRADING_STARTTIME);
+console.debug("TRADING_ENDTIME ", TRADING_ENDTIME);
 
 const options = {
     headers: {
@@ -57,6 +59,7 @@ function getTimestamp() {
 
 //TODO : To be removed later if cron exp can be found to wire 9:15-15:30 scenario in single or multiple expressions
 function withinTradingHours() {
+    console.debug("current server time ", (moment.utc().tz(TZ_INDIA));
     let after = (moment.utc().tz(TZ_INDIA).isAfter(TRADING_STARTTIME));
     let before = (moment.utc().tz(TZ_INDIA).isBefore(TRADING_ENDTIME));
     console.debug("After opening : ", after);
