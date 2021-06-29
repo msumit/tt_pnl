@@ -6,8 +6,6 @@ const TT_URL = new URL('https://tradetron.tech/api/deployed-strategies');
 let holidayList = require('./foHolidays.json');
 const TZ_INDIA = "Asia/Kolkata";
 require('console-stamp')(console); //Adds timestamps to all console messages
-const TRADING_STARTTIME = moment.utc().tz(TZ_INDIA).startOf('date').set('hour', 9).set('minute', 14);
-const TRADING_ENDTIME = moment.utc().tz(TZ_INDIA).startOf('date').set('hour', 15).set('minute', 16);
 
 const PROFIT = '🟢';
 const LOSS = '🔴';
@@ -17,6 +15,11 @@ var app = express();
 //Load the .env
 const dotenv = require('dotenv');
 dotenv.config();
+
+const TRADE_WINDOW = { start: { hour: process.env.TRADE_START_HOUR, minutes: process.env.TRADE_START_MIN }, end: { hour: process.env.TRADE_END_HOUR, minutes: process.env.TRADE_END_MIN } };
+
+const TRADING_STARTTIME = moment.utc().tz(TZ_INDIA).startOf('date').set('hour', TRADE_WINDOW.start.hour).set('minute', TRADE_WINDOW.start.minutes);
+const TRADING_ENDTIME = moment.utc().tz(TZ_INDIA).startOf('date').set('hour', TRADE_WINDOW.end.hour).set('minute', TRADE_WINDOW.end.minutes);
 
 const options = {
     headers: {
