@@ -5,7 +5,6 @@ const moment = require('moment-timezone');
 const TT_URL = new URL('https://tradetron.tech/api/deployed-strategies');
 let holidayList = require('./foHolidays.json');
 const TZ_INDIA = "Asia/Kolkata";
-require('console-stamp')(console); //Adds timestamps to all console messages
 
 
 const PROFIT = '🟢';
