@@ -1,2 +1,4 @@
 node_modules/
 .env
+.stage.env
+.prod.env
