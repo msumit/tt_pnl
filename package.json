@@ -24,10 +24,6 @@
     "googleapis": "^78.0.0",
     "moment": "^2.29.1",
     "moment-timezone": "^0.5.33",
-    "node-cron": "^2.0.3",
     "node-fetch": "^2.6.1"
-  },
-  "devDependencies": {
-    "@types/node-cron": "^2.0.3"
   }
 }
