@@ -1,5 +1,6 @@
 const moment = require('moment-timezone');
 const appConfig = require('./config');
+let holidayList = require('./foHolidays.json');
 
 function getDatestamp() {
     let today = moment.utc().tz(appConfig.app.TZ_INDIA);
@@ -28,7 +29,7 @@ function isHoliday() {
 
     let currentDate = moment.utc().tz(appConfig.app.TZ_INDIA);
     let holidayArray = holidayList.FO.filter((dt) => {
-        let holidayDate = moment.utc(new Date(dt.tradingDate)).tz(TZ_INDIA);
+        let holidayDate = moment.utc(new Date(dt.tradingDate)).tz(appConfig.app.TZ_INDIA);
         return currentDate.isSame(holidayDate, 'day');
     });
     console.info("Is it NSE holiday? => ", (holidayArray.length > 0) ? 'Yes' : 'No');

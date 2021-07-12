@@ -1,7 +1,5 @@
 const express = require('express');
 const moment = require('moment-timezone');
-let holidayList = require('./foHolidays.json');
-const TZ_INDIA = "Asia/Kolkata";
 const ttService = require("./service/TradetronService");
 const publisherService = require("./service/PublisherService");
 const gSheetService = require("./service/GoogleService");
