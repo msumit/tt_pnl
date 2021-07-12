@@ -63,7 +63,7 @@ app.post('/pnl-gsheet', authorizedMW, tradeTimeCheckerMW,
             publisherService.Publish({ debug: true, transporter: appConfig.app.TELEGRAM, message: e.message });
         });
 
-        res.json({ status: 'Ok', message: `Google Sheet update request is accepted at ${new Date().toString()}` });
+        res.json({ status: 'Ok', message: `Google Sheet update request is accepted at ${utils.getDateTimestamp()}` });
     });
 
 app.post('/tt-daySetup', authorizedMW,
