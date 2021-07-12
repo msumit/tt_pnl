@@ -3,7 +3,7 @@ Google sheet automation to add raw data
 */
 
 const appConfig = require("../config");
-const { getDatestamp, getRangeName, getTimestamp } = require('../utils');
+const { getDatestamp, getRangeName, getTimestamp, getDateTimestamp } = require('../utils');
 const { JWT } = require('google-auth-library');
 const { google } = require('googleapis');
 //Global variable to keep the token, just before expiry we will refresh it to get new
