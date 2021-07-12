@@ -35,10 +35,10 @@ let authorizedMW = (req, res, next) => {
 
 //Middleware to check holiday and trade working hours
 let tradeTimeCheckerMW = (req, res, next) => {
-    if (isTodayHoliday && !utils.withinTradingHours()) {
-        return res.status(200).send({ status: 'Not processed', message: `Request in holiday or outside trade window` });
+    if (!isTodayHoliday && utils.withinTradingHours()) {
+        return next()
     }
-    next()
+    return res.status(200).send({ status: 'Not processed', message: `Request in holiday or outside trade window` });
 }
 
 //Routes with middlewares
