@@ -99,7 +99,7 @@ let WriteData = async (strategies) => {
         resource: { range: rangeName, majorDimension: "ROWS", values: [valueArray] },
         auth: client
     });
-    console.info("Write Google Sheet() : Sheet updated with ticker data at ");
+    console.info("Write Google Sheet() : Sheet updated with ticker data at ", getDateTimestamp());
 
 }
 
