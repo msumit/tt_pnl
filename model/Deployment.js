@@ -1,14 +1,19 @@
 const appConfig = require("../config");
+const mapper = require("../mapping.json");
 
 module.exports = class Deployment {
-    constructor(type, id, status, pnl, currency, strategyName, creatorName) {
+    constructor(type, id, status, pnl, currency, strategyId, strategyName, creatorName, creatorId) {
+        let num_pnl = parseFloat(parseFloat(pnl).toFixed(2));//Convert the string pnl to float with 2 decimals and then to a float
+        num_pnl = (isNaN(num_pnl) ? 0 : num_pnl);
         this.type = type;
         this.id = id;
         this.status = status;
-        this.pnl = parseFloat(parseFloat(pnl).toFixed(2)); //Convert the string pnl to float with 2 decimals and then to a float
+        this.pnl = num_pnl;
         this.currency = currency;
+        this.strategyId = strategyId;
         this.strategyName = strategyName;
         this.creatorName = creatorName;
+        this.creatorId = creatorId;
     }
 
     /*
@@ -17,12 +22,12 @@ module.exports = class Deployment {
     toString = () => {
         let formattedMessage = this.pnl >= 0 ? appConfig.app.POSITIVE : appConfig.app.NEGATIVE;
         let formattedName = (this.status.search('Exited') >= 0) ? `<s>${this.getShortName()}</s>` : `${this.getShortName()}`; //Exited will have a strikethrough
-        formattedMessage += ` ${formattedName} <b>${this.currency}${this.pnl}</b>`;
+        formattedMessage += ` ${formattedName} <b> = ${this.currency}${this.pnl}</b>`;
         return formattedMessage;
     }
 
     getPNL = () => {
-        return this.pnl;
+        return (isNaN(this.pnl) ? 0 : this.pnl);
     }
 
     reportable = () => {
@@ -30,6 +35,10 @@ module.exports = class Deployment {
     }
 
     getShortName = () => {
-        return this.strategyName.slice(0, this.strategyName.indexOf('/')).trim();
+        return mapper?.[this.creatorId]?.[this.strategyId]?.name || this.strategyName;
+    }
+
+    getIndex = () => {
+        return mapper?.[this.creatorId]?.[this.strategyId]?.index || "-1";
     }
 }

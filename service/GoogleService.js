@@ -17,7 +17,7 @@ const client = new JWT({
 });
 
 /*
-    options : {}
+    options : {gSheetId:gSheetId}
 */
 let CreateSheet = async (options) => {
     autoRefreshingTokens = await client.authorize();
@@ -25,12 +25,13 @@ let CreateSheet = async (options) => {
 
     //Get the sheet properties, we need the first sheetID only
     const sheetProperties = await sheets.spreadsheets.get({
-        spreadsheetId: appConfig.google.spreadsheetId,
+        spreadsheetId: options.gSheetId,
         fields: "sheets.properties",
         auth: client
     });
-    console.log("CreateSheet() : Get all sheet properties fetched");
+    console.log(`CreateSheet() : Get all sheet properties fetched for ${options.gSheetId}`);
 
+    let dateStamp = getDatestamp();
     //There is always a first sheet, so just take the id from it
     let sourceSheetId = sheetProperties.data.sheets[0].properties.sheetId;
     //Using the sheetID, we will duplicate it with a new name and give it index=0 so that it is the first tab
@@ -38,31 +39,33 @@ let CreateSheet = async (options) => {
     requests.push({
         duplicateSheet: {
             insertSheetIndex: 0,
-            newSheetName: getDatestamp(),
+            newSheetName: dateStamp,
             sourceSheetId: sourceSheetId
         }
     });
 
     await sheets.spreadsheets.batchUpdate({
         auth: client,
-        spreadsheetId: appConfig.google.spreadsheetId,
+        spreadsheetId: options.gSheetId,
         resource: { requests }
     });
-    console.log("CreateSheet() : Duplicate Sheet created with name ", getDatestamp());
+    console.log(`CreateSheet() : Duplicate Sheet created with name ${dateStamp} in ${options.gSheetId}`);
 
     //Now that we have today's sheet copied, we will clear the cells.
     await sheets.spreadsheets.values.clear({
-        spreadsheetId: appConfig.google.spreadsheetId,
+        spreadsheetId: options.gSheetId,
         range: getRangeName(appConfig.app.SHEET_CLEAR_RANGE),
         auth: client
     });
-    console.log("CreateSheet() : New Sheet has been cleared");
+
+    console.log(`CreateSheet() : New Sheet has been cleared in ${options.gSheetId}`);
+
     return true;
 }
 
 /*
 */
-let WriteData = async (strategies) => {
+let WriteData = async (strategies, gSheetId) => {
     let validTokens = false;
     if (autoRefreshingTokens) {
         let diff = autoRefreshingTokens.expiry_date - new Date().getTime();
@@ -75,7 +78,7 @@ let WriteData = async (strategies) => {
         autoRefreshingTokens = await client.authorize();
     }
 
-    let valueArray = new Array(appConfig.app.HEADER_ROW_DATA.length).fill(0);
+    let valueArray = new Array(strategies.length + 2).fill(0); //Left most is time and right most is Total
     valueArray[0] = getTimestamp();//Time is pushed to the first column.
     let total_pnl = 0.0;
     strategies.forEach(deployment => {
@@ -83,23 +86,22 @@ let WriteData = async (strategies) => {
         if ( deployment.reportable() ) {
             total_pnl += deployment.getPNL();
 
-            //pruning only the strategy name by removing anything after //
-            let name = deployment.getShortName();
-            valueArray[appConfig.app.HEADER_ROW_DATA.indexOf(name)] = deployment.getPNL();
+            valueArray[deployment.getIndex()] = deployment.getPNL();
         }
     });
-    valueArray[appConfig.app.HEADER_ROW_DATA.length - 1] = total_pnl;//Total pnl is pushed to the last column
+    valueArray[strategies.length + 1] = total_pnl;//Total pnl is pushed to the last column
 
     const sheets = google.sheets('v4');
-    let rangeName = getRangeName(appConfig.app.SHEET_RANGE);
+    let sheetRange = '!A1:' + String.fromCharCode('A'.charCodeAt(0) + strategies.length + 1) + '1'; //e.g if length is 5, then we will get !A1:G1
+    let rangeName = getRangeName(sheetRange);
     const results = await sheets.spreadsheets.values.append({
-        spreadsheetId: appConfig.google.spreadsheetId,
+        spreadsheetId: gSheetId,
         valueInputOption: "USER_ENTERED",
         range: rangeName,
         resource: { range: rangeName, majorDimension: "ROWS", values: [valueArray] },
         auth: client
     });
-    console.info("Write Google Sheet() : Sheet updated with ticker data at ", getDateTimestamp());
+    console.info(`Write Google Sheet() : ${gSheetId} Sheet updated with ticker data at ${getDateTimestamp()}`);
 
 }
 

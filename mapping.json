@@ -1,0 +1,34 @@
+{
+    "154118": {
+        "357958": {"name":"GSM Nifty 1.0","index":1},
+        "842068": {"name":"GSM Nifty 1.0 (H)","index":2},
+        "889739": {"name":"GSM Nifty 2.0","index":3},
+        "1222665": {"name":"GSM Nifty 2.0 (H)","index":4},
+        "1259570": {"name":"GSA Nifty Range play","index":5},
+        "626839": {"name":"GSA Nifty 1 lot","index":6},
+        "605919": {"name":"GSM BNF 2.0","index":7},
+        "757688": {"name":"GSM BNF 3.0","index":8},
+        "1068274": {"name":"GSM BNF 3.0 (H)","index":9},
+        "1259735": {"name":"GSA BNF 1 lot","index":10},
+        "889649": {"name":"GSM BNF 4.0","index":11},
+        "399874": {"name":"GSA Combo 1.0","index":12},
+        "1133922": {"name":"GSA Combo 2.0","index":13},
+        "1202887": {"name":"GSA BNF Positional","index":14}
+    },
+    "193528": {
+        "735978": {"name":"Apache","index":1},
+        "738478": {"name":"Brahmos","index":2},
+        "736538": {"name":"Falcon","index":3},
+        "739088": {"name":"Amogha","index":4},
+        "627223": {"name":"Shaurya","index":5}
+    },
+    "47766": {
+        "900979": {"name":"DW-Model1 (500)","index":1},
+        "1000338": {"name":"DW-Model1 (500)-MIS","index":2},
+        "1000382": {"name":"DW-Model1 (1000)-MIS","index":3},
+        "1000371": {"name":"DW-Model1 (750)-MIS","index":4},
+        "1043887": {"name":"DW-Model2 (500)","index":5},
+        "1036594": {"name":"DW-Model2 (500) One Counter","index":6},
+        "464015": {"name":"Mad Nifty Straddles (1000)","index":7}
+    }
+}

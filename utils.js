@@ -18,7 +18,7 @@ function getTimestamp() {
 
 function getDateTimestamp() {
     let today = moment.utc().tz(appConfig.app.TZ_INDIA);
-    return today.format("DDMMMYYYY HH:mm").toString();
+    return today.format("DD-MMM-YYYY HH:mm:ss").toString();
 }
 
 function isHoliday() {
@@ -39,7 +39,7 @@ function isHoliday() {
 function withinTradingHours() {
     let TRADING_STARTTIME = moment.utc().tz(appConfig.app.TZ_INDIA).startOf('date').set('hour', appConfig.tradeSchedule.start.hour).set('minute', appConfig.tradeSchedule.start.minute);
     let TRADING_ENDTIME = moment.utc().tz(appConfig.app.TZ_INDIA).startOf('date').set('hour', appConfig.tradeSchedule.end.hour).set('minute', appConfig.tradeSchedule.end.minute);
-    console.debug("Current server time ", (moment.utc().tz(appConfig.app.TZ_INDIA)));
+    //console.debug("Current server time ", (moment.utc().tz(appConfig.app.TZ_INDIA)));
     let after = (moment.utc().tz(appConfig.app.TZ_INDIA).isAfter(TRADING_STARTTIME));
     let before = (moment.utc().tz(appConfig.app.TZ_INDIA).isBefore(TRADING_ENDTIME));
     console.debug("Within the trading hours : ", (after && before));
