@@ -8,8 +8,7 @@ const utils = require('./utils');
 let app = express();
 app.use(express.json()); //to parse body
 
-console.info("START : Application fully loaded");
-console.log(`Application version is ${process.env.npm_package_version}`);
+console.info(`START : Application fully loaded at ${utils.getDateTimestamp()}`);
 
 //Compute holiday checker once a day or on server restart and is cached
 let isTodayHoliday = utils.isHoliday();
