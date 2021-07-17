@@ -17,7 +17,7 @@ TELEGRAM_POST_URL.searchParams.append("parse_mode", "HTML");
 async function SendMessage(options) {
     let isDebug = options.debug ? true:false;
     if(isDebug) options.message = "Hostname:" + os.hostname() + " " + options.message;
-    let url = TELEGRAM_POST_URL;
+    let url = new URL(TELEGRAM_POST_URL.toString()); //a new copy
     let chatId = isDebug ? appConfig.telegram.debugChatId : options.chatId;
     url.searchParams.append("chat_id", chatId);
 
