@@ -1,7 +1,8 @@
 const express = require('express');
 const ttService = require("./service/TradetronService");
-const publisherService = require("./service/PublisherService");
 const gSheetService = require("./service/GoogleService");
+const quoteService = require("./service/QuoteService");
+const publisherService = require("./service/PublisherService");
 const appConfig = require("./config");
 const utils = require('./utils');
 
@@ -44,6 +45,7 @@ let tradeTimeCheckerMW = (req, res, next) => {
     if (!isTodayHoliday && utils.withinTradingHours()) {
         return next()
     }
+    console.error(`Request in holiday or outside trade window`);
     return res.status(200).send({ status: 'Not processed', message: `Request in holiday or outside trade window` });
 }
 
@@ -52,7 +54,7 @@ let bodyCheckerMW = (req, res, next) => {
     if( (body.tradeType != undefined) && (body.creatorId !=undefined)) {
         return next();
     }
-
+    console.error(`Incomplete request. Pass trade Type and creator ID`);
     return res.status(400).send({ status: 'Incomplete request. Pass trade Type and creator ID'});
 }
 
@@ -61,21 +63,31 @@ let bodyChecker2MW = (req, res, next) => {
     if( body.gSheetId != undefined) {
         return next();
     }
-
+    console.error(`Incomplete request. Pass spreadsheet ID`);
     return res.status(400).send({ status: 'Incomplete request. Pass spreadsheet ID'});
+}
+
+let bodyChecker3MW = (req, res, next) => {
+    let body = req.body;
+    if( body.telegramChatId != undefined) {
+        return next();
+    }
+    console.error(`Incomplete request. Pass Telegram Chat ID`);
+    return res.status(400).send({ status: 'Incomplete request. Pass Telegram Chat ID'});
 }
 
 
 //Routes with middlewares
 
-    app.post('/pnl-telegram', authorizedMW, tradeTimeCheckerMW, bodyCheckerMW,
+    app.post('/pnl-telegram', authorizedMW, tradeTimeCheckerMW, bodyCheckerMW, bodyChecker3MW,
     async (req, res) => {
         const {tradeType, creatorId, telegramChatId} = req.body;
         ttService.Deployments({tradeType, creatorId}).then(result => {
-            publisherService.Publish({ transporter: appConfig.app.TELEGRAM, data: result, tradeType: tradeType, chatId:telegramChatId });
+            message = utils.deploymentsFormattedText(result, tradeType);
+            publisherService.Publish({transporter: appConfig.app.TELEGRAM, message: message, chatId:telegramChatId});
         }).catch(e => {
             console.log(e);
-            publisherService.Publish({ debug: true, transporter: appConfig.app.TELEGRAM, message: e.message });
+            publisherService.Publish({ transporter: appConfig.app.TELEGRAM, message: e.message, chatId: appConfig.telegram.debugChatId });
         });
 
         res.json({ status: 'Ok', message: `PNL request is accepted at ${new Date().toString()}` });
@@ -88,7 +100,7 @@ let bodyChecker2MW = (req, res, next) => {
             publisherService.Publish({ transporter: appConfig.app.GSHEET, data: result, gSheetId:gSheetId });
         }).catch(e => {
             console.log(e.message);
-            publisherService.Publish({ debug: true, transporter: appConfig.app.TELEGRAM, message: e.message });
+            publisherService.Publish({ transporter: appConfig.app.TELEGRAM, message: e.message, chatId: appConfig.telegram.debugChatId });
         });
 
         res.json({ status: 'Ok', message: `Google Sheet update request is accepted at ${utils.getDateTimestamp()}` });
@@ -102,10 +114,10 @@ let bodyChecker2MW = (req, res, next) => {
         //Create the google sheet for today
         const {gSheetId} = req.body;
         gSheetService.CreateSheet({gSheetId:gSheetId}).then(result => {
-            publisherService.Publish({ debug: true, transporter: appConfig.app.TELEGRAM, message: `Daily Sheet creation successful for ${gSheetId}` });
+            publisherService.Publish({ transporter: appConfig.app.TELEGRAM, message: `Daily Sheet creation successful for ${gSheetId}`, chatId: appConfig.telegram.debugChatId });
         }).catch(e => {
             console.log(e.message);
-            publisherService.Publish({ debug: true, transporter: appConfig.app.TELEGRAM, message: e.message });
+            publisherService.Publish({ transporter: appConfig.app.TELEGRAM, message: e.message, chatId: appConfig.telegram.debugChatId });
         });
 
         return res.json({ status: 'Ok', message: `Google sheet init is accepted at ${utils.getDateTimestamp()}` });
@@ -119,9 +131,26 @@ let bodyChecker2MW = (req, res, next) => {
             return res.status(200).send({ status: 'Ok', message: `TT Token is working at ${utils.getDateTimestamp()}` });
         }).catch(e => {
             console.log(e.message);
-            publisherService.Publish({ debug: true, transporter: appConfig.app.TELEGRAM, message: e.message });
+            publisherService.Publish({ transporter: appConfig.app.TELEGRAM, message: e.message, chatId: appConfig.telegram.debugChatId });
             return res.status(401).send({ status: 'Not Ok', message: e.message });
         });
+    });
+
+    /* Mandatory to have telegramChatId in the request body */
+    app.post('/qod-telegram', authorizedMW, bodyChecker3MW,
+    async (req, res, next) => {
+        const {telegramChatId} = req.body;
+        quoteService.GetQuoteOfDay().then(quoteObj => {
+            if(quoteObj) {
+                let message = utils.quoteFormattedText(quoteObj);
+                publisherService.Publish({transporter: appConfig.app.TELEGRAM, message: message, chatId:telegramChatId});
+            } else {
+                let err = 'Error in Quote Service, empty data set';
+                console.log(err);
+                publisherService.Publish({transporter: appConfig.app.TELEGRAM, message: err, chatId:appConfig.telegram.debugChatId});
+            }
+        })
+        return res.json({ status: 'Ok', message: `Quote request is accepted at ${utils.getDateTimestamp()}` });
     });
 
 app.listen(process.env.PORT);

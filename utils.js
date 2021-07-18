@@ -1,6 +1,7 @@
 const moment = require('moment-timezone');
 const appConfig = require('./config');
 let holidayList = require('./foHolidays.json');
+const tradeTypeObj = {"LIVE AUTO":"LA", "PAPER TRADING" : "PT"}; 
 
 function getDatestamp() {
     let today = moment.utc().tz(appConfig.app.TZ_INDIA);
@@ -46,11 +47,40 @@ function withinTradingHours() {
     return (after && before);
 }
 
+function deploymentsFormattedText(data, tradeType) {
+    //Prepare the html data
+    let formattedText = '';
+    let total_pnl = 0;
+    data.forEach(deployment => { //Returns a Deployment object
+        if (deployment.reportable()) {
+            formattedText += (deployment.toString() + appConfig.app.NEWLINE);
+            total_pnl += deployment.getPNL();
+        }
+    });
+    total_pnl = parseFloat(total_pnl).toFixed(2);
+    let summaryText = (total_pnl >= 0) ? appConfig.app.POSITIVE : appConfig.app.NEGATIVE;
+    summaryText += ` ${tradeTypeObj[tradeType]} PNL = <b> ₹ ${total_pnl} </b>${appConfig.app.NEWLINES}`;
+
+    formattedText = summaryText + formattedText;
+    return formattedText;
+}
+
+function quoteFormattedText(quoteObj) {
+    let message = `<b>${quoteObj.title}</b>
+    <pre>"${quoteObj.quote}"</pre>
+    <i>--${quoteObj.author}</i>
+    <a href="${quoteObj.image}">&#8205;</a>`;
+
+    return message;
+}
+
 module.exports = {
     getDatestamp,
     getRangeName,
     getTimestamp,
     getDateTimestamp,
     isHoliday,
-    withinTradingHours
+    withinTradingHours,
+    deploymentsFormattedText,
+    quoteFormattedText
 };

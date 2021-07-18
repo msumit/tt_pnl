@@ -77,6 +77,17 @@ curl --location --request POST 'http://localhost:3000/pnl-gsheet' \
 }'
 ```
 
+### Get daily motivation quotes
+```
+curl --location --request POST 'http://localhost:3000/qod-telegram' \
+--header 'Authorization: Basic xxx' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "telegramChatId":"1111111111"
+}'
+```
+
 ## Deploy
 Use Qovery service. Easy to learn and quick to deploy.
-The .qovery.yml file is self descriptive
+With v2, it has become even more simple. Once you create your project > environment > app, simply git push for the app to update and get redeployed.
+Remember to update the envs beforehand. I have created them as Project env vars so that other apps can easily inherit them and then can be overwritten per env or app 
