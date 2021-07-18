@@ -37,7 +37,7 @@ let authorizedMW = (req, res, next) => {
         }
     }
 
-    return res.status(401).json({ status: 'Unauthorized', message: 'Not authorized to access this api' });
+    return res.status(401).json({ status: 'Unauthorized in tt-pnl app', message: 'Not authorized to access this api' });
 }
 
 //Middleware to check holiday and trade working hours
@@ -50,41 +50,41 @@ let tradeTimeCheckerMW = (req, res, next) => {
 }
 
 let bodyCheckerMW = (req, res, next) => {
-    let body = req.body;
-    if( (body.tradeType != undefined) && (body.creatorId !=undefined)) {
+    let { tradeType, creatorId } = req.query;
+    if (tradeType != undefined && creatorId != undefined) {
         return next();
     }
     console.error(`Incomplete request. Pass trade Type and creator ID`);
-    return res.status(400).send({ status: 'Incomplete request. Pass trade Type and creator ID'});
+    return res.status(400).send({ status: 'Incomplete request. Pass trade Type and creator ID' });
 }
 
 let bodyChecker2MW = (req, res, next) => {
-    let body = req.body;
-    if( body.gSheetId != undefined) {
+    let { gSheetId } = req.query;
+    if (gSheetId != undefined) {
         return next();
     }
     console.error(`Incomplete request. Pass spreadsheet ID`);
-    return res.status(400).send({ status: 'Incomplete request. Pass spreadsheet ID'});
+    return res.status(400).send({ status: 'Incomplete request. Pass spreadsheet ID' });
 }
 
 let bodyChecker3MW = (req, res, next) => {
-    let body = req.body;
-    if( body.telegramChatId != undefined) {
+    let { telegramChatId } = req.query;
+    if (telegramChatId != undefined) {
         return next();
     }
     console.error(`Incomplete request. Pass Telegram Chat ID`);
-    return res.status(400).send({ status: 'Incomplete request. Pass Telegram Chat ID'});
+    return res.status(400).send({ status: 'Incomplete request. Pass Telegram Chat ID' });
 }
 
 
 //Routes with middlewares
 
-    app.post('/pnl-telegram', authorizedMW, tradeTimeCheckerMW, bodyCheckerMW, bodyChecker3MW,
+app.post('/pnl-telegram', authorizedMW, tradeTimeCheckerMW, bodyCheckerMW, bodyChecker3MW,
     async (req, res) => {
-        const {tradeType, creatorId, telegramChatId} = req.body;
-        ttService.Deployments({tradeType, creatorId}).then(result => {
+        const { tradeType, creatorId, telegramChatId } = req.query;
+        ttService.Deployments({ tradeType, creatorId }).then(result => {
             message = utils.deploymentsFormattedText(result, tradeType);
-            publisherService.Publish({transporter: appConfig.app.TELEGRAM, message: message, chatId:telegramChatId});
+            publisherService.Publish({ transporter: appConfig.app.TELEGRAM, message: message, chatId: telegramChatId });
         }).catch(e => {
             console.log(e);
             publisherService.Publish({ transporter: appConfig.app.TELEGRAM, message: e.message, chatId: appConfig.telegram.debugChatId });
@@ -93,11 +93,11 @@ let bodyChecker3MW = (req, res, next) => {
         res.json({ status: 'Ok', message: `PNL request is accepted at ${new Date().toString()}` });
     });
 
-    app.post('/pnl-gsheet', authorizedMW, tradeTimeCheckerMW, bodyCheckerMW, bodyChecker2MW,
+app.post('/pnl-gsheet', authorizedMW, tradeTimeCheckerMW, bodyCheckerMW, bodyChecker2MW,
     async (req, res, next) => {
-        const {tradeType, creatorId, gSheetId} = req.body;
-        ttService.Deployments({tradeType, creatorId}).then(result => {
-            publisherService.Publish({ transporter: appConfig.app.GSHEET, data: result, gSheetId:gSheetId });
+        const { tradeType, creatorId, gSheetId } = req.query;
+        ttService.Deployments({ tradeType, creatorId }).then(result => {
+            publisherService.Publish({ transporter: appConfig.app.GSHEET, data: result, gSheetId: gSheetId });
         }).catch(e => {
             console.log(e.message);
             publisherService.Publish({ transporter: appConfig.app.TELEGRAM, message: e.message, chatId: appConfig.telegram.debugChatId });
@@ -106,14 +106,14 @@ let bodyChecker3MW = (req, res, next) => {
         res.json({ status: 'Ok', message: `Google Sheet update request is accepted at ${utils.getDateTimestamp()}` });
     });
 
-    app.post('/tt-daySetup', authorizedMW, bodyChecker2MW,
+app.post('/tt-daySetup', authorizedMW, bodyChecker2MW,
     async (req, res, next) => {
         //One time setup, this should be called everyday once.
         isTodayHoliday = utils.isHoliday();
 
         //Create the google sheet for today
-        const {gSheetId} = req.body;
-        gSheetService.CreateSheet({gSheetId:gSheetId}).then(result => {
+        const { gSheetId } = req.query;
+        gSheetService.CreateSheet({ gSheetId: gSheetId }).then(result => {
             publisherService.Publish({ transporter: appConfig.app.TELEGRAM, message: `Daily Sheet creation successful for ${gSheetId}`, chatId: appConfig.telegram.debugChatId });
         }).catch(e => {
             console.log(e.message);
@@ -123,11 +123,15 @@ let bodyChecker3MW = (req, res, next) => {
         return res.json({ status: 'Ok', message: `Google sheet init is accepted at ${utils.getDateTimestamp()}` });
     });
 
-    app.post('/tokenTest', authorizedMW, bodyCheckerMW,
+/*
+    cron-job.org POST call is not sending body hence resorting to queryparams
+    /tokenTest?tradeType=PAPER+TRADING&creatorId=10000
+*/
+app.post('/tokenTest', authorizedMW, bodyCheckerMW,
     async (req, res, next) => {
         //Test call to get all deployments
-        const {tradeType, creatorId} = req.body;
-        ttService.Deployments({tradeType, creatorId}).then(result => {
+        const { tradeType, creatorId } = req.query;
+        ttService.Deployments({ tradeType, creatorId }).then(result => {
             return res.status(200).send({ status: 'Ok', message: `TT Token is working at ${utils.getDateTimestamp()}` });
         }).catch(e => {
             console.log(e.message);
@@ -136,18 +140,18 @@ let bodyChecker3MW = (req, res, next) => {
         });
     });
 
-    /* Mandatory to have telegramChatId in the request body */
-    app.post('/qod-telegram', authorizedMW, bodyChecker3MW,
+/* Mandatory to have telegramChatId in the request query params */
+app.post('/qod-telegram', authorizedMW, bodyChecker3MW,
     async (req, res, next) => {
-        const {telegramChatId} = req.body;
+        const { telegramChatId } = req.query;
         quoteService.GetQuoteOfDay().then(quoteObj => {
-            if(quoteObj) {
+            if (quoteObj) {
                 let message = utils.quoteFormattedText(quoteObj);
-                publisherService.Publish({transporter: appConfig.app.TELEGRAM, message: message, chatId:telegramChatId});
+                publisherService.Publish({ transporter: appConfig.app.TELEGRAM, message: message, chatId: telegramChatId });
             } else {
                 let err = 'Error in Quote Service, empty data set';
                 console.log(err);
-                publisherService.Publish({transporter: appConfig.app.TELEGRAM, message: err, chatId:appConfig.telegram.debugChatId});
+                publisherService.Publish({ transporter: appConfig.app.TELEGRAM, message: err, chatId: appConfig.telegram.debugChatId });
             }
         })
         return res.json({ status: 'Ok', message: `Quote request is accepted at ${utils.getDateTimestamp()}` });

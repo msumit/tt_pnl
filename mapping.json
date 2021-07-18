@@ -11,9 +11,8 @@
         "1068274": {"name":"GSM BNF 3.0 (H)","index":9},
         "1259735": {"name":"GSA BNF 1 lot","index":10},
         "889649": {"name":"GSM BNF 4.0","index":11},
-        "399874": {"name":"GSA Combo 1.0","index":12},
-        "1133922": {"name":"GSA Combo 2.0","index":13},
-        "1202887": {"name":"GSA BNF Positional","index":14}
+        "1133922": {"name":"GSA Combo 2.0","index":12},
+        "1202887": {"name":"GSA BNF Positional","index":13}
     },
     "193528": {
         "735978": {"name":"Apache","index":1},
