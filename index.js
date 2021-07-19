@@ -20,7 +20,7 @@ if (isTodayHoliday) {
 
 //Middleware to log the request
 let requestMW = (req, res, next) => {
-    console.log(`Incoming request ${req.path} from ${req.hostname} at ${utils.getDateTimestamp()}`);
+    console.log(`Incoming request ${req.path} from ${req.hostname} ${JSON.stringify(req.query)} at ${utils.getDateTimestamp()}`);
     next();
 }
 
