@@ -27,5 +27,11 @@
         "1043887": {"name":"DW-Model2 (500)","index":5},
         "1036594": {"name":"DW-Model2 (500) One Counter","index":6},
         "464015": {"name":"Mad Nifty Straddles (1000)","index":7}
+    },
+    "314258": {
+        "742468" : {"name":"1000-9400", "index":1},
+        "724578" : {"name":"625AD", "index":2},
+        "734688" : {"name":"3000/2500", "index":3},
+        "1195836" : {"name":"4Trade (3000-3000)", "index":4}
     }
 }
