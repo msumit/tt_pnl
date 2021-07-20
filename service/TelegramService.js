@@ -1,6 +1,5 @@
 const appConfig = require("../config");
 const fetch = require('node-fetch');
-const os = require("os");
 const utils = require("../utils");
 
 /* Telegram service
@@ -17,7 +16,7 @@ TELEGRAM_POST_URL.searchParams.append("disable_web_page_preview", false);
 async function SendMessage(options) {
     let isDebug = options.chatId == appConfig.telegram.debugChatId; //Debug mode
 
-    if(isDebug) options.message = "Hostname:" + os.hostname() + " " + options.message;
+    if(isDebug) options.message = '🔥 ' + options.message;
 
     let url = new URL(TELEGRAM_POST_URL.toString()); //a new copy
     url.searchParams.append("chat_id", options.chatId);
