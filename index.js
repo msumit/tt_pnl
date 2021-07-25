@@ -10,11 +10,8 @@ let app = express();
 app.use(express.json()); //to parse body
 
 console.info(`START : Application fully loaded at ${utils.getDateTimestamp()}`);
-
-//Compute holiday checker once a day or on server restart and is cached
-let isTodayHoliday = utils.isHoliday();
-
-if (isTodayHoliday) {
+//Check the day status for holiday on server startup
+if (utils.isHoliday()) {
     console.info("Its is a holiday, so lets hope no workers work today");
 }
 
@@ -42,7 +39,7 @@ let authorizedMW = (req, res, next) => {
 
 //Middleware to check holiday and trade working hours
 let tradeTimeCheckerMW = (req, res, next) => {
-    if (!isTodayHoliday && utils.withinTradingHours()) {
+    if (!utils.isHoliday() && utils.withinTradingHours()) {
         return next()
     }
     console.error(`Request in holiday or outside trade window`);
@@ -83,7 +80,7 @@ app.post('/pnl-telegram', authorizedMW, tradeTimeCheckerMW, bodyCheckerMW, bodyC
     async (req, res) => {
         const { tradeType, creatorId, telegramChatId } = req.query;
         ttService.Deployments({ tradeType, creatorId }).then(result => {
-            message = utils.deploymentsFormattedText(result, tradeType);
+            message = utils.deploymentsFormattedText(result, tradeType, creatorId);
             publisherService.Publish({ transporter: appConfig.app.TELEGRAM, message: message, chatId: telegramChatId });
         }).catch(e => {
             console.log(e);
@@ -108,8 +105,10 @@ app.post('/pnl-gsheet', authorizedMW, tradeTimeCheckerMW, bodyCheckerMW, bodyChe
 
 app.post('/tt-daySetup', authorizedMW, bodyChecker2MW,
     async (req, res, next) => {
-        //One time setup, this should be called everyday once.
-        isTodayHoliday = utils.isHoliday();
+        if(utils.isHoliday()) {
+            console.error("Today is NSE holiday, take a break");
+            return res.status(200).send({ status: 'Not processed', message: `Today is NSE holiday, take a break` });
+        }
 
         //Create the google sheet for today
         const { gSheetId } = req.query;

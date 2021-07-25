@@ -1,7 +1,8 @@
 const moment = require('moment-timezone');
 const appConfig = require('./config');
-let holidayList = require('./foHolidays.json');
+let holidayList = require('./data/holidayLookUp.json');
 const tradeTypeObj = {"LIVE AUTO":"LA", "PAPER TRADING" : "PT"}; 
+const mapper = require("./mapping.json");
 
 function getDatestamp() {
     let today = moment.utc().tz(appConfig.app.TZ_INDIA);
@@ -24,17 +25,14 @@ function getDateTimestamp() {
 
 function isHoliday() {
     //Check if it is a weekend.
-    let weekend = ((moment.utc().tz(appConfig.app.TZ_INDIA).day() % 6) == 0); //Sunday is 0 and Saturday is 6. 0%6 and 6%6 will be zero
-    console.info("Is it Weekend? => ", weekend ? 'Yes' : 'No');
-    if (weekend) return weekend;
+    let isWeekend = ((moment.utc().tz(appConfig.app.TZ_INDIA).day() % 6) == 0); //Sunday is 0 and Saturday is 6. 0%6 and 6%6 will be zero
+    console.info("Is it Weekend? => ", isWeekend ? 'Yes' : 'No');
+    if (isWeekend) return isWeekend;
 
-    let currentDate = moment.utc().tz(appConfig.app.TZ_INDIA);
-    let holidayArray = holidayList.FO.filter((dt) => {
-        let holidayDate = moment.utc(new Date(dt.tradingDate)).tz(appConfig.app.TZ_INDIA);
-        return currentDate.isSame(holidayDate, 'day');
-    });
-    console.info("Is it NSE holiday? => ", (holidayArray.length > 0) ? 'Yes' : 'No');
-    return (holidayArray.length > 0);
+    let currentDate = moment.utc().tz(appConfig.app.TZ_INDIA).format('DD-MMM-YYYY');
+    let result = holidayList[currentDate] ? true:false;
+    console.info("Is it NSE holiday? => ", result ? 'Yes' : 'No');
+    return result;
 }
 
 function withinTradingHours() {
@@ -47,7 +45,7 @@ function withinTradingHours() {
     return (after && before);
 }
 
-function deploymentsFormattedText(data, tradeType) {
+function deploymentsFormattedText(data, tradeType, creatorId) {
     //Prepare the html data
     let formattedText = '';
     let total_pnl = 0;
@@ -59,9 +57,17 @@ function deploymentsFormattedText(data, tradeType) {
     });
     total_pnl = parseFloat(total_pnl).toFixed(2);
     let summaryText = (total_pnl >= 0) ? appConfig.app.POSITIVE : appConfig.app.NEGATIVE;
-    summaryText += ` ${tradeTypeObj[tradeType]} PNL = <b> ₹ ${total_pnl} </b>${appConfig.app.NEWLINES}`;
+    summaryText += ` ${tradeTypeObj[tradeType]} PNL • <b> ₹ ${total_pnl} </b>${appConfig.app.NEWLINES}`;
 
-    formattedText = summaryText + formattedText;
+    let footer = '';
+    //Add footer text only for PT trades as these are done for Strategy owners
+    if(tradeTypeObj[tradeType] == 'PT') {
+        footer = `<i>${appConfig.app.NEWLINE} ${mapper?.[creatorId]?.strategy_owner || '🏁'} • ${getDateTimestamp()}</i>`;
+    } else {
+        footer = `<i>${appConfig.app.NEWLINE}${getDateTimestamp()}</i>`;
+    }
+
+    formattedText = summaryText + formattedText + footer;
     return formattedText;
 }
 

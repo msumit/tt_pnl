@@ -22,7 +22,7 @@ module.exports = class Deployment {
     toString = () => {
         let formattedMessage = this.pnl >= 0 ? appConfig.app.POSITIVE : appConfig.app.NEGATIVE;
         let formattedName = (this.status.search('Exited') >= 0) ? `<s>${this.getShortName()}</s>` : `${this.getShortName()}`; //Exited will have a strikethrough
-        formattedMessage += ` ${formattedName} = <b>${this.currency}${this.pnl}</b>`;
+        formattedMessage += ` ${formattedName} <b>${this.currency}${this.pnl}</b>`;
         return formattedMessage;
     }
 
@@ -31,7 +31,9 @@ module.exports = class Deployment {
     }
 
     reportable = () => {
-        return ((this.status.search('Live-Entered') >= 0) || (this.status.search('Exited') >= 0));
+        //Earlier we were checking the status. But with the new roll up of positions, we can ignore the state check
+        //((this.status.search('Live-Entered') >= 0) || (this.status.search('Exited') >= 0));
+        return true;
     }
 
     getShortName = () => {

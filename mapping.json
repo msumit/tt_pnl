@@ -1,5 +1,6 @@
 {
     "154118": {
+        "strategy_owner" : "Get Set Algo",
         "357958": {"name": "GSM Nifty 1.0        ","index":1},
         "842068": {"name": "GSM Nifty 1.0 (H)  ","index":2},
         "889739": {"name": "GSM Nifty 2.0        ","index":3},
@@ -13,6 +14,7 @@
         "1133922": {"name":"GSA Combo 2.0    ","index":11}
     },
     "193528": {
+        "strategy_owner" : "Traders in Us",
         "735978": {"name":"Apache    ","index":1},
         "738478": {"name":"Brahmos  ","index":2},
         "736538": {"name":"Falcon      ","index":3},
@@ -20,6 +22,7 @@
         "627223": {"name":"Shaurya   ","index":5}
     },
     "47766": {
+        "strategy_owner" : "The Professor",
         "900979": {"name":"DW-Model1 (500)","index":1},
         "1000338": {"name":"DW-Model1 (500)-MIS","index":2},
         "1000382": {"name":"DW-Model1 (1000)-MIS","index":3},
@@ -29,12 +32,15 @@
         "464015": {"name":"Mad Nifty Straddles (1000)","index":7}
     },
     "314258": {
-        "742468" : {"name":"1000-9400", "index":1},
-        "734688" : {"name":"625AD", "index":2},
-        "724578" : {"name":"3000/2500", "index":3},
-        "1195836" : {"name":"4Trade (3000-3000)", "index":4}
+        "strategy_owner" : "",
+        "742468" : {"name": "1000-9400              ", "index":1},
+        "734688" : {"name": "625AD                     ", "index":2},
+        "724578" : {"name": "3000/2500              ", "index":3},
+        "1195836" : {"name":"4Trade(3000-3000)", "index":4},
+        "736568" : {"name": "NIFTY 1200-1200   ", "index":5}
     },
     "198435": {
+        "strategy_owner" : "Market Star",
         "533215" : {"name": "BNF Premium Eater    ", "index":1},
         "688758" : {"name": "NFT Premium Eater    ", "index":2},
         "1030951" : {"name":"IDX Premium Eater    ", "index":3},
@@ -45,5 +51,21 @@
         "662879" : {"name": "BNF Hybrid Earner    ", "index":8},
         "687319" : {"name": "NFT Hybrid Earner    ", "index":9},
         "919268" : {"name": "IDX Overnight Earner ", "index":10}
+    },
+    "223033": {
+        "strategy_owner" : "Phoenix Algo",
+        "501183" : {"name": "PA-5 Live", "index":1}
+    },
+    "325798": {
+        "strategy_owner" :  "Spartan Algo",
+        "803238": {"name":  "Stelios(BNF)    ", "index":1},
+        "814878": {"name":  "Gorgo(BNF)      ", "index":2},
+        "846468": {"name":  "Dilios(Buying)  ", "index":3},
+        "891419": {"name":  "Astinos(BNF)    ", "index":4},
+        "1100372": {"name": "Stelios(NF)     ", "index":5},
+        "1155592": {"name": "Support(BNF H)  ", "index":6},
+        "1160993": {"name": "Fighter(BNF)    ", "index":7},
+        "1343643": {"name": "Fighter(NF)     ", "index":8},
+        "1187608": {"name": "Astinos(NF)     ", "index":9}
     }
 }
