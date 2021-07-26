@@ -36,8 +36,7 @@
         "742468" : {"name": "1000-9400              ", "index":1},
         "734688" : {"name": "625AD                     ", "index":2},
         "724578" : {"name": "3000/2500              ", "index":3},
-        "1195836" : {"name":"4Trade(3000-3000)", "index":4},
-        "736568" : {"name": "NIFTY 1200-1200   ", "index":5}
+        "736568" : {"name": "NIFTY 1200-1200   ", "index":4}
     },
     "198435": {
         "strategy_owner" : "Market Star",
@@ -54,7 +53,7 @@
     },
     "223033": {
         "strategy_owner" : "Phoenix Algo",
-        "501183" : {"name": "PA-5 Live", "index":1}
+        "501183" : {"name": "PA-5 Live  ", "index":1}
     },
     "325798": {
         "strategy_owner" :  "Spartan Algo",
@@ -67,5 +66,10 @@
         "1160993": {"name": "Fighter(BNF)    ", "index":7},
         "1343643": {"name": "Fighter(NF)     ", "index":8},
         "1187608": {"name": "Astinos(NF)     ", "index":9}
+    },
+    "45210": {
+        "strategy_owner" :  "Finance Acharya",
+        "109760" : {"name":  "BB             ", "index":1},
+        "951476" : {"name":  "NNG         ", "index":2}
     }
 }
