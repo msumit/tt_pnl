@@ -49,15 +49,17 @@ function deploymentsFormattedText(data, tradeType, creatorId) {
     //Prepare the html data
     let formattedText = '';
     let total_pnl = 0;
+    let total_capital = 0;
     data.forEach(deployment => { //Returns a Deployment object
         if (deployment.reportable()) {
             formattedText += (deployment.toString() + appConfig.app.NEWLINE);
             total_pnl += deployment.getPNL();
+            total_capital += deployment.getCapital();
         }
     });
     total_pnl = parseFloat(total_pnl).toFixed(2);
     let summaryText = (total_pnl >= 0) ? appConfig.app.POSITIVE : appConfig.app.NEGATIVE;
-    summaryText += ` ${tradeTypeObj[tradeType]} PNL • <b> ₹ ${total_pnl} </b>${appConfig.app.NEWLINES}`;
+    summaryText += ` ${tradeTypeObj[tradeType]} PNL • <b> ₹ ${total_pnl}</b> (${(total_pnl*100/total_capital).toFixed(2)}%)${appConfig.app.NEWLINES}`;
 
     let footer = '';
     //Add footer text only for PT trades as these are done for Strategy owners

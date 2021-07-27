@@ -51,7 +51,8 @@ async function Deployments(tradeOptions) {
                     element.template.id,
                     element.template.name,
                     element.template.user.name,
-                    element.template.user.id));
+                    element.template.user.id,
+                    element.template.capital_required));
         });
         return deploymentsArray;
     } else {

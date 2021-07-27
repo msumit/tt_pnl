@@ -2,7 +2,7 @@ const appConfig = require("../config");
 const mapper = require("../mapping.json");
 
 module.exports = class Deployment {
-    constructor(type, id, status, pnl, currency, strategyId, strategyName, creatorName, creatorId) {
+    constructor(type, id, status, pnl, currency, strategyId, strategyName, creatorName, creatorId, capitalRequired) {
         let num_pnl = parseFloat(parseFloat(pnl).toFixed(2));//Convert the string pnl to float with 2 decimals and then to a float
         num_pnl = (isNaN(num_pnl) ? 0 : num_pnl);
         this.type = type;
@@ -14,6 +14,7 @@ module.exports = class Deployment {
         this.strategyName = strategyName;
         this.creatorName = creatorName;
         this.creatorId = creatorId;
+        this.capitalRequired = capitalRequired;
     }
 
     /*
@@ -23,6 +24,8 @@ module.exports = class Deployment {
         let formattedMessage = this.pnl >= 0 ? appConfig.app.POSITIVE : appConfig.app.NEGATIVE;
         let formattedName = (this.status.search('Exited') >= 0) ? `<s>${this.getShortName()}</s>` : `${this.getShortName()}`; //Exited will have a strikethrough
         formattedMessage += ` ${formattedName} <b>${this.currency}${this.pnl}</b>`;
+        formattedMessage += ` (${(this.pnl*100/this.capitalRequired).toFixed(2)}%)`
+        
         return formattedMessage;
     }
 
@@ -42,5 +45,9 @@ module.exports = class Deployment {
 
     getIndex = () => {
         return mapper?.[this.creatorId]?.[this.strategyId]?.index || "-1";
+    }
+
+    getCapital = () => {
+        return this.capitalRequired;
     }
 }
