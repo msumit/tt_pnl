@@ -51,7 +51,7 @@ function deploymentsFormattedText(data, tradeType, creatorId) {
     let total_pnl = 0;
     let total_capital = 0;
     data.forEach(deployment => { //Returns a Deployment object
-        if (deployment.reportable()) {
+        if (deployment.reportable({telegramCheck:true})) {
             formattedText += (deployment.toString() + appConfig.app.NEWLINE);
             total_pnl += deployment.getPNL();
             total_capital += deployment.getCapital();

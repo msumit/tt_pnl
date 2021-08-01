@@ -33,9 +33,18 @@ module.exports = class Deployment {
         return (isNaN(this.pnl) ? 0 : this.pnl);
     }
 
-    reportable = () => {
+/* options will have telegramCheck as true or false */    
+    reportable = (options) => {
         //Earlier we were checking the status. But with the new roll up of positions, we can ignore the state check
         //((this.status.search('Live-Entered') >= 0) || (this.status.search('Exited') >= 0));
+
+        //If the check is being requested, look for telegram_blocked flag. If telegram_blocked flag is absent then it means it can be reported.
+        //Right now no check for google sheet, everything in mapper will be sent to google sheet.
+        if ( !!options.telegramCheck ) {
+            let isTelBlocked = mapper?.[this.creatorId]?.[this.strategyId]?.telegram_blocked || false;
+            return !isTelBlocked;
+        }
+
         return true;
     }
 

@@ -83,7 +83,7 @@ let WriteData = async (strategies, gSheetId) => {
     let total_pnl = 0.0;
     strategies.forEach(deployment => {
         //Only report the Live or Exited PNL
-        if ( deployment.reportable() ) {
+        if ( deployment.reportable({}) ) {
             total_pnl += deployment.getPNL();
 
             valueArray[deployment.getIndex()] = deployment.getPNL();
