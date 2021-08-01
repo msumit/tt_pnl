@@ -30,7 +30,18 @@
         "1000371": {"name":"DW-Model1 (750)-MIS","index":4},
         "1043887": {"name":"DW-Model2 (500)","index":5},
         "1036594": {"name":"DW-Model2 (500) One Counter","index":6},
-        "464015": {"name":"Mad Nifty Straddles (1000)","index":7}
+        "464015": {"name":"Mad Nifty Straddles (1000)","index":7},
+        "1315505": {"name": "DW-Model 2 (500) MIS","index":8, "telegram_blocked": true},
+        "1316726": {"name": "Mad Nifty Straddles 500","index":9, "telegram_blocked": true},
+        "1338803": {"name": "Mad 500 (1 counter)","index":10, "telegram_blocked": true},
+        "331428": {"name": "Margin booster for Banknifty - NRML","index":11, "telegram_blocked": true},
+        "1056449": {"name": "Pocket Money","index":12, "telegram_blocked": true},
+        "1059793": {"name": "Rich Pocket Money","index":13, "telegram_blocked": true},
+        "1097468": {"name": "Ant","index":14},
+        "1112637": {"name": "Ant 200","index":15},
+        "1112824": {"name": "Ant 300","index":16, "telegram_blocked": true},
+        "1109161": {"name": "Ant Trio","index":17, "telegram_blocked": true}
+
     },
     "314258": {
         "strategy_owner" : "",
@@ -72,5 +83,8 @@
         "strategy_owner" :  "Finance Acharya",
         "109760" : {"name":  "BB             ", "index":1},
         "951476" : {"name":  "NNG         ", "index":2}
+    },
+    "68652": {
+        "strategy_owner" :  "AlgoGuru"
     }
 }

@@ -89,11 +89,43 @@ app.post('/pnl-telegram', authorizedMW, tradeTimeCheckerMW, bodyCheckerMW, bodyC
 
         res.json({ status: 'Ok', message: `PNL request is accepted at ${new Date().toString()}` });
     });
+/*
+v2 supports multipage queries. Extra parameter to be passed is num_of_pages
+ */
+app.post('/pnl-telegram2', authorizedMW, tradeTimeCheckerMW, bodyCheckerMW, bodyChecker3MW,
+    async (req, res) => {
+        const { num_of_pages, tradeType, creatorId, telegramChatId } = req.query;
+        ttService.Deployments2({ num_of_pages, tradeType, creatorId }).then(result => {
+            message = utils.deploymentsFormattedText(result, tradeType, creatorId);
+            publisherService.Publish({ transporter: appConfig.app.TELEGRAM, message: message, chatId: telegramChatId });
+        }).catch(e => {
+            console.log(e);
+            publisherService.Publish({ transporter: appConfig.app.TELEGRAM, message: e.message, chatId: appConfig.telegram.debugChatId });
+        });
+
+        res.json({ status: 'Ok', message: `PNL request is accepted at ${new Date().toString()}` });
+    });
+
 
 app.post('/pnl-gsheet', authorizedMW, tradeTimeCheckerMW, bodyCheckerMW, bodyChecker2MW,
     async (req, res, next) => {
         const { tradeType, creatorId, gSheetId } = req.query;
         ttService.Deployments({ tradeType, creatorId }).then(result => {
+            publisherService.Publish({ transporter: appConfig.app.GSHEET, data: result, gSheetId: gSheetId });
+        }).catch(e => {
+            console.log(e.message);
+            publisherService.Publish({ transporter: appConfig.app.TELEGRAM, message: e.message, chatId: appConfig.telegram.debugChatId });
+        });
+
+        res.json({ status: 'Ok', message: `Google Sheet update request is accepted at ${utils.getDateTimestamp()}` });
+    });
+/*
+v2 supports multipage queries. Extra parameter to be passed is num_of_pages
+ */
+app.post('/pnl-gsheet2', authorizedMW, tradeTimeCheckerMW, bodyCheckerMW, bodyChecker2MW,
+    async (req, res, next) => {
+        const { num_of_pages, tradeType, creatorId, gSheetId } = req.query;
+        ttService.Deployments2({ num_of_pages, tradeType, creatorId }).then(result => {
             publisherService.Publish({ transporter: appConfig.app.GSHEET, data: result, gSheetId: gSheetId });
         }).catch(e => {
             console.log(e.message);

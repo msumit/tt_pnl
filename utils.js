@@ -58,8 +58,11 @@ function deploymentsFormattedText(data, tradeType, creatorId) {
         }
     });
     total_pnl = parseFloat(total_pnl).toFixed(2);
+    roi = (total_pnl*100/total_capital).toFixed(2);
+    roi = isNaN(roi) ? 0:roi;
+
     let summaryText = (total_pnl >= 0) ? appConfig.app.POSITIVE : appConfig.app.NEGATIVE;
-    summaryText += ` ${tradeTypeObj[tradeType]} PNL • <b> ₹ ${total_pnl}</b> (${(total_pnl*100/total_capital).toFixed(2)}%)${appConfig.app.NEWLINES}`;
+    summaryText += ` ${tradeTypeObj[tradeType]} PNL • <b> ₹ ${total_pnl}</b> (${roi}%)${appConfig.app.NEWLINES}`;
 
     let footer = '';
     //Add footer text only for PT trades as these are done for Strategy owners
