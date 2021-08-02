@@ -20,7 +20,9 @@
         "738478":   {"name":    "Brahmos  ",            "index":2},
         "736538":   {"name":    "Falcon      ",         "index":3},
         "739088":   {"name":    "Amogha   ",            "index":4},
-        "627223":   {"name":    "Shaurya   ",           "index":5}
+        "627223":   {"name":    "Shaurya   ",           "index":5},
+        "904909":   {"name":    "Shaurya2.0",           "index":6, "telegram_blocked": true},
+        "1402504":  {"name":    "Viraat",               "index":7, "telegram_blocked": true}
     },
     "47766": {
         "strategy_owner" : "The Professor",
