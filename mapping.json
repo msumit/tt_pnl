@@ -22,7 +22,8 @@
         "739088":   {"name":    "Amogha   ",            "index":4},
         "627223":   {"name":    "Shaurya   ",           "index":5},
         "904909":   {"name":    "Shaurya2.0",           "index":6, "telegram_blocked": true},
-        "1402504":  {"name":    "Viraat",               "index":7, "telegram_blocked": true}
+        "1402504":  {"name":    "Viraat       ",        "index":7, "telegram_blocked": true},
+        "1495443":  {"name":    "Tejas        ",        "index":8, "telegram_blocked": true}
     },
     "47766": {
         "strategy_owner" : "The Professor",
