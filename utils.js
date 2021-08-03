@@ -85,6 +85,23 @@ function quoteFormattedText(quoteObj) {
     return message;
 }
 
+function columnName(columnInteger) {
+    let nCol = columnInteger;
+    let sChars = "0ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    let sCol = "";
+    while (nCol > 26) {
+        let nChar = nCol % 26;
+        if (nChar == 0)
+            nChar = 26;
+        nCol = (nCol - nChar) / 26;
+        sCol = sChars[nChar] + sCol;
+    }
+    if (nCol != 0)
+        sCol = sChars[nCol] + sCol;
+
+    return sCol;
+}
+
 module.exports = {
     getDatestamp,
     getRangeName,
@@ -93,5 +110,6 @@ module.exports = {
     isHoliday,
     withinTradingHours,
     deploymentsFormattedText,
-    quoteFormattedText
+    quoteFormattedText,
+    columnName
 };

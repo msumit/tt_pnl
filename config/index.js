@@ -36,6 +36,6 @@ module.exports = {
         TELEGRAM : 'Telegram',
         GSHEET : 'GSheet',
         TZ_INDIA : 'Asia/Kolkata',
-        SHEET_CLEAR_RANGE : '!A2:Z1000' //Choose all cells except the header
+        SHEET_CLEAR_RANGE : '!2:1000' //Choose all cells except the header
     }
 }

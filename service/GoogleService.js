@@ -6,6 +6,7 @@ const appConfig = require("../config");
 const { getDatestamp, getRangeName, getTimestamp, getDateTimestamp } = require('../utils');
 const { JWT } = require('google-auth-library');
 const { google } = require('googleapis');
+const utils = require('../utils');
 //Global variable to keep the token, just before expiry we will refresh it to get new
 let autoRefreshingTokens = null;
 
@@ -85,22 +86,28 @@ let WriteData = async (strategies, gSheetId) => {
         //Only report the Live or Exited PNL
         if ( deployment.reportable({}) ) {
             total_pnl += deployment.getPNL();
-
             valueArray[deployment.getIndex()] = deployment.getPNL();
         }
     });
     valueArray[strategies.length + 1] = total_pnl;//Total pnl is pushed to the last column
 
     const sheets = google.sheets('v4');
-    let sheetRange = '!A1:' + String.fromCharCode('A'.charCodeAt(0) + strategies.length + 1) + '1'; //e.g if length is 5, then we will get !A1:G1
+    //let sheetRange = '!A1:' + utils.columnName(strategies.length+1) + '1'; //e.g if length is 5, then we will get !A1:G1, if length is 27 !A1:AA1
+    let sheetRange = '!A1:1';
     let rangeName = getRangeName(sheetRange);
-    const results = await sheets.spreadsheets.values.append({
-        spreadsheetId: gSheetId,
-        valueInputOption: "USER_ENTERED",
-        range: rangeName,
-        resource: { range: rangeName, majorDimension: "ROWS", values: [valueArray] },
-        auth: client
-    });
+    try {
+        const results = await sheets.spreadsheets.values.append({
+            spreadsheetId: gSheetId,
+            valueInputOption: "USER_ENTERED",
+            range: rangeName,
+            resource: { range: rangeName, majorDimension: "ROWS", values: [valueArray] },
+            auth: client
+        });
+    } catch(e) {
+        console.log(e.errors);
+        return;
+    }
+
     console.info(`Write Google Sheet() : ${gSheetId} Sheet updated with ticker data at ${getDateTimestamp()}`);
 
 }
