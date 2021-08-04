@@ -3,15 +3,15 @@
         "strategy_owner" : "Get Set Algo",
         "357958": {"name": "GSM Nifty 1.0        ","index":1},
         "842068": {"name": "GSM Nifty 1.0 (H)  ","index":2},
-        "889739": {"name": "GSM Nifty 2.0        ","index":3},
-        "1222665": {"name":"GSM Nifty 2.0 (H) ","index":4},
+        "889739": {"name": "GSM Nifty 2.0        ","index":3, "telegram_blocked": true},
+        "1222665": {"name":"GSM Nifty 2.0 (H) ","index":4, "telegram_blocked": true},
         "1259570": {"name":"Nifty Range Play","index":5, "telegram_blocked": true},
         "626839": {"name": "GSA Nifty 1 lot      ","index":6},
         "605919": {"name": "GSM BNF 2.0         ","index":7},
         "757688": {"name": "GSM BNF 3.0         ","index":8},
         "1068274": {"name":"GSM BNF 3.0 (H)   ","index":9},
         "1259735": {"name":"GSA BNF 1 lot       ","index":10},
-        "889649": {"name": "GSM BNF 4.0        ","index":11},
+        "889649": {"name": "GSM BNF 4.0        ","index":11, "telegram_blocked": true},
         "1133922": {"name":"GSA Combo 2.0    ","index":12}
     },
     "193528": {
