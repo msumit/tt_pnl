@@ -120,11 +120,9 @@
         "1030951" : {"name":"IDX Premium Eater    ", "index":3},
         "1242410" : {"name":"BNF Premium Eater Jr ", "index":4},
         "1255775" : {"name":"NFT Premium Eater Jr ", "index":5},
-        "920126" : {"name": "BNF Consistent Earner", "index":6},
-        "880919" : {"name": "NFT Consistent Earner", "index":7},
-        "662879" : {"name": "BNF Hybrid Earner    ", "index":8},
-        "687319" : {"name": "NFT Hybrid Earner    ", "index":9},
-        "919268" : {"name": "IDX Overnight Earner ", "index":10}
+        "662879" : {"name": "BNF Hybrid Earner    ", "index":6},
+        "687319" : {"name": "NFT Hybrid Earner    ", "index":7},
+        "919268" : {"name": "IDX Overnight Earner ", "index":8}
     },
     "223033": {
         "strategy_owner" : "Phoenix Algo",
