@@ -149,6 +149,7 @@
         "strategy_owner" :  "AlgoGuru"
     },
     "35879": {
-        "strategy_owner" : "Jain"
+        "strategy_owner" : "Jain",
+        "1502714": {"name": "PMS", "index": 1}
     }
 }
