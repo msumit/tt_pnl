@@ -1,18 +1,21 @@
 {
     "154118": {
         "strategy_owner" : "Get Set Algo",
-        "357958": {"name": "GSM Nifty 1.0        ","index":1},
-        "842068": {"name": "GSM Nifty 1.0 (H)  ","index":2},
-        "889739": {"name": "GSM Nifty 2.0        ","index":3, "telegram_blocked": true},
-        "1222665": {"name":"GSM Nifty 2.0 (H) ","index":4, "telegram_blocked": true},
-        "1259570": {"name":"Nifty Range Play","index":5, "telegram_blocked": true},
-        "626839": {"name": "GSA Nifty 1 lot      ","index":6},
-        "605919": {"name": "GSM BNF 2.0         ","index":7},
-        "757688": {"name": "GSM BNF 3.0         ","index":8},
-        "1068274": {"name":"GSM BNF 3.0 (H)   ","index":9},
-        "1259735": {"name":"GSA BNF 1 lot       ","index":10},
-        "889649": {"name": "GSM BNF 4.0        ","index":11, "telegram_blocked": true},
-        "1133922": {"name":"GSA Combo 2.0    ","index":12}
+        "357958"    : {"name":  "GSM Nifty 1.0        ","index":1},
+        "842068"    : {"name":  "GSM Nifty 1.0 (H)  ",  "index":2},
+        "889739"    : {"name":  "GSM Nifty 2.0        ","index":3, "telegram_blocked": true},
+        "1222665"   : {"name":  "GSM Nifty 2.0 (H) ",   "index":4, "telegram_blocked": true},
+        "1259570"   : {"name":  "Nifty Range Play",     "index":5, "telegram_blocked": true},
+        "626839"    : {"name":  "GSA Nifty 1 lot      ","index":6},
+        "605919"    : {"name":  "GSM BNF 2.0         ", "index":7},
+        "757688"    : {"name":  "GSM BNF 3.0         ", "index":8},
+        "1068274"   : {"name":  "GSM BNF 3.0 (H)   ",   "index":9},
+        "1259735"   : {"name":  "GSA BNF 1 lot       ", "index":10},
+        "889649"    : {"name":  "GSM BNF 4.0        ",  "index":11, "telegram_blocked": true},
+        "1133922"   : {"name":  "GSA Combo 2.0    ",    "index":12},
+        "1470176"   : {"name":  "Nifty Combat",         "index":13},
+        "1469549"   : {"name":  "Nifty IC",             "index": 14},
+        "1469538"   : {"name":  "BNF IC",               "index": 15}
     },
     "193528": {
         "strategy_owner" : "The Trader in Us",
@@ -115,14 +118,14 @@
     },
     "198435": {
         "strategy_owner" : "Market Star",
-        "533215" : {"name": "BNF Premium Eater    ", "index":1},
-        "688758" : {"name": "NFT Premium Eater    ", "index":2},
-        "1030951" : {"name":"IDX Premium Eater    ", "index":3},
-        "1242410" : {"name":"BNF Premium Eater Jr ", "index":4},
-        "1255775" : {"name":"NFT Premium Eater Jr ", "index":5},
-        "662879" : {"name": "BNF Hybrid Earner    ", "index":6},
-        "687319" : {"name": "NFT Hybrid Earner    ", "index":7},
-        "919268" : {"name": "IDX Overnight Earner ", "index":8}
+        "533215"    : {"name":  "BNF PE   ","index":1},
+        "688758"    : {"name":  "NFT PE    ","index":2},
+        "1030951"   : {"name":  "IDX PE     ","index":3},
+        "1242410"   : {"name":  "BNF PE Jr","index":4},
+        "1255775"   : {"name":  "NFT PE Jr","index":5},
+        "662879"    : {"name":  "BNF HE   ","index":6},
+        "687319"    : {"name":  "NFT HE   ","index":7},
+        "1186079"   : {"name":  "BNF SS    ","index":8}
     },
     "223033": {
         "strategy_owner" : "Phoenix Algo",
