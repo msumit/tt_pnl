@@ -9,7 +9,7 @@ const utils = require('./utils');
 let app = express();
 app.use(express.json()); //to parse body
 
-console.info(`START : Application fully loaded at ${utils.getDateTimestamp()}`);
+console.info(`START : Application fully loaded at ${utils.getDateTimestamp()} with version ${process.env.npm_package_version}`);
 //Check the day status for holiday on server startup
 if (utils.isHoliday()) {
     console.info("Its is a holiday, so lets hope no workers work today");
