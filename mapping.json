@@ -157,6 +157,6 @@
     },
     "36113": {
         "strategy_owner" : "GrowMoney",
-        "864458" : "GMA 11.1"
+        "864458" : {"name":"GMA 11.1", "index":1}
     }
 }
