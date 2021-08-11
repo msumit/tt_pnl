@@ -14,8 +14,8 @@
         "889649"    : {"name":  "GSM BNF 4.0        ",  "index":11, "telegram_blocked": true},
         "1133922"   : {"name":  "GSA Combo 2.0    ",    "index":12},
         "1470176"   : {"name":  "Nifty Combat",         "index":13},
-        "1469549"   : {"name":  "Nifty IC",             "index": 14},
-        "1469538"   : {"name":  "BNF IC",               "index": 15}
+        "1469549"   : {"name":  "Nifty IC",             "index": 14, "telegram_blocked": true},
+        "1469538"   : {"name":  "BNF IC",               "index": 15, "telegram_blocked": true}
     },
     "193528": {
         "strategy_owner" : "The Trader in Us",
