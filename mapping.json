@@ -125,7 +125,8 @@
         "1255775"   : {"name":  "NFT PE Jr","index":5},
         "662879"    : {"name":  "BNF HE   ","index":6},
         "687319"    : {"name":  "NFT HE   ","index":7},
-        "1186079"   : {"name":  "BNF SS    ","index":8}
+        "1186079"   : {"name":  "BNF SE    ","index":8},
+        "1553809"   : {"name":  "BNF AS    ","index":9}
     },
     "223033": {
         "strategy_owner" : "Phoenix Algo",
