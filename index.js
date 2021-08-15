@@ -135,6 +135,22 @@ app.post('/pnl-gsheet2', authorizedMW, tradeTimeCheckerMW, bodyCheckerMW, bodyCh
         res.json({ status: 'Ok', message: `Google Sheet update request is accepted at ${utils.getDateTimestamp()}` });
     });
 
+/* use this api to do an end of the day statistics collection with a day stamp on the sheet with index=1
+*/
+app.post('/pnl-gsheet-summary', authorizedMW, tradeTimeCheckerMW, bodyCheckerMW, bodyChecker2MW,
+    async (req, res, next) => {
+        const { num_of_pages, tradeType, creatorId, gSheetId } = req.query;
+        ttService.Deployments2({ num_of_pages, tradeType, creatorId }).then(result => {
+            publisherService.Publish({ transporter: appConfig.app.GSHEET, data: result, gSheetId: gSheetId, timeStampType: 'date', updateTopSheetOnly:true });
+        }).catch(e => {
+            console.log(e.message);
+            publisherService.Publish({ transporter: appConfig.app.TELEGRAM, message: e.message, chatId: appConfig.telegram.debugChatId });
+        });
+
+        res.json({ status: 'Ok', message: `Google Sheet update request is accepted at ${utils.getDateTimestamp()}` });
+    });
+
+
 app.post('/tt-daySetup', authorizedMW, bodyChecker2MW,
     async (req, res, next) => {
         if(utils.isHoliday()) {

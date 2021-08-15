@@ -1,4 +1,3 @@
-const { app } = require("../config");
 const appConfig = require("../config");
 const telegramService = require("./TelegramService");
 const googleService = require("./GoogleService");
@@ -23,7 +22,10 @@ function sendToTelegram(options) {
 }
 
 function sendToGoogle(options) {
-    googleService.WriteData(options.data, options.gSheetId);
+    let res = googleService.WriteData(options.data, options.gSheetId, options.timeStampType, options.updateTopSheetOnly);
+    res.then(result => {
+        if(!result.status) sendToTelegram({debug:true, message:JSON.stringify(result), chatId: appConfig.telegram.debugChatId})
+    });
 }
 
 module.exports.Publish = Publish;

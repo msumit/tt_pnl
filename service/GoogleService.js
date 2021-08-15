@@ -66,7 +66,9 @@ let CreateSheet = async (options) => {
 
 /*
 */
-let WriteData = async (strategies, gSheetId) => {
+let WriteData = async (strategies, gSheetId, timeStampType, updateTopSheetOnly) => {
+    timeStampType = timeStampType || 'time'; //If nothing is passed then it is assumed as time
+    updateTopSheetOnly = updateTopSheetOnly || false;
     let validTokens = false;
     if (autoRefreshingTokens) {
         let diff = autoRefreshingTokens.expiry_date - new Date().getTime();
@@ -80,7 +82,7 @@ let WriteData = async (strategies, gSheetId) => {
     }
 
     let valueArray = new Array(strategies.length + 2).fill(0); //Left most is time and right most is Total
-    valueArray[0] = getTimestamp();//Time is pushed to the first column.
+    valueArray[0] = (timeStampType == 'date') ? getDatestamp(): getTimestamp();//Time or date is pushed to the first column.
     let total_pnl = 0.0;
     strategies.forEach(deployment => {
         //Only report the Live or Exited PNL
@@ -92,9 +94,8 @@ let WriteData = async (strategies, gSheetId) => {
     valueArray[strategies.length + 1] = total_pnl;//Total pnl is pushed to the last column
 
     const sheets = google.sheets('v4');
-    //let sheetRange = '!A1:' + utils.columnName(strategies.length+1) + '1'; //e.g if length is 5, then we will get !A1:G1, if length is 27 !A1:AA1
     let sheetRange = '!A1:1';
-    let rangeName = getRangeName(sheetRange);
+    let rangeName = updateTopSheetOnly ? sheetRange : getRangeName(sheetRange); //Take the top sheet or use the sheet with the range name
     try {
         const results = await sheets.spreadsheets.values.append({
             spreadsheetId: gSheetId,
@@ -103,9 +104,10 @@ let WriteData = async (strategies, gSheetId) => {
             resource: { range: rangeName, majorDimension: "ROWS", values: [valueArray] },
             auth: client
         });
+        return {status:true};
     } catch(e) {
         console.log(e.errors);
-        return;
+        return {status:false,message:e.message, gSheetId:gSheetId};
     }
 
     console.info(`Write Google Sheet() : ${gSheetId} Sheet updated with ticker data at ${getDateTimestamp()}`);
