@@ -53,9 +53,11 @@ let CreateSheet = async (options) => {
     console.log(`CreateSheet() : Duplicate Sheet created with name ${dateStamp} in ${options.gSheetId}`);
 
     //Now that we have today's sheet copied, we will clear the cells.
+    let rowIndex = options.rowIndex || 2; //Start clearing from row#2 as default.
+    let rangeToBeCleared = `!${rowIndex}:1000`;// So, its either !2:1000 or !N:1000 based on the value of N. 1000 is a large row number just to be on the safe side
     await sheets.spreadsheets.values.clear({
         spreadsheetId: options.gSheetId,
-        range: getRangeName(appConfig.app.SHEET_CLEAR_RANGE),
+        range: getRangeName(rangeToBeCleared),
         auth: client
     });
 

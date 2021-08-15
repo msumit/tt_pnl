@@ -35,7 +35,6 @@ module.exports = {
         NEGATIVE :'🔴',
         TELEGRAM : 'Telegram',
         GSHEET : 'GSheet',
-        TZ_INDIA : 'Asia/Kolkata',
-        SHEET_CLEAR_RANGE : '!2:1000' //Choose all cells except the header
+        TZ_INDIA : 'Asia/Kolkata'
     }
 }

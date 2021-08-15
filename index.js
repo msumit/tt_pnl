@@ -161,7 +161,9 @@ app.post('/pnl-gsheet-summary', authorizedMW, tradeTimeCheckerMW, bodyCheckerMW,
     }
 );
 
-
+/*
+Support rowIndex, so that after copying we can clear the target cells
+*/
 app.post('/tt-daySetup', authorizedMW, bodyChecker2MW,
     async (req, res, next) => {
         if(utils.isHoliday()) {
@@ -170,8 +172,8 @@ app.post('/tt-daySetup', authorizedMW, bodyChecker2MW,
         }
 
         //Create the google sheet for today
-        const { gSheetId } = req.query;
-        gSheetService.CreateSheet({ gSheetId: gSheetId }).then(result => {
+        const { gSheetId, rowIndex } = req.query;
+        gSheetService.CreateSheet({ gSheetId: gSheetId, rowIndex: rowIndex }).then(result => {
             publisherService.Publish({ transporter: appConfig.app.TELEGRAM, message: `Daily Sheet creation successful for ${gSheetId}`, chatId: appConfig.telegram.debugChatId });
         }).catch(e => {
             console.log(e.message);
