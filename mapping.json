@@ -159,5 +159,8 @@
     "36113": {
         "strategy_owner" : "GrowMoney",
         "864458" : {"name":"GMA 11.1", "index":1}
+    },
+    "15425": {
+        "strategy_owner" : "Chokstock"
     }
 }
