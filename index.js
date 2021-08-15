@@ -76,6 +76,12 @@ let bodyChecker3MW = (req, res, next) => {
 
 //Routes with middlewares
 
+app.get('/',
+    async (req, res) => {
+        res.json({ status: 'Ok', message: `Ready to rock` });
+    }
+);
+
 app.post('/pnl-telegram', authorizedMW, tradeTimeCheckerMW, bodyCheckerMW, bodyChecker3MW,
     async (req, res) => {
         const { tradeType, creatorId, telegramChatId } = req.query;
@@ -88,7 +94,8 @@ app.post('/pnl-telegram', authorizedMW, tradeTimeCheckerMW, bodyCheckerMW, bodyC
         });
 
         res.json({ status: 'Ok', message: `PNL request is accepted at ${new Date().toString()}` });
-    });
+    }
+);
 /*
 v2 supports multipage queries. Extra parameter to be passed is num_of_pages
  */
@@ -104,8 +111,8 @@ app.post('/pnl-telegram2', authorizedMW, tradeTimeCheckerMW, bodyCheckerMW, body
         });
 
         res.json({ status: 'Ok', message: `PNL request is accepted at ${new Date().toString()}` });
-    });
-
+    }
+);
 
 app.post('/pnl-gsheet', authorizedMW, tradeTimeCheckerMW, bodyCheckerMW, bodyChecker2MW,
     async (req, res, next) => {
@@ -118,7 +125,9 @@ app.post('/pnl-gsheet', authorizedMW, tradeTimeCheckerMW, bodyCheckerMW, bodyChe
         });
 
         res.json({ status: 'Ok', message: `Google Sheet update request is accepted at ${utils.getDateTimestamp()}` });
-    });
+    }
+);
+
 /*
 v2 supports multipage queries. Extra parameter to be passed is num_of_pages
  */
@@ -133,7 +142,8 @@ app.post('/pnl-gsheet2', authorizedMW, tradeTimeCheckerMW, bodyCheckerMW, bodyCh
         });
 
         res.json({ status: 'Ok', message: `Google Sheet update request is accepted at ${utils.getDateTimestamp()}` });
-    });
+    }
+);
 
 /* use this api to do an end of the day statistics collection with a day stamp on the sheet with index=1
 */
@@ -148,7 +158,8 @@ app.post('/pnl-gsheet-summary', authorizedMW, tradeTimeCheckerMW, bodyCheckerMW,
         });
 
         res.json({ status: 'Ok', message: `Google Sheet update request is accepted at ${utils.getDateTimestamp()}` });
-    });
+    }
+);
 
 
 app.post('/tt-daySetup', authorizedMW, bodyChecker2MW,
@@ -168,7 +179,8 @@ app.post('/tt-daySetup', authorizedMW, bodyChecker2MW,
         });
 
         return res.json({ status: 'Ok', message: `Google sheet init is accepted at ${utils.getDateTimestamp()}` });
-    });
+    }
+);
 
 /*
     cron-job.org POST call is not sending body hence resorting to queryparams
@@ -185,7 +197,8 @@ app.post('/tokenTest', authorizedMW, bodyCheckerMW,
             publisherService.Publish({ transporter: appConfig.app.TELEGRAM, message: e.message, chatId: appConfig.telegram.debugChatId });
             return res.status(401).send({ status: 'Not Ok', message: e.message });
         });
-    });
+    }
+);
 
 /* Mandatory to have telegramChatId in the request query params */
 app.post('/qod-telegram', authorizedMW, bodyChecker3MW,
@@ -202,6 +215,7 @@ app.post('/qod-telegram', authorizedMW, bodyChecker3MW,
             }
         })
         return res.json({ status: 'Ok', message: `Quote request is accepted at ${utils.getDateTimestamp()}` });
-    });
+    }
+);
 
 app.listen(process.env.PORT);
