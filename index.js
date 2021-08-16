@@ -147,7 +147,7 @@ app.post('/pnl-gsheet2', authorizedMW, tradeTimeCheckerMW, bodyCheckerMW, bodyCh
 
 /* use this api to do an end of the day statistics collection with a day stamp on the sheet with index=1
 */
-app.post('/pnl-gsheet-summary', authorizedMW, tradeTimeCheckerMW, bodyCheckerMW, bodyChecker2MW,
+app.post('/pnl-gsheet-summary', authorizedMW, /*tradeTimeCheckerMW,*/ bodyCheckerMW, bodyChecker2MW,
     async (req, res, next) => {
         const { num_of_pages, tradeType, creatorId, gSheetId } = req.query;
         ttService.Deployments2({ num_of_pages, tradeType, creatorId }).then(result => {
