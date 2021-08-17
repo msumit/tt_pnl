@@ -19,14 +19,14 @@
     },
     "193528": {
         "strategy_owner" : "The Trader in Us",
-        "735978":   {"name":    "Apache    ",           "index":1},
-        "738478":   {"name":    "Brahmos  ",            "index":2},
-        "736538":   {"name":    "Falcon      ",         "index":3},
-        "739088":   {"name":    "Amogha   ",            "index":4},
-        "627223":   {"name":    "Shaurya   ",           "index":5},
+        "735978":   {"name":    "Apache      ",           "index":1},
+        "738478":   {"name":    "Brahmos    ",            "index":2},
+        "736538":   {"name":    "Falcon        ",         "index":3},
+        "739088":   {"name":    "Amogha     ",            "index":4},
+        "627223":   {"name":    "Shaurya     ",           "index":5},
         "904909":   {"name":    "Shaurya2.0",           "index":6, "telegram_blocked": false},
-        "1402504":  {"name":    "Viraat       ",        "index":7, "telegram_blocked": false},
-        "1495443":  {"name":    "Tejas        ",        "index":8, "telegram_blocked": false}
+        "1402504":  {"name":    "Viraat         ",        "index":7, "telegram_blocked": false},
+        "1495443":  {"name":    "Tejas          ",        "index":8, "telegram_blocked": false}
     },
     "47766": {
         "strategy_owner" : "The Professor",

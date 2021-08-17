@@ -3,7 +3,7 @@ const mapper = require("../mapping.json");
 
 module.exports = class Deployment {
     constructor(type, id, status, pnl, currency, strategyId, strategyName, creatorName, creatorId, capitalRequired) {
-        let num_pnl = parseFloat(parseFloat(pnl).toFixed(2));//Convert the string pnl to float with 2 decimals and then to a float
+        let num_pnl = Math.round(pnl);
         num_pnl = (isNaN(num_pnl) ? 0 : num_pnl);
         this.type = type;
         this.id = id;
@@ -30,7 +30,7 @@ module.exports = class Deployment {
     }
 
     getPNL = () => {
-        return (isNaN(this.pnl) ? 0 : this.pnl);
+        return this.pnl;
     }
 
 /* options will have telegramCheck as true or false */    
