@@ -162,5 +162,9 @@
     },
     "15425": {
         "strategy_owner" : "Chokstock"
+    },
+    "194578": {
+        "strategy_owner" : "PM",
+        "1654874" : {"name":"BS16", "index":1}
     }
 }
