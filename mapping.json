@@ -168,5 +168,12 @@
     "194578": {
         "strategy_owner" : "PM",
         "1654874" : {"name":"BS16", "index":1}
+    },
+    "349448": {
+        "strategy_owner" : "Algos with Ankur",
+        "1412283" : {"name":"Bank Nifty Rapid Plus - #MoneyMachine","index":1},
+        "1454897" : {"name":"Nifty Rapid Plus - #MoneyMachine","index":2},
+        "1374234" : {"name":"Bank Nifty Far OTM Hedge - #MoneyMachineSub","index":3, "telegram_blocked":true},
+        "1406805" : {"name":"Nifty Far OTM Hedge - #MoneyMachineSub","index":4, "telegram_blocked":true}
     }
 }

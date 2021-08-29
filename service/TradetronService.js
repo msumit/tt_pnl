@@ -77,7 +77,7 @@ function Jobs (pageNumber, url1, url2) {
     }
 
 async function Deployments2(tradeOptions) {
-    const {num_of_pages, tradeType, creatorId} = tradeOptions;
+    const {num_of_pages = 1, tradeType, creatorId} = tradeOptions;
     let url1 = new URL(TT_URL);
     let url2 = new URL(TT_URL2);
     url1.searchParams.append("execution", tradeType);
