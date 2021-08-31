@@ -91,12 +91,18 @@ async function Deployments2(tradeOptions) {
     }
 
     let resultsArray = new Array(num_of_pages * 2);
-    resultsArray = await Promise.all(jobsArray);
+    //Changing from Promise.all to allSettled
+    resultsArray = await Promise.allSettled(jobsArray);
+    let resultsArray2 = [];
+    resultsArray.forEach(element => {
+        console.log(element.status);
+        resultsArray2.push(element.value);
+    });
 
     let deploymentsArray = [];
     for(i=0;i<num_of_pages;i++){
-        let results1 = resultsArray[i*2];
-        let results2 = resultsArray[i*2 + 1];
+        let results1 = resultsArray2[i*2];
+        let results2 = resultsArray2[i*2 + 1];
 
         if (results1.ok && results2.ok) {
             let deployments = await results1.json();
@@ -109,7 +115,6 @@ async function Deployments2(tradeOptions) {
                 return result;
             }, {}); //{} is the starting empty object
 
-            //let deploymentsArray = [];
             deployments.data.forEach(element => {
                 deploymentsArray.push(
                     new Deployment(element.deployment_type,
@@ -123,7 +128,6 @@ async function Deployments2(tradeOptions) {
                         element.template.user.id,
                         element.template.capital_required));
             });
-            //return deploymentsArray;
         } else {
             throw new Error('TT Api Authentication Problem');
         }
