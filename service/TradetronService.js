@@ -24,8 +24,10 @@ async function Deployments(tradeOptions) {
     let url2 = new URL(TT_URL2);
     url.searchParams.append("execution", tradeType);
     url.searchParams.append("creator_id", creatorId);
+    url.searchParams.append("per_page", 50);
     url2.searchParams.append("execution", tradeType);
     url2.searchParams.append("creator_id", creatorId);
+    url2.searchParams.append("per_page", 50);
     
     let [result1, result2] = await Promise.all([fetch(url.href, options), fetch(url2.href, options)]);
 
@@ -66,7 +68,9 @@ function Jobs (pageNumber, url1, url2) {
     let _url2 = new URL(url2.toString());
 
     _url1.searchParams.append("page", pageNumber);
+    _url1.searchParams.append("per_page", 50);
     _url2.searchParams.append("page", pageNumber);
+    _url2.searchParams.append("per_page", 50);
 
     let jobsArray = [];
     jobsArray.push(fetch(_url1.href, options));
@@ -95,7 +99,7 @@ async function Deployments2(tradeOptions) {
     resultsArray = await Promise.allSettled(jobsArray);
     let resultsArray2 = [];
     resultsArray.forEach(element => {
-        console.log(element.status);
+        //console.log(element.status);
         resultsArray2.push(element.value);
     });
 

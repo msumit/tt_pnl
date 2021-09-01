@@ -31,8 +31,8 @@
     },
     "47766": {
         "strategy_owner" : "The Professor",
-        "900979": {"name":"DW-Model 1 (500)","index":1},
-        "1000338": {"name":"DW-Model 1 (500) MIS","index":2},
+        "900979": {"name":"DW-Model1 (500)","index":1},
+        "1000338": {"name":"DW-Model1 (500) MIS","index":2},
         "1000382": {"name":"DW-Model1 (1000)-MIS","index":3,"telegram_blocked": true},
         "1000371": {"name":"DW-Model1 (750)-MIS","index":4,"telegram_blocked": true},
         "1043887": {"name":"DW-Model2 (500)","index":5},
