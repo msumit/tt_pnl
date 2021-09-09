@@ -12,14 +12,14 @@
         "1259735"   : {"name":  "GSA BNF 1 lot       ", "index":9},
         "889649"    : {"name":  "GSM BNF 4.0        ",  "index":10, "telegram_blocked": true},
         "1133922"   : {"name":  "GSA Combo 2.0    ",    "index":11},
-        "1470176"   : {"name":  "Nifty Combat",         "index":12},
+        "1470176"   : {"name":  "Nifty Combat       ",         "index":12},
         "1469549"   : {"name":  "Nifty IC",             "index": 13, "telegram_blocked": true},
         "1469538"   : {"name":  "BNF IC",               "index": 14, "telegram_blocked": true},
-        "1656696"   : {"name":  "BNF Boost {GSA BLUECHIP}","index":15},
-        "1659582"   : {"name":  "Nifty Boost {GSA BLUECHIP}","index":16},
-        "1661840"   : {"name":  "BNF Boost ~ Mini {GSA BLUECHIP}","index":17},
-        "1654857"   : {"name":  "Banknifty Loop {GSA BLUECHIP}","index":18},
-        "1654847"   : {"name":  "NIFTY Loop {GSA BLUECHIP}","index":19}
+        "1656696"   : {"name":  "BNF Boost {BLUECHIP}","index":15},
+        "1659582"   : {"name":  "Nifty Boost {BLUECHIP}","index":16},
+        "1661840"   : {"name":  "BNF Boost ~ Mini {BLUECHIP}","index":17},
+        "1654857"   : {"name":  "BNF Loop {BLUECHIP}","index":18},
+        "1654847"   : {"name":  "NIFTY Loop {BLUECHIP}","index":19}
     },
     "193528": {
         "strategy_owner" : "The Trader in Us",
