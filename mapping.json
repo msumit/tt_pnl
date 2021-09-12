@@ -141,13 +141,12 @@
         "strategy_owner" :  "Spartan Algo",
         "803238": {"name":  "Stelios(BNF)    ", "index":1},
         "814878": {"name":  "Gorgo(BNF)      ", "index":2},
-        "846468": {"name":  "Dilios(Buying)  ", "index":3},
-        "891419": {"name":  "Astinos(BNF)    ", "index":4},
-        "1100372": {"name": "Stelios(NF)     ", "index":5},
-        "1155592": {"name": "Support(BNF H)  ", "index":6},
-        "1160993": {"name": "Fighter(BNF)    ", "index":7},
-        "1343643": {"name": "Fighter(NF)     ", "index":8},
-        "1187608": {"name": "Astinos(NF)     ", "index":9}
+        "891419": {"name":  "Astinos(BNF)    ", "index":3},
+        "1100372": {"name": "Stelios(NF)     ", "index":4},
+        "1155592": {"name": "Support(BNF H)  ", "index":5},
+        "1160993": {"name": "Fighter(BNF)    ", "index":6},
+        "1343643": {"name": "Fighter(NF)     ", "index":7},
+        "1187608": {"name": "Astinos(NF)     ", "index":8}
     },
     "45210": {
         "strategy_owner" :  "Finance Acharya",
@@ -166,7 +165,12 @@
         "864458" : {"name":"GMA 11.1", "index":1}
     },
     "15425": {
-        "strategy_owner" : "Chokstock"
+        "strategy_owner" : "Chokstock",
+        "96078" : {"name":"Dynamic Twist 01", "index":1},
+        "125118" : {"name":"Khandvi BNF", "index":2},
+        "115695" : {"name":"Stealth BNF", "index":3},
+        "835288" : {"name":"Dunamis BN2", "index":4},
+        "1399479" : {"name":"Dynamic Twist 02", "index":5}
     },
     "194578": {
         "strategy_owner" : "PM",
