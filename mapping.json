@@ -131,7 +131,8 @@
         "662879"    : {"name":  "BNF HE   ","index":6},
         "687319"    : {"name":  "NFT HE   ","index":7},
         "1186079"   : {"name":  "BNF SE    ","index":8},
-        "1553809"   : {"name":  "BNF AS    ","index":9}
+        "1553809"   : {"name":  "BNF AS    ","index":9},
+        "1470528"   : {"name":  "BNF VV    ","index":10}
     },
     "223033": {
         "strategy_owner" : "Phoenix Algo",
@@ -163,11 +164,11 @@
     },
     "15425": {
         "strategy_owner" : "Chokstock",
-        "96078" : {"name":"Dynamic Twist 01", "index":1},
-        "125118" : {"name":"Khandvi BNF", "index":2},
-        "115695" : {"name":"Stealth BNF", "index":3},
-        "835288" : {"name":"Dunamis BN2", "index":4},
-        "1399479" : {"name":"Dynamic Twist 02", "index":5}
+        "489487" : {"name": "La Casa de Papel", "index":1},
+        "655895" : {"name": "DUNAMIS (BN 1LEG)", "index":2},
+        "635535" : {"name": "DUNAMIS (BN 6LEGS)", "index":3},
+        "550807" : {"name": "La Casa de Papel // NIFTY Positional (M)", "index":4},
+        "835288" : {"name":"Dunamis BN2", "index":5}
     },
     "194578": {
         "strategy_owner" : "PM",
