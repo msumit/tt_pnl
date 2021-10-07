@@ -186,7 +186,7 @@
         "strategy_owner" : "AlgoWays",
         "1678093" : {"name":"AW101","index":1},
         "1311259" : {"name":"AW102","index":2},
-        "1678092" : {"name":"AW103","index":3},
+        "1678092" : {"name":"AW103","index":3, "telegram_blocked":true},
         "1398742" : {"name":"AW104","index":4},
         "1678073" : {"name":"AW105","index":5},
         "1678063" : {"name":"AW106","index":6},
