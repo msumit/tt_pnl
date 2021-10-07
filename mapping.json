@@ -23,15 +23,15 @@
     },
     "193528": {
         "strategy_owner" : "The Trader in Us",
-        "735978":   {"name":    "Apache      ",         "index":1},
-        "738478":   {"name":    "Brahmos    ",          "index":2},
+        "735978":   {"name":    "Apache      ",         "index":1,"telegram_blocked": true},
+        "738478":   {"name":    "Brahmos    ",          "index":2,"telegram_blocked": true},
         "736538":   {"name":    "Falcon        ",       "index":3},
         "739088":   {"name":    "Amogha     ",          "index":4},
         "627223":   {"name":    "Shaurya     ",         "index":5},
         "904909":   {"name":    "Shaurya2.0",           "index":6},
         "1402504":  {"name":    "Viraat         ",      "index":7},
-        "1495443":  {"name":    "Tejas          ",      "index":8},
-        "1563863":  {"name":    "Drona          ",      "index":9}
+        "1495443":  {"name":    "Tejas          ",      "index":8,"telegram_blocked": true},
+        "1563863":  {"name":    "Drona          ",      "index":9,"telegram_blocked": true}
     },
     "47766": {
         "strategy_owner" : "The Professor",
@@ -181,5 +181,34 @@
         "1454897" : {"name":"Nifty Rapid Plus - #MoneyMachine","index":2},
         "1374234" : {"name":"Bank Nifty Far OTM Hedge - #MoneyMachineSub","index":3, "telegram_blocked":true},
         "1406805" : {"name":"Nifty Far OTM Hedge - #MoneyMachineSub","index":4, "telegram_blocked":true}
+    },
+    "64514": {
+        "strategy_owner" : "AlgoWays",
+        "1678093" : {"name":"AW101","index":1},
+        "1311259" : {"name":"AW102","index":2},
+        "1678092" : {"name":"AW103","index":3},
+        "1398742" : {"name":"AW104","index":4},
+        "1678073" : {"name":"AW105","index":5},
+        "1678063" : {"name":"AW106","index":6},
+        "1678052" : {"name":"AW107","index":7},
+        "1678050" : {"name":"AW108","index":8},
+        "1393968" : {"name":"AW109","index":9},
+        "1441829" : {"name":"AW110","index":10},
+        "1678039" : {"name":"AW111","index":11},
+        "1393407" : {"name":"AW112","index":12},
+        "1677950" : {"name":"AW113","index":13},
+        "1677940" : {"name":"AW114","index":14},
+        "1677939" : {"name":"AW115","index":15},
+        "1451454" : {"name":"AW116","index":16},
+        "1677935" : {"name":"AW117","index":17},
+        "1677925" : {"name":"AW118","index":18},
+        "1677907" : {"name":"AW119","index":19},
+        "1691436" : {"name":"AW120","index":20},
+        "1680935" : {"name":"AW121","index":21},
+        "1691448" : {"name":"AW122","index":22},
+        "1685345" : {"name":"AW131","index":23, "telegram_blocked":true},
+        "1685334" : {"name":"AW132","index":24, "telegram_blocked":true},
+        "1686041" : {"name":"AW133","index":25, "telegram_blocked":true},
+        "1693290" : {"name":"AW141-Crude","index":26}
     }
 }

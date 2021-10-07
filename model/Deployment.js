@@ -24,7 +24,9 @@ module.exports = class Deployment {
         let formattedMessage = this.pnl >= 0 ? appConfig.app.POSITIVE : appConfig.app.NEGATIVE;
         let formattedName = (this.status.search('Exited') >= 0) ? `<s>${this.getShortName()}</s>` : `${this.getShortName()}`; //Exited will have a strikethrough
         formattedMessage += ` ${formattedName} <b>${this.currency}${this.pnl}</b>`;
-        formattedMessage += ` (${(this.pnl*100/this.capitalRequired).toFixed(2)}%)`
+        formattedMessage += ` (${(this.pnl*100/this.capitalRequired).toFixed(2)}%)`;
+
+        //console.log(`"${this.strategyId}" : {"name":"${this.strategyName}","index":}`)
         
         return formattedMessage;
     }
