@@ -193,7 +193,7 @@
         "1678052" : {"name":"AW107","index":7},
         "1678050" : {"name":"AW108","index":8},
         "1393968" : {"name":"AW109","index":9},
-        "1441829" : {"name":"AW110","index":10},
+        "1441829" : {"name":"AW110","index":10, "telegram_blocked":true},
         "1678039" : {"name":"AW111","index":11},
         "1393407" : {"name":"AW112","index":12},
         "1677950" : {"name":"AW113","index":13},
