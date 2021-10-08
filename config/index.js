@@ -33,6 +33,7 @@ module.exports = {
         NEWLINES : '\r\n\r\n',
         POSITIVE :'🟢',
         NEGATIVE :'🔴',
+        BLOCKED :'🚧',
         TELEGRAM : 'Telegram',
         GSHEET : 'GSheet',
         TZ_INDIA : 'Asia/Kolkata'
