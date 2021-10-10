@@ -153,7 +153,28 @@
         "951476" : {"name":  "NNG         ", "index":2}
     },
     "68652": {
-        "strategy_owner" :  "AlgoGuru"
+        "strategy_owner" :  "AlgoGuru",
+        "238279" : {"name":"John Collins - Bank Nifty","index":1},
+        "252664" : {"name":"Tom Collins - BankNifty","index":2},
+        "254323" : {"name":"Hanky Panky - Bank Nifty","index":3},
+        "274315" : {"name":"Gin & Tonic - Bank Nifty","index":4},
+        "447782" : {"name":"Tom & Jerry - Bank Nifty","index":5},
+        "543231" : {"name":"Black Velvet - Bank Nifty","index":6},
+        "752028" : {"name":"John Collins - Bank Nifty & Nifty (Combo)","index":7},
+        "778378" : {"name":"Mystic Monk - Bank Nifty","index":8},
+        "835598" : {"name":"Tom & Jerry - Bank Nifty & Nifty (Combo)","index":9},
+        "928464" : {"name":"Black Bull - Bank Nifty","index":10},
+        "1136397" : {"name":"Red Bull - Bank Nifty","index":11},
+        "1168385" : {"name":"Black Bishop - Bank Nifty","index":12},
+        "1210620" : {"name":"Six Barrels - Bank Nifty","index":13},
+        "1210950" : {"name":"Nine Dancing Ladies - Bank Nifty","index":14},
+        "1211478" : {"name":"The Lucky Dozen - Bank Nifty","index":15},
+        "1327627" : {"name":"White Russian Bull - Bank Nifty","index":16},
+        "1532161" : {"name":"Nine Pins - Bank Nifty","index":17},
+        "1540499" : {"name":"Six in the Park - Bank Nifty","index":18},
+        "1604068" : {"name":"The French Connection (Hedge)","index":19},
+        "1672035" : {"name":"SBI Martini","index":20},
+        "759748"  : {"name":"Brave Bull - Bank Nifty","index":21}
     },
     "35879": {
         "strategy_owner" : "Jain",
@@ -206,9 +227,10 @@
         "1691436" : {"name":"AW120","index":20},
         "1680935" : {"name":"AW121","index":21},
         "1691448" : {"name":"AW122","index":22},
-        "1685345" : {"name":"AW131","index":23, "telegram_blocked":true},
-        "1685334" : {"name":"AW132","index":24, "telegram_blocked":true},
-        "1686041" : {"name":"AW133","index":25, "telegram_blocked":true},
-        "1693290" : {"name":"AW141-Crude","index":26}
+        "1695144" : {"name":"AW123","index":23},
+        "1685345" : {"name":"AW131(USD-INR)","index":24},
+        "1697882" : {"name":"AW132(GBP-INR)","index":25},
+        "1686041" : {"name":"AW133(USD-GBP INR PAIR)","index":26},
+        "1693290" : {"name":"AW141-Crude","index":27}
     }
 }
