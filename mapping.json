@@ -213,14 +213,14 @@
         "1678063" : {"name":"AW106","index":6},
         "1678052" : {"name":"AW107","index":7},
         "1678050" : {"name":"AW108","index":8},
-        "1393968" : {"name":"AW109","index":9},
+        "1702236" : {"name":"AW109","index":9},
         "1441829" : {"name":"AW110","index":10},
         "1678039" : {"name":"AW111","index":11},
         "1393407" : {"name":"AW112","index":12},
         "1677950" : {"name":"AW113","index":13},
         "1677940" : {"name":"AW114","index":14},
         "1677939" : {"name":"AW115","index":15},
-        "1451454" : {"name":"AW116","index":16},
+        "1699979" : {"name":"AW116","index":16},
         "1677935" : {"name":"AW117","index":17},
         "1699070" : {"name":"AW118","index":18},
         "1677907" : {"name":"AW119","index":19},
@@ -231,6 +231,7 @@
         "1685345" : {"name":"AW131(USD-INR)","index":24, "telegram_blocked":true},
         "1697882" : {"name":"AW132(GBP-INR)","index":25, "telegram_blocked":true},
         "1686041" : {"name":"AW133(USD-GBP INR PAIR)","index":26, "telegram_blocked":true},
-        "1693290" : {"name":"AW141-Crude","index":27}
+        "1693290" : {"name":"AW141-Crude","index":27},
+        "1699672" : {"name":"AW112A","index":28}
     }
 }
