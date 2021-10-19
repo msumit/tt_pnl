@@ -133,7 +133,7 @@
         "1186079"   : {"name":  "BNF SE    ","index":8},
         "1553809"   : {"name":  "BNF AS    ","index":9},
         "1678683"   : {"name":  "BNF CE    ","index":10},
-        "919268"    : {"name":  "OEL       ","index":11}
+        "919268"    : {"name":  "IDX OE    ","index":11}
     },
     "223033": {
         "strategy_owner" : "Phoenix Algo",
