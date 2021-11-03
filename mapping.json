@@ -168,13 +168,13 @@
         "1136397" : {"name":"Red Bull - Bank Nifty","index":11},
         "1168385" : {"name":"Black Bishop - Bank Nifty","index":12},
         "1210620" : {"name":"Six Barrels - Bank Nifty","index":13},
-        "1210950" : {"name":"Nine Dancing Ladies - Bank Nifty","index":14},
-        "1211478" : {"name":"The Lucky Dozen - Bank Nifty","index":15},
+        "1210950" : {"name":"Nine Dancing Ladies - Bank Nifty","index":14, "telegram_blocked":true},
+        "1211478" : {"name":"The Lucky Dozen - Bank Nifty","index":15, "telegram_blocked":true},
         "1327627" : {"name":"White Russian Bull - Bank Nifty","index":16},
         "1532161" : {"name":"Nine Pins - Bank Nifty","index":17},
         "1540499" : {"name":"Six in the Park - Bank Nifty","index":18},
         "1604068" : {"name":"The French Connection (Hedge)","index":19},
-        "1672035" : {"name":"SBI Martini","index":20},
+        "1672035" : {"name":"SBI Martini","index":20, "telegram_blocked":true},
         "759748"  : {"name":"Brave Bull - Bank Nifty","index":21}
     },
     "35879": {
