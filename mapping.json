@@ -232,7 +232,7 @@
         "1685345" : {"name":"AW131(USD-INR)","index":24, "telegram_blocked":true},
         "1697882" : {"name":"AW132(GBP-INR)","index":25, "telegram_blocked":true},
         "1686041" : {"name":"AW133(USD-GBP INR PAIR)","index":26, "telegram_blocked":true},
-        "1693290" : {"name":"AW141-Crude","index":27},
+        "1693290" : {"name":"AW141-Crude","index":27, "telegram_blocked":true},
         "1699672" : {"name":"AW112A","index":28},
         "1699685" : {"name":"AW113A","index":29},
         "1709121" : {"name":"AW124","index":30},
