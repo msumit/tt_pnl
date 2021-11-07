@@ -30,9 +30,7 @@
         "739088":   {"name":    "Amogha     ",          "index":4},
         "627223":   {"name":    "Shaurya     ",         "index":5},
         "904909":   {"name":    "Shaurya2.0",           "index":6},
-        "1402504":  {"name":    "Viraat         ",      "index":7},
-        "1495443":  {"name":    "Tejas          ",      "index":8,"telegram_blocked": true},
-        "1563863":  {"name":    "Drona          ",      "index":9,"telegram_blocked": true}
+        "1402504":  {"name":    "Viraat         ",      "index":7}
     },
     "47766": {
         "strategy_owner" : "The Professor",
@@ -237,6 +235,7 @@
         "1699685" : {"name":"AW113A","index":29},
         "1709121" : {"name":"AW124","index":30},
         "1709127" : {"name":"AW125","index":31},
-        "1709168" : {"name":"AW126","index":32}
+        "1709168" : {"name":"AW126","index":32},
+        "1719986" : {"name":"AW127","index":33}
     }
 }
