@@ -122,17 +122,18 @@
     },
     "198435": {
         "strategy_owner" : "Market Star",
-        "533215"    : {"name":  "BNF PE   ","index":1},
-        "688758"    : {"name":  "NFT PE    ","index":2},
+        "533215"    : {"name":  "BNF PE1  ","index":1},
+        "688758"    : {"name":  "NFT PE1   ","index":2},
         "1030951"   : {"name":  "IDX PE     ","index":3},
         "1242410"   : {"name":  "BNF PE Jr","index":4},
         "1255775"   : {"name":  "NFT PE Jr","index":5},
         "662879"    : {"name":  "BNF HE   ","index":6},
         "687319"    : {"name":  "NFT HE   ","index":7},
         "1186079"   : {"name":  "BNF SE    ","index":8},
-        "1553809"   : {"name":  "BNF AS    ","index":9},
-        "1678683"   : {"name":  "BNF CE    ","index":10},
-        "919268"    : {"name":  "IDX OE    ","index":11}
+        "1678683"   : {"name":  "BNF CE    ","index":9},
+        "919268"    : {"name":  "IDX OE    ","index":10},
+        "1711485"    : {"name":  "BNF PE2   ","index":11},
+        "1704341"    : {"name":  "NFT PE2   ","index":12}
     },
     "223033": {
         "strategy_owner" : "Phoenix Algo",
@@ -222,7 +223,7 @@
         "1699979" : {"name":"AW116","index":16},
         "1677935" : {"name":"AW117","index":17},
         "1699070" : {"name":"AW118","index":18},
-        "1677907" : {"name":"AW119","index":19},
+        "1719820" : {"name":"AW119","index":19},
         "1691436" : {"name":"AW120","index":20},
         "1680935" : {"name":"AW121","index":21},
         "1691448" : {"name":"AW122","index":22},
