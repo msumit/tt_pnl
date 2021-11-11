@@ -235,7 +235,7 @@
         "1699672" : {"name":"AW112A","index":28},
         "1699685" : {"name":"AW113A","index":29},
         "1709121" : {"name":"AW124","index":30},
-        "1709127" : {"name":"AW125","index":31},
+        "1709127" : {"name":"AW125","index":31, "telegram_blocked":true},
         "1709168" : {"name":"AW126","index":32},
         "1719986" : {"name":"AW127","index":33}
     }
