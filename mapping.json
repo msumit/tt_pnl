@@ -205,7 +205,7 @@
     },
     "64514": {
         "strategy_owner" : "AlgoWays",
-        "1678093" : {"name":"AW101","index":1},
+        "1724785" : {"name":"AW101","index":1},
         "1311259" : {"name":"AW102","index":2},
         "1699067" : {"name":"AW103","index":3},
         "1398742" : {"name":"AW104","index":4},
@@ -237,6 +237,8 @@
         "1709121" : {"name":"AW124","index":30},
         "1709127" : {"name":"AW125","index":31, "telegram_blocked":true},
         "1709168" : {"name":"AW126","index":32},
-        "1719986" : {"name":"AW127","index":33}
+        "1719986" : {"name":"AW127","index":33},
+        "1725097" : {"name":"AW128","index":34},
+        "1725407" : {"name":"AW129","index":35}
     }
 }
