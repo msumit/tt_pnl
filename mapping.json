@@ -210,18 +210,18 @@
         "1699067" : {"name":"AW103","index":3},
         "1398742" : {"name":"AW104","index":4},
         "1678073" : {"name":"AW105","index":5},
-        "1678063" : {"name":"AW106","index":6},
+        "1730023" : {"name":"AW106","index":6},
         "1678052" : {"name":"AW107","index":7},
         "1678050" : {"name":"AW108","index":8},
-        "1702236" : {"name":"AW109","index":9},
+        "1730363" : {"name":"AW109","index":9},
         "1441829" : {"name":"AW110","index":10},
         "1678039" : {"name":"AW111","index":11},
         "1393407" : {"name":"AW112","index":12},
         "1677950" : {"name":"AW113","index":13},
         "1677940" : {"name":"AW114","index":14},
-        "1677939" : {"name":"AW115","index":15},
+        "1730549" : {"name":"AW115","index":15},
         "1699979" : {"name":"AW116","index":16},
-        "1677935" : {"name":"AW117","index":17},
+        "1726712" : {"name":"AW117","index":17},
         "1699070" : {"name":"AW118","index":18},
         "1719820" : {"name":"AW119","index":19},
         "1691436" : {"name":"AW120","index":20},
@@ -235,10 +235,13 @@
         "1699672" : {"name":"AW112A","index":28},
         "1699685" : {"name":"AW113A","index":29},
         "1709121" : {"name":"AW124","index":30},
-        "1709127" : {"name":"AW125","index":31, "telegram_blocked":true},
+        "1730543" : {"name":"AW125","index":31},
         "1709168" : {"name":"AW126","index":32},
-        "1719986" : {"name":"AW127","index":33},
+        "1730523" : {"name":"AW127","index":33},
         "1725097" : {"name":"AW128","index":34},
-        "1725407" : {"name":"AW129","index":35}
+        "1728634" : {"name":"AW129","index":35}
+    },
+    "158899" : {
+        "strategy_owner" : "The Veteran Investments"
     }
 }
