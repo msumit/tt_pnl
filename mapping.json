@@ -177,8 +177,17 @@
         "759748"  : {"name":"Brave Bull - Bank Nifty","index":21}
     },
     "35879": {
-        "strategy_owner" : "Jain",
-        "1502714": {"name": "PMS", "index": 1}
+        "strategy_owner" : "Saurabh Jain",
+        "882319": {"name": "Ambani", "index": 1},
+        "937330": {"name": "Adani", "index": 2},
+        "994992": {"name": "Modi", "index": 3},
+        "999546": {"name": "Yogi", "index": 4},
+        "1497093": {"name": "Shah", "index": 5},
+        "1739556": {"name": "Gadkari", "index": 6},
+        "1739773": {"name": "Modi T2", "index": 7},
+        "1502714": {"name": "PMS", "index": 8},
+        "1664377": {"name": "Mini India", "index": 9},
+        "1740166": {"name": "Damani", "index": 10}
     },
     "36113": {
         "strategy_owner" : "GrowMoney",
