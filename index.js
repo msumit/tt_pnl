@@ -174,7 +174,8 @@ app.post('/tt-daySetup', authorizedMW, bodyChecker2MW,
         //Create the google sheet for today
         const { gSheetId, rowIndex } = req.query;
         gSheetService.CreateSheet({ gSheetId: gSheetId, rowIndex: rowIndex }).then(result => {
-            publisherService.Publish({ transporter: appConfig.app.TELEGRAM, message: `Daily Sheet creation successful for ${gSheetId}`, chatId: appConfig.telegram.debugChatId });
+            //publisherService.Publish({ transporter: appConfig.app.TELEGRAM, message: `Daily Sheet creation successful for ${gSheetId}`, chatId: appConfig.telegram.debugChatId });
+            console.log(`Daily Sheet creation successful for ${gSheetId}`);
         }).catch(e => {
             console.log(e.message);
             publisherService.Publish({ transporter: appConfig.app.TELEGRAM, message: e.message, chatId: appConfig.telegram.debugChatId });
