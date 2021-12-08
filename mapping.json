@@ -248,7 +248,7 @@
         "1700033" : {"name":"AW126","index":32},
         "1730523" : {"name":"AW127","index":33},
         "1725097" : {"name":"AW128","index":34},
-        "1741505" : {"name":"AW129","index":35},
+        "1741505" : {"name":"AW129","index":35, "telegram_blocked":true},
         "1742834" : {"name":"AW130","index":36},
         "1742875" : {"name":"AW131","index":37}
     },
