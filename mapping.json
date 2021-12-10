@@ -20,7 +20,8 @@
         "1661840"   : {"name":  "BNF Boost ~ Mini {BLUECHIP}","index":17},
         "1654857"   : {"name":  "BNF Loop {BLUECHIP}","index":18},
         "1654847"   : {"name":  "NIFTY Loop {BLUECHIP}","index":19},
-        "1657577"   : {"name":  "GSA BNF Smart 3.0   ","index":20}
+        "1657577"   : {"name":  "GSA BNF Smart 3.0   ","index":20},
+        "1716158"   : {"name":  "Shades of BNF Smart 3.0","index":21}
     },
     "193528": {
         "strategy_owner" : "The Trader in Us",
