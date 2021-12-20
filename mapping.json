@@ -255,7 +255,7 @@
     },
     "158899" : {
         "strategy_owner" : "The Veteran Investments",
-        "1686660" : {"name":"BUSINESS WITH NIFTY","index":1, "telegram_blocked":true}
+        "1686660" : {"name":"BUSINESS WITH NIFTY","index":1, "telegram_blocked":false}
     },
     "105846" : {
         "strategy_owner" : "iFinstrats",
