@@ -216,7 +216,7 @@
     "64514": {
         "strategy_owner" : "AlgoWays",
         "1755357" : {"name":"AW101","index":1},
-        "1311259" : {"name":"AW102","index":2},
+        "1756389" : {"name":"AW102","index":2},
         "1699067" : {"name":"AW103","index":3},
         "1398742" : {"name":"AW104","index":4},
         "1741684" : {"name":"AW105","index":5},
@@ -260,7 +260,6 @@
     "105846" : {
         "strategy_owner" : "iFinstrats",
         "1376269" : {"name":"MarginBooster","index":1},
-        "1519555" : {"name":"Sapper","index":2},
-        "1701885" : {"name":"Scalper","index":3}
+        "1519555" : {"name":"Sapper","index":2}
     }
 }
