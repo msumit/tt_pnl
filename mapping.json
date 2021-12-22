@@ -132,7 +132,7 @@
         "687319"    : {"name":  "NFT HE   ","index":7},
         "1186079"   : {"name":  "BNF SE    ","index":8},
         "1678683"   : {"name":  "BNF CE    ","index":9},
-        "919268"    : {"name":  "IDX OE    ","index":10},
+        "919268"    : {"name":  "IDX OE    ","index":10, "kindOf": "positional"},
         "1711485"    : {"name":  "BNF PE2   ","index":11},
         "1704341"    : {"name":  "NFT PE2   ","index":12}
     },
@@ -199,7 +199,7 @@
         "489487" : {"name": "La Casa de Papel", "index":1},
         "655895" : {"name": "DUNAMIS (BN 1LEG)", "index":2},
         "635535" : {"name": "DUNAMIS (BN 6LEGS)", "index":3},
-        "550807" : {"name": "La Casa de Papel // NIFTY Positional (M)", "index":4},
+        "550807" : {"name": "La Casa de Papel // NIFTY Positional (M)", "index":4, "kindOf": "positional"},
         "835288" : {"name":"Dunamis BN2", "index":5}
     },
     "194578": {
@@ -255,7 +255,11 @@
     },
     "158899" : {
         "strategy_owner" : "The Veteran Investments",
-        "1686660" : {"name":"BUSINESS WITH NIFTY","index":1, "telegram_blocked":false}
+        "745058" : {"name":"BRAHMOS","index":1, "kindOf": "positional"},
+        "1182465" : {"name":"STAIRCASE - NIFTY","index":2},
+        "1686660" : {"name":"BUSINESS WITH NIFTY","index":3, "kindOf": "positional"},
+        "1704902" : {"name":"MERCY KILLER","index":4, "kindOf": "positional"},
+        "1729958" : {"name":"DEAD CAT BOUNCE","index":5}
     },
     "105846" : {
         "strategy_owner" : "iFinstrats",
