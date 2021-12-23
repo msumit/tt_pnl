@@ -21,7 +21,8 @@
         "1654857"   : {"name":  "BNF Loop {BLUECHIP}","index":18},
         "1654847"   : {"name":  "NIFTY Loop {BLUECHIP}","index":19},
         "1657577"   : {"name":  "GSA BNF Smart 3.0   ","index":20},
-        "1716158"   : {"name":  "Shades of BNF Smart 3.0","index":21}
+        "1716158"   : {"name":  "Shades of BNF Smart 3.0","index":21},
+        "1755089"   : {"name":  "Index Theta Compounder","index":22}
     },
     "193528": {
         "strategy_owner" : "The Trader in Us",
