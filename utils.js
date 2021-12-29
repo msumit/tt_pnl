@@ -102,6 +102,14 @@ function columnName(columnInteger) {
     return sCol;
 }
 
+function positionalPNL(deployment) {
+    //let latestPNL = deployment.filtered_run_counter[deployment.filtered_run_counter.length - deployment.run_counter].pnl;
+    let runningCounter = deployment.filtered_run_counter.length - deployment.run_counter;
+    latestPNL = (runningCounter != -1) ? deployment.filtered_run_counter[runningCounter].pnl : 0;
+    console.log('latest PNL ' + latestPNL);
+    return latestPNL;
+}
+
 module.exports = {
     getDatestamp,
     getRangeName,
@@ -111,5 +119,6 @@ module.exports = {
     withinTradingHours,
     deploymentsFormattedText,
     quoteFormattedText,
-    columnName
+    columnName,
+    positionalPNL
 };

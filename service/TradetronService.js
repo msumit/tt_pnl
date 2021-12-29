@@ -2,6 +2,7 @@ const appConfig = require("../config");
 const fetch = require('node-fetch');
 const Deployment = require("../model/Deployment");
 const Strategy = require("../model/Strategy");
+const utils = require("../utils");
 
 /* Tradetron service
 Wrappers on api calls to get the deployment values
@@ -50,7 +51,7 @@ async function Deployments(tradeOptions) {
                 new Deployment(element.deployment_type,
                     element.id,
                     element.status,
-                    st.isPositionalStrategy() ? element.sum_of_pnl : npos[element.id], // ( if type == positional use element.sum_of_pnl or npos[element.id])
+                    st.isPositionalStrategy() ? utils.positionalPNL(element) : npos[element.id], // ( if type == positional use element.sum_of_pnl or npos[element.id])
                     element.currency,
                     element.template.id,
                     element.template.name,

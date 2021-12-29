@@ -22,6 +22,7 @@ module.exports = class Deployment {
     */
     toString = () => {
         let formattedMessage = this.pnl >= 0 ? appConfig.app.POSITIVE : appConfig.app.NEGATIVE;
+        if (this.pnl == 0) formattedMessage = appConfig.app.ZERO;
         formattedMessage = (this.status.search('Blocked') >= 0) ? appConfig.app.BLOCKED : formattedMessage;
         let formattedName = (this.status.search('Exited') >= 0) ? `<s>${this.getShortName()}</s>` : `${this.getShortName()}`; //Exited will have a strikethrough
         formattedMessage += ` ${formattedName} <b>${this.currency}${this.pnl}</b>`;
