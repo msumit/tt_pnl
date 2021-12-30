@@ -84,8 +84,8 @@ app.get('/',
 
 app.post('/pnl-telegram', authorizedMW, tradeTimeCheckerMW, bodyCheckerMW, bodyChecker3MW,
     async (req, res) => {
-        const { tradeType, creatorId, telegramChatId } = req.query;
-        ttService.Deployments({ tradeType, creatorId }).then(result => {
+        const { tradeType, creatorId, telegramChatId, shared } = req.query;
+        ttService.Deployments({ tradeType, creatorId, shared }).then(result => {
             message = utils.deploymentsFormattedText(result, tradeType, creatorId);
             publisherService.Publish({ transporter: appConfig.app.TELEGRAM, message: message, chatId: telegramChatId });
         }).catch(e => {
@@ -116,8 +116,8 @@ app.post('/pnl-telegram2', authorizedMW, tradeTimeCheckerMW, bodyCheckerMW, body
 
 app.post('/pnl-gsheet', authorizedMW, tradeTimeCheckerMW, bodyCheckerMW, bodyChecker2MW,
     async (req, res, next) => {
-        const { tradeType, creatorId, gSheetId } = req.query;
-        ttService.Deployments({ tradeType, creatorId }).then(result => {
+        const { tradeType, creatorId, gSheetId, shared } = req.query;
+        ttService.Deployments({ tradeType, creatorId, shared }).then(result => {
             publisherService.Publish({ transporter: appConfig.app.GSHEET, data: result, gSheetId: gSheetId });
         }).catch(e => {
             console.log(e.message);

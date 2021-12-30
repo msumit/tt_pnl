@@ -64,13 +64,7 @@ function deploymentsFormattedText(data, tradeType, creatorId) {
     let summaryText = (total_pnl >= 0) ? appConfig.app.POSITIVE : appConfig.app.NEGATIVE;
     summaryText += ` ${tradeTypeObj[tradeType]} PNL • <b> ₹ ${total_pnl}</b> (${roi}%)${appConfig.app.NEWLINES}`;
 
-    let footer = '';
-    //Add footer text only for PT trades as these are done for Strategy owners
-    if(tradeTypeObj[tradeType] == 'PT') {
-        footer = `<i>${appConfig.app.NEWLINE} ${mapper?.[creatorId]?.strategy_owner || '🏁'} • ${getDateTimestamp()}</i>`;
-    } else {
-        footer = `<i>${appConfig.app.NEWLINE}${getDateTimestamp()}</i>`;
-    }
+    let footer = `<i>${appConfig.app.NEWLINE} ${mapper?.[creatorId]?.strategy_owner || '🏁'} • ${getDateTimestamp()}</i>`;
 
     formattedText = summaryText + formattedText + footer;
     return formattedText;

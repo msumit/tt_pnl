@@ -12,6 +12,9 @@ Wrappers on api calls to get the deployment values
 const TT_URL = 'https://tradetron.tech/api/deployed-strategies';
 const TT_URL2 = 'https://tradetron.tech/api/deployed/margin';
 
+const TT_SHARED_URL = 'https://tradetron.tech/api/shared-strategies';
+const TT_SHARED_URL2 = 'https://tradetron.tech/api/shared-strategies-margin';
+
 const options = {
     headers: {
         'Accept': 'application/json',
@@ -21,21 +24,25 @@ const options = {
 }
 
 async function Deployments(tradeOptions) {
-    const {tradeType, creatorId} = tradeOptions;
-    let url = new URL(TT_URL);
-    let url2 = new URL(TT_URL2);
+    const {tradeType, creatorId, shared} = tradeOptions;
+    
+    let url = (shared == "1") ? new URL(TT_SHARED_URL): new URL(TT_URL);
+    let url2 = (shared == "1") ? new URL(TT_SHARED_URL2): new URL(TT_URL2);
     url.searchParams.append("execution", tradeType);
     url.searchParams.append("creator_id", creatorId);
     url.searchParams.append("per_page", 50);
+    if(shared == "1") url.searchParams.append("type", "Shared with me");
     url2.searchParams.append("execution", tradeType);
     url2.searchParams.append("creator_id", creatorId);
     url2.searchParams.append("per_page", 50);
-    
+    if(shared == "1") url2.searchParams.append("type", "Shared with me");
+
     let [result1, result2] = await Promise.all([fetch(url.href, options), fetch(url2.href, options)]);
 
     if (result1.ok && result2.ok) {
         let deployments = await result1.json();
         let positions = await result2.json();
+
         //Every position will have a strategy id, thus we need to be reduce to reverse the object. We need total pnl of all positions per strategy
         cpos = positions?.data?.combined_position || [];
         let npos = cpos.reduce((result, currentValue) => {
@@ -47,11 +54,13 @@ async function Deployments(tradeOptions) {
         let deploymentsArray = [];
         deployments.data.forEach(element => {
             let st = new Strategy(element.template.id, element.template.user.id);
+            let pnl = st.isPositionalStrategy() ? utils.positionalPNL(element) : npos[element.id];
+            pnl = pnl/element.minimum_multiple;
             deploymentsArray.push(
                 new Deployment(element.deployment_type,
                     element.id,
                     element.status,
-                    st.isPositionalStrategy() ? utils.positionalPNL(element) : npos[element.id], // ( if type == positional use element.sum_of_pnl or npos[element.id])
+                    pnl,
                     element.currency,
                     element.template.id,
                     element.template.name,

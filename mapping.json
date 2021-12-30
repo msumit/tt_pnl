@@ -124,18 +124,14 @@
     },
     "198435": {
         "strategy_owner" : "Market Star",
-        "533215"    : {"name":  "BNF PE1  ","index":1},
-        "688758"    : {"name":  "NFT PE1   ","index":2},
-        "1030951"   : {"name":  "IDX PE     ","index":3},
-        "1242410"   : {"name":  "BNF PE Jr","index":4},
-        "1255775"   : {"name":  "NFT PE Jr","index":5},
-        "662879"    : {"name":  "BNF HE   ","index":6},
-        "687319"    : {"name":  "NFT HE   ","index":7},
-        "1186079"   : {"name":  "BNF SE    ","index":8},
-        "1678683"   : {"name":  "BNF CE    ","index":9},
-        "919268"    : {"name":  "IDX OE    ","index":10, "kindOf": "positional"},
-        "1711485"    : {"name":  "BNF PE2   ","index":11},
-        "1704341"    : {"name":  "NFT PE2   ","index":12}
+        "1030951"   : {"name":  "IDX PE     ","index":1},
+        "1242410"   : {"name":  "BNF PE Jr","index":2},
+        "1255775"   : {"name":  "NFT PE Jr","index":3},
+        "1186079"   : {"name":  "BNF SE    ","index":4},
+        "1678683"   : {"name":  "BNF CE   ","index":5},
+        "1711485"   : {"name":  "BNF PE2  ","index":6},
+        "1704341"   : {"name":  "NFT PE2  ","index":7},
+        "838558"    : {"name":  "IDX OEU  ","index":8, "kindOf": "positional"}
     },
     "223033": {
         "strategy_owner" : "Phoenix Algo",
