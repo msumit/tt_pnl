@@ -176,16 +176,16 @@
     },
     "35879": {
         "strategy_owner" : "Saurabh Jain",
-        "882319": {"name": "Ambani", "index": 1},
-        "937330": {"name": "Adani", "index": 2},
-        "994992": {"name": "Modi", "index": 3},
-        "999546": {"name": "Yogi", "index": 4},
-        "1497093": {"name": "Shah", "index": 5},
-        "1739556": {"name": "Gadkari", "index": 6},
-        "1739773": {"name": "Modi T2", "index": 7},
-        "1502714": {"name": "PMS", "index": 8},
-        "1664377": {"name": "Mini India", "index": 9},
-        "1740166": {"name": "Damani", "index": 10}
+        "994992":   {"name": "Modi", "index": 1},
+        "1766534":  {"name": "Shah", "index": 2},
+        "1766238":  {"name": "Rolling Roll", "index": 3},
+        "1766240":  {"name": "V2 G2", "index": 4},
+        "1739556":  {"name": "Gadkari", "index": 5},
+        "1102418":  {"name": "Tata", "index": 6},
+        "1766309":  {"name": "Nifty Intraday", "index": 7},
+        "1766548":  {"name": "Unicorn", "index": 8},
+        "1502714":  {"name": "PMS", "index": 9},
+        "1664377":  {"name": "Mini India", "index": 10}
     },
     "36113": {
         "strategy_owner" : "GrowMoney",
@@ -193,11 +193,11 @@
     },
     "15425": {
         "strategy_owner" : "Chokstock",
-        "489487" : {"name": "La Casa de Papel", "index":1},
-        "655895" : {"name": "DUNAMIS (BN 1LEG)", "index":2},
-        "635535" : {"name": "DUNAMIS (BN 6LEGS)", "index":3},
+        "125118" : {"name": "KHANDVI // BN", "index":1},
+        "310218" : {"name": "Wind Break // BN", "index":2},
+        "489487" : {"name": "La Casa de Papel // BN", "index":3},
         "550807" : {"name": "La Casa de Papel // NIFTY Positional (M)", "index":4, "kindOf": "positional"},
-        "835288" : {"name":"Dunamis BN2", "index":5}
+        "1184931" : {"name": "BUY OTM (BN)", "index":5, "kindOf": "positional"}
     },
     "194578": {
         "strategy_owner" : "PM",
@@ -261,6 +261,9 @@
     "105846" : {
         "strategy_owner" : "iFinstrats",
         "1376269" : {"name":"MarginBooster","index":1},
-        "1519555" : {"name":"Sapper","index":2}
+        "1765794" : {"name":"IFS 1 (9:18)","index":2},
+        "1765789" : {"name":"IFS 2 (9:23)","index":3},
+        "1765792" : {"name":"IFS 3 (9:46)","index":4},
+        "1765793" : {"name":"IFS 4 (9:53)","index":5}
     }
 }
