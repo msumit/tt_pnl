@@ -197,7 +197,7 @@
         "310218" : {"name": "Wind Break // BN", "index":2},
         "489487" : {"name": "La Casa de Papel // BN", "index":3},
         "550807" : {"name": "La Casa de Papel // NIFTY Positional (M)", "index":4, "kindOf": "positional"},
-        "1184931" : {"name": "BUY OTM (BN)", "index":5, "kindOf": "positional"}
+        "1184931" : {"name": "BUY OTM (BN)", "index":5}
     },
     "194578": {
         "strategy_owner" : "PM",
