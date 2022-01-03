@@ -84,8 +84,8 @@ app.get('/',
 
 app.post('/pnl-telegram', authorizedMW, tradeTimeCheckerMW, bodyCheckerMW, bodyChecker3MW,
     async (req, res) => {
-        const { tradeType, creatorId, telegramChatId, shared } = req.query;
-        ttService.Deployments({ tradeType, creatorId, shared }).then(result => {
+        const { tradeType, creatorId, telegramChatId, shared, normalisedPNL } = req.query;
+        ttService.Deployments({ tradeType, creatorId, shared, normalisedPNL }).then(result => {
             message = utils.deploymentsFormattedText(result, tradeType, creatorId);
             publisherService.Publish({ transporter: appConfig.app.TELEGRAM, message: message, chatId: telegramChatId });
         }).catch(e => {

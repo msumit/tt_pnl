@@ -24,7 +24,7 @@ const options = {
 }
 
 async function Deployments(tradeOptions) {
-    const {tradeType, creatorId, shared} = tradeOptions;
+    const {tradeType, creatorId, shared, normalisedPNL} = tradeOptions;
     
     let url = (shared == "1") ? new URL(TT_SHARED_URL): new URL(TT_URL);
     let url2 = (shared == "1") ? new URL(TT_SHARED_URL2): new URL(TT_URL2);
@@ -55,7 +55,7 @@ async function Deployments(tradeOptions) {
         deployments.data.forEach(element => {
             let st = new Strategy(element.template.id, element.template.user.id);
             let pnl = st.isPositionalStrategy() ? utils.positionalPNL(element) : npos[element.id];
-            pnl = pnl/element.minimum_multiple;
+            pnl = pnl/((normalisedPNL == "0") ? 1 : element.minimum_multiple); //normalise the pnl always except when 0 is passed. Chockstock needs multipleX values
             deploymentsArray.push(
                 new Deployment(element.deployment_type,
                     element.id,
