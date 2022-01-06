@@ -99,8 +99,14 @@ function columnName(columnInteger) {
 function positionalPNL(deployment) {
     //let latestPNL = deployment.filtered_run_counter[deployment.filtered_run_counter.length - deployment.run_counter].pnl;
     let runningCounter = deployment.filtered_run_counter.length - deployment.run_counter;
-    latestPNL = (runningCounter != -1) ? deployment.filtered_run_counter[runningCounter].pnl : 0;
-    console.log('latest PNL ' + latestPNL);
+    //if runningCounter is less than 0 then it means the all positions are sqauared off and waiting for new position. In this case, report pnl as 0.
+    //for positional strategies which are running, runningCounter will be 0. In this case sum all the pnl of calculated_positions
+    let latestPNL = 0; //default case
+    if(runningCounter >=0){
+        deployment.calculated_positions.forEach(element => {
+            latestPNL += element.pnl;
+        });
+    }
     return latestPNL;
 }
 
