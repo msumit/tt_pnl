@@ -5,7 +5,7 @@ dotenv.config();
 module.exports = {
     port: process.env.PORT,
     tradetron: {
-        cookie: process.env.TT_COOKIE,
+        cookie: `tradetron_session=${process.env.TT_COOKIE}`,
     },
     telegram: {
         debugChatId: process.env.TELEGRAM_CHAT_ID_DEBUG,
