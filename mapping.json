@@ -267,5 +267,11 @@
         "1768668" : {"name":"IFS 2 (9:23)","index":3},
         "1765792" : {"name":"IFS 3 (9:46)","index":4},
         "1765793" : {"name":"IFS 4 (9:53)","index":5}
+    },
+    "720279" : {
+        "strategy_owner" : "Algo Edge Capital",
+        "1697528" : {"name":"Passive Income","index":1},
+        "1725956" : {"name":"Consistent","index":2},
+        "1739546" : {"name":"BNF - Limited Cap","index":3}
     }
 }
