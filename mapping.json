@@ -175,7 +175,8 @@
         "1604068" : {"name":"The French Connection (Hedge)","index":19, "telegram_blocked":true},
         "1672035" : {"name":"SBI Martini","index":20, "telegram_blocked":true},
         "759748"  : {"name":"Brave Bull - Bank Nifty","index":21},
-        "1759805" : {"name":"Bulls of Chicago - Bank Nifty", "index":22}
+        "1759805" : {"name":"Bulls of Chicago - Bank Nifty", "index":22},
+        "1727242" : {"name":"The French Connection", "index":23}
     },
     "35879": {
         "strategy_owner" : "Saurabh Jain",
