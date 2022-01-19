@@ -176,7 +176,10 @@
         "1672035" : {"name":"SBI Martini","index":20, "telegram_blocked":true},
         "759748"  : {"name":"Brave Bull - Bank Nifty","index":21},
         "1759805" : {"name":"Bulls of Chicago - Bank Nifty", "index":22},
-        "1727242" : {"name":"The French Connection", "index":23}
+        "1727242" : {"name":"The French Connection", "index":23},
+        "1695179" : {"name":"Silver Scalper BNF Type 2", "index":24},
+        "1738314" : {"name":"Gold Scalper BNF Type 2", "index":25},
+        "1681490" : {"name":"Silver Scalper BNF Type 7", "index":26}
     },
     "35879": {
         "strategy_owner" : "Saurabh Jain",
