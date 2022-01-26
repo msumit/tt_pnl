@@ -24,7 +24,10 @@ module.exports = class Deployment {
         let formattedMessage = this.pnl >= 0 ? appConfig.app.POSITIVE : appConfig.app.NEGATIVE;
         if (this.pnl == 0) formattedMessage = appConfig.app.ZERO;
         formattedMessage = (this.status.search('Blocked') >= 0) ? appConfig.app.BLOCKED : formattedMessage;
-        let formattedName = (this.status.search('Exited') >= 0) ? `<s>${this.getShortName()}</s>` : `${this.getShortName()}`; //Exited will have a strikethrough
+        let strategyUrl = `https://tradetron.tech/strategy/${this.strategyId}`;
+        let fStrategyUrl = `<a href='${strategyUrl}'>${this.getShortName()}</a>`;
+        //Exited will have a strikethrough
+        let formattedName = (this.status.search('Exited') >= 0) ? `<s>${fStrategyUrl}</s>` : `${fStrategyUrl}`;
         formattedMessage += ` ${formattedName} <b>${this.currency}${this.pnl}</b>`;
         formattedMessage += ` (${(this.pnl*100/this.capitalRequired).toFixed(2)}%)`;
 
