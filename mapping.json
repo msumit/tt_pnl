@@ -127,12 +127,12 @@
     "198435": {
         "strategy_owner" : "Market Star",
         "1030951"   : {"name":  "IDX PE     ","index":1},
-        "1242410"   : {"name":  "BNF PE Jr","index":2},
-        "1255775"   : {"name":  "NFT PE Jr","index":3},
-        "1186079"   : {"name":  "BNF SE    ","index":4},
-        "1678683"   : {"name":  "BNF CE   ","index":5},
-        "1711485"   : {"name":  "BNF PE2  ","index":6},
-        "1704341"   : {"name":  "NFT PE2  ","index":7},
+        "1711485"   : {"name":  "BNF PE    ","index":2},
+        "1704341"   : {"name":  "NFT PE    ","index":3},
+        "1678683"   : {"name":  "BNF CE    ","index":4},
+        "1242410"   : {"name":  "BNF PE Jr ","index":5},
+        "1255775"   : {"name":  "NFT PE Jr ","index":6},
+        "1186079"   : {"name":  "BNF SE    ","index":7},
         "838558"    : {"name":  "IDX OEU  ","index":8, "kindOf": "positional"}
     },
     "223033": {
