@@ -50,6 +50,7 @@ function deploymentsFormattedText(data, tradeType, creatorId) {
     let formattedText = '';
     let total_pnl = 0;
     let total_capital = 0;
+    data.sort(sortByIndex()); // sort based on the index present in mapping.json. Some items that are not present will be pushed to back
     data.forEach(deployment => { //Returns a Deployment object
         if (deployment.reportable({telegramCheck:true})) {
             formattedText += (deployment.toString() + appConfig.app.NEWLINE);
@@ -108,6 +109,17 @@ function positionalPNL(deployment) {
         });
     }
     return latestPNL;
+}
+
+//sorting for deployments based on their index
+function sortByIndex() {
+    return function (a, b) {
+        if (a.getIndex() > b.getIndex())
+            return 1;
+        else if (a.getIndex() < b.getIndex())
+            return -1;
+        return 0;
+    }
 }
 
 module.exports = {
