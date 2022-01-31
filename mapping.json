@@ -280,7 +280,6 @@
         "strategy_owner" : "Algo Edge Capital",
         "1697528" : {"name":"Passive Income","index":1},
         "1725956" : {"name":"Consistent","index":2},
-        "1739546" : {"name":"BNF - Limited Cap","index":3},
-        "1777316" : {"name":"Dynamic","index":4}
+        "1739546" : {"name":"BNF - Limited Cap","index":3}
     }
 }
