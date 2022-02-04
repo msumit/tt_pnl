@@ -130,10 +130,11 @@
         "1711485"   : {"name":  "BNF PE    ","index":2},
         "1704341"   : {"name":  "NFT PE    ","index":3},
         "1678683"   : {"name":  "BNF CE    ","index":4},
-        "1242410"   : {"name":  "BNF PE Jr ","index":5},
-        "1255775"   : {"name":  "NFT PE Jr ","index":6},
-        "1186079"   : {"name":  "BNF SE    ","index":7},
-        "838558"    : {"name":  "IDX OEU  ","index":8, "kindOf": "positional"}
+        "1795692"   : {"name":  "BNF JCE  ","index":5},
+        "1242410"   : {"name":  "BNF PE Jr ","index":6},
+        "1255775"   : {"name":  "NFT PE Jr ","index":7},
+        "1186079"   : {"name":  "BNF SE    ","index":8},
+        "838558"    : {"name":  "IDX OEU  ","index":9, "kindOf": "positional"}
     },
     "223033": {
         "strategy_owner" : "Phoenix Algo",
