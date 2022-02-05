@@ -37,6 +37,7 @@ module.exports = {
         BLOCKED :'🚧',
         TELEGRAM : 'Telegram',
         GSHEET : 'GSheet',
-        TZ_INDIA : 'Asia/Kolkata'
+        TZ_INDIA : 'Asia/Kolkata',
+        FORCE_WORKING : process.env.FORCE_WORKING
     }
 }

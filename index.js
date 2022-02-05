@@ -39,6 +39,9 @@ let authorizedMW = (req, res, next) => {
 
 //Middleware to check holiday and trade working hours
 let tradeTimeCheckerMW = (req, res, next) => {
+    if(appConfig.app.FORCE_WORKING) {
+        return next()
+    }
     if (!utils.isHoliday() && utils.withinTradingHours()) {
         return next()
     }
