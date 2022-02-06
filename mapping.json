@@ -213,10 +213,10 @@
     },
     "349448": {
         "strategy_owner" : "Algos with Ankur",
-        "1412283" : {"name":"Bank Nifty Rapid Plus - #MoneyMachine","index":1},
-        "1454897" : {"name":"Nifty Rapid Plus - #MoneyMachine","index":2},
-        "1374234" : {"name":"Bank Nifty Far OTM Hedge - #MoneyMachineSub","index":3, "telegram_blocked":true},
-        "1406805" : {"name":"Nifty Far OTM Hedge - #MoneyMachineSub","index":4, "telegram_blocked":true}
+        "1765541" : {"name":"BNF Pro Ranger","index":1},
+        "1789358" : {"name":"NF Pro Ranger","index":2},
+        "1781728" : {"name":"Index Salsa","index":3},
+        "1790414" : {"name":"NF Directional Earner","index":4}
     },
     "64514": {
         "strategy_owner" : "AlgoWays",
