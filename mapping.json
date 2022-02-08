@@ -186,14 +186,12 @@
         "strategy_owner" : "Saurabh Jain",
         "994992":   {"name": "Modi", "index": 1},
         "1766534":  {"name": "Shah", "index": 2},
-        "1766238":  {"name": "Rolling Roll", "index": 3},
-        "1766240":  {"name": "V2 G2", "index": 4},
-        "1739556":  {"name": "Gadkari", "index": 5},
-        "1102418":  {"name": "Tata", "index": 6},
-        "1766309":  {"name": "Nifty Intraday", "index": 7},
-        "1766548":  {"name": "Unicorn", "index": 8},
-        "1502714":  {"name": "PMS", "index": 9},
-        "1664377":  {"name": "Mini India", "index": 10}
+        "1766240":  {"name": "V2 G2", "index": 3},
+        "1739556":  {"name": "Gadkari", "index": 4},
+        "1766309":  {"name": "Nifty Intraday", "index": 5},
+        "1766548":  {"name": "Unicorn", "index": 6},
+        "1502714":  {"name": "PMS", "index": 7},
+        "1776886":  {"name": "Punter Power", "index": 8}
     },
     "36113": {
         "strategy_owner" : "GrowMoney",
