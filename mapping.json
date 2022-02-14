@@ -269,11 +269,11 @@
     },
     "729658" : {
         "strategy_owner" : "iFinstrats",
-        "1774552" : {"name":"MarginBooster","index":1},
-        "1768613" : {"name":"IFS 1 (9:18)","index":2},
-        "1768668" : {"name":"IFS 2 (9:23)","index":3},
-        "1765792" : {"name":"IFS 3 (9:46)","index":4},
-        "1765793" : {"name":"IFS 4 (9:53)","index":5}
+        "1810055" : {"name":"MarginBooster","index":1},
+        "1814744" : {"name":"IFS 1 (9:18)","index":2},
+        "1814777" : {"name":"IFS 2 (9:23)","index":3},
+        "1814778" : {"name":"IFS 3 (9:46)","index":4},
+        "1814779" : {"name":"IFS 4 (9:53)","index":5}
     },
     "720279" : {
         "strategy_owner" : "Algo Edge Capital",
