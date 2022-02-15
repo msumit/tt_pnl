@@ -56,6 +56,7 @@ async function Deployments(tradeOptions) {
             let st = new Strategy(element.template.id, element.template.user.id);
             let pnl = st.isPositionalStrategy() ? utils.positionalPNL(element) : npos[element.id];
             pnl = pnl/((normalisedPNL == "0") ? 1 : element.minimum_multiple); //normalise the pnl always except when 0 is passed. Chockstock needs multipleX values
+            let capital_required = element.template.capital_required * (normalisedPNL == "0" ? element.minimum_multiple : 1);
             deploymentsArray.push(
                 new Deployment(element.deployment_type,
                     element.id,
@@ -66,7 +67,7 @@ async function Deployments(tradeOptions) {
                     element.template.name,
                     element.template.user.name,
                     element.template.user.id,
-                    element.template.capital_required));
+                    capital_required));
         });
         return deploymentsArray;
     } else {
