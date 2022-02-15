@@ -1,11 +1,11 @@
 {
     "154118": {
         "strategy_owner" : "Get Set Algo",
-        "357958"    : {"name":  "GSM Nifty 1.0        ","index":1},
-        "842068"    : {"name":  "GSM Nifty 1.0 (H)  ",  "index":2},
+        "357958"    : {"name":  "GSM Nifty 1.0","index":1},
+        "842068"    : {"name":  "GSM Nifty 1.0 (H)",  "index":2},
         "1297014"   : {"name":  "GSM BNF 2.0 (H)","index":3},
-        "889649"    : {"name":  "GSM BNF 4.0        ",  "index":4},
-        "1657577"   : {"name":  "GSA BNF Smart 3.0   ","index":5},
+        "889649"    : {"name":  "GSM BNF 4.0",  "index":4},
+        "1657577"   : {"name":  "GSA BNF Smart 3.0","index":5},
         "1716158"   : {"name":  "Shades of BNF Smart 3.0","index":6},
         "1755089"   : {"name":  "Index Theta Compounder","index":7},
         "1815200"   : {"name":  "GSA NIFTY Stunner [DIRECTIONAL Selling]","index":8},
