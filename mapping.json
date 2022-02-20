@@ -283,5 +283,22 @@
         "1725956" : {"name":"Consistent","index":2},
         "1739546" : {"name":"Bnf Limited","index":3},
         "1798598" : {"name":"Bnf Dynamic","index":4}
+    },
+    "130731" : {
+        "strategy_owner" : "Algowise",
+        "1272616" : {"name":"Phir Phir Hera Pheri","index":1},
+        "1669843" : {"name":"Project V (Mini + Hedge)","index":2},
+        "1605872" : {"name":"James Bond by Vega Bond","index":3},
+        "1665219" : {"name":"Project V (Hedged)","index":4},
+        "1773877" : {"name":"James Bond 2.0","index":5},
+        "1791981" : {"name":"Punjab Mail","index":6},
+        "1802989" : {"name":"Overnight Miner","index":7, "kindOf": "positional"},
+        "1800484" : {"name":"Serial Killer","index":8},
+        "1733931" : {"name":"Option Saga 2.0","index":9},
+        "1733802" : {"name":"Deal Breaker 2.0","index":10},
+        "1688903" : {"name":"Option Saga","index":11},
+        "1688981" : {"name":"Deal Breaker","index":12},
+        "1721991" : {"name":"Nifty Sprint","index":13, "kindOf": "positional"},
+        "1722692" : {"name":"Banknifty Sprint","index":14, "kindOf": "positional"}
     }
 }
