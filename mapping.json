@@ -135,8 +135,9 @@
         "1242410"   : {"name":  "BNF PE Jr ","index":6},
         "1255775"   : {"name":  "NFT PE Jr ","index":7},
         "1822466"   : {"name":  "BNF VV    ","index":8},
-        "1186079"   : {"name":  "BNF SE    ","index":9},
-        "838558"    : {"name":  "IDX OEU  ","index":10, "kindOf": "positional"}
+        "1825058"   : {"name":  "NFT VV    ","index":9},
+        "1186079"   : {"name":  "BNF SE    ","index":10},
+        "838558"    : {"name":  "IDX OEU  ","index":11, "kindOf": "positional"}
     },
     "223033": {
         "strategy_owner" : "Phoenix Algo",
