@@ -278,10 +278,8 @@
     },
     "720279" : {
         "strategy_owner" : "Algo Edge Capital",
-        "1697528" : {"name":"Passive","index":1},
-        "1725956" : {"name":"Consistent","index":2},
-        "1739546" : {"name":"Bnf Limited","index":3},
-        "1798598" : {"name":"Bnf Dynamic","index":4}
+        "1812915" : {"name":"Passive LC","index":1},
+        "1830862" : {"name":"BNF Aggressive","index":2}
     },
     "130731" : {
         "strategy_owner" : "Algowise",
