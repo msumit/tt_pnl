@@ -144,10 +144,11 @@
     },
     "325798": {
         "strategy_owner" :  "Spartan Algo",
-        "803238": {"name":  "Stelios(BNF)    ", "index":1},
-        "814878": {"name":  "Gorgo(BNF)      ", "index":2},
-        "891419": {"name":  "Astinos(BNF)    ", "index":3},
-        "1160993": {"name": "Fighter(BNF)    ", "index":5}
+        "803238":   {"name": "Stelios(BNF)   ", "index":1},
+        "814878":   {"name": "Gorgo(BNF)    ", "index":2},
+        "891419":   {"name": "Astinos(BNF)  ", "index":3},
+        "1160993":  {"name": "Fighter(BNF)  ", "index":4},
+        "1100372":  {"name": "Stelios(NF)     ", "index":5}
     },
     "45210": {
         "strategy_owner" :  "Finance Acharya",
