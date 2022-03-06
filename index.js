@@ -5,6 +5,8 @@ const quoteService = require("./service/QuoteService");
 const publisherService = require("./service/PublisherService");
 const appConfig = require("./config");
 const utils = require('./utils');
+const cron = require('node-cron');
+const TZ_INDIA = "Asia/Kolkata";
 
 let app = express();
 app.use(express.json()); //to parse body
@@ -223,5 +225,22 @@ app.post('/qod-telegram', authorizedMW, bodyChecker3MW,
         return res.json({ status: 'Ok', message: `Quote request is accepted at ${utils.getDateTimestamp()}` });
     }
 );
+
+//Schedule tasks to be run on the server.
+//“At every 1 minute past every hour from 9 through 15 on every day-of-week from Monday through Friday.”
+//*/1 9-15 * * 1-5
+if (!!appConfig.tradetron.watchlistId) {
+    cron.schedule('*/1 9-15 * * 1-5', function () {
+        if (utils.isHoliday() || !utils.withinTradingHours()) {
+            return;
+        }
+        ttService.IndexWatchList().then((result) => {
+        });
+    }, {
+        scheduled: true,
+        timezone: TZ_INDIA
+    });
+}
+
 
 app.listen(process.env.PORT);

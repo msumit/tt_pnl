@@ -3,6 +3,17 @@ const appConfig = require('./config');
 let holidayList = require('./data/holidayLookUp.json');
 const tradeTypeObj = {"LIVE AUTO":"LA", "PAPER TRADING" : "PT"}; 
 const mapper = require("./mapping.json");
+let indexDataCache = [];
+
+function setIndexDataCache(items) {
+    /*
+    [
+      { name: 'NIFTY 50', ltp: '16243.55', change: -1.542606550471115 },
+      { name: 'NIFTY BANK', ltp: '34376.35', change: -1.6253008359017218 }
+    ]
+    */
+    indexDataCache = items;
+}
 
 function getDatestamp() {
     let today = moment.utc().tz(appConfig.app.TZ_INDIA);
@@ -26,22 +37,21 @@ function getDateTimestamp() {
 function isHoliday() {
     //Check if it is a weekend.
     let isWeekend = ((moment.utc().tz(appConfig.app.TZ_INDIA).day() % 6) == 0); //Sunday is 0 and Saturday is 6. 0%6 and 6%6 will be zero
-    console.info("Is it Weekend? => ", isWeekend ? 'Yes' : 'No');
+    //console.info("Is it Weekend? => ", isWeekend ? 'Yes' : 'No');
     if (isWeekend) return isWeekend;
 
     let currentDate = moment.utc().tz(appConfig.app.TZ_INDIA).format('DD-MMM-YYYY');
     let result = holidayList[currentDate] ? true:false;
-    console.info("Is it NSE holiday? => ", result ? 'Yes' : 'No');
+    //console.info("Is it NSE holiday? => ", result ? 'Yes' : 'No');
     return result;
 }
 
 function withinTradingHours() {
     let TRADING_STARTTIME = moment.utc().tz(appConfig.app.TZ_INDIA).startOf('date').set('hour', appConfig.tradeSchedule.start.hour).set('minute', appConfig.tradeSchedule.start.minute);
     let TRADING_ENDTIME = moment.utc().tz(appConfig.app.TZ_INDIA).startOf('date').set('hour', appConfig.tradeSchedule.end.hour).set('minute', appConfig.tradeSchedule.end.minute);
-    //console.debug("Current server time ", (moment.utc().tz(appConfig.app.TZ_INDIA)));
     let after = (moment.utc().tz(appConfig.app.TZ_INDIA).isAfter(TRADING_STARTTIME));
     let before = (moment.utc().tz(appConfig.app.TZ_INDIA).isBefore(TRADING_ENDTIME));
-    console.debug("Within the trading hours : ", (after && before));
+    //console.debug("Within the trading hours : ", (after && before));
     return (after && before);
 }
 
@@ -65,9 +75,16 @@ function deploymentsFormattedText(data, tradeType, creatorId) {
     let summaryText = (total_pnl >= 0) ? appConfig.app.POSITIVE : appConfig.app.NEGATIVE;
     summaryText += ` ${tradeTypeObj[tradeType]} PNL • <b> ₹ ${total_pnl}</b> (${roi}%)${appConfig.app.NEWLINES}`;
 
+    let indexData = indexDataCache;
+    let indexDataStr = `${appConfig.app.NEWLINE}`;
+    indexData.forEach(element => {
+        let indicator = parseFloat(element.change) >= 0 ? appConfig.app.UP : appConfig.app.DOWN; 
+        indexDataStr += `${indicator} ${element.name.padEnd(11, ' ')}${element.ltp} (${parseFloat(element.change).toFixed(2)}%)${appConfig.app.NEWLINE}`;
+    });
+
     let footer = `<i>${appConfig.app.NEWLINE} ${mapper?.[creatorId]?.strategy_owner || '🏁'} • ${getDateTimestamp()}</i>`;
 
-    formattedText = summaryText + formattedText + footer;
+    formattedText = summaryText + formattedText + `<pre>${indexDataStr}</pre>` + footer;
     return formattedText;
 }
 
@@ -132,5 +149,6 @@ module.exports = {
     deploymentsFormattedText,
     quoteFormattedText,
     columnName,
-    positionalPNL
+    positionalPNL,
+    setIndexDataCache
 };

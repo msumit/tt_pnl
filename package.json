@@ -24,6 +24,7 @@
     "googleapis": "^78.0.0",
     "moment": "^2.29.1",
     "moment-timezone": "^0.5.33",
+    "node-cron": "^3.0.0",
     "node-fetch": "^2.6.1"
   }
 }

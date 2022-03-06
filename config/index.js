@@ -6,6 +6,7 @@ module.exports = {
     port: process.env.PORT,
     tradetron: {
         cookie: `tradetron_session=${process.env.TT_COOKIE}`,
+        watchlistId: process.env.WATCHLIST_ID
     },
     telegram: {
         debugChatId: process.env.TELEGRAM_CHAT_ID_DEBUG,
@@ -38,6 +39,8 @@ module.exports = {
         TELEGRAM : 'Telegram',
         GSHEET : 'GSheet',
         TZ_INDIA : 'Asia/Kolkata',
-        FORCE_WORKING : process.env.FORCE_WORKING
+        FORCE_WORKING : process.env.FORCE_WORKING,
+        UP : '⬆️',
+        DOWN : '⬇️'
     }
 }

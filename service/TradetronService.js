@@ -15,12 +15,32 @@ const TT_URL2 = 'https://tradetron.tech/api/deployed/margin';
 const TT_SHARED_URL = 'https://tradetron.tech/api/shared-strategies';
 const TT_SHARED_URL2 = 'https://tradetron.tech/api/shared-strategies-margin';
 
+const TT_WATCHLIST = `https://tradetron.tech/api/dashboard/watch/price/${appConfig.tradetron.watchlistId}`;
+
 const options = {
     headers: {
         'Accept': 'application/json',
         'x-requested-with': 'XMLHttpRequest',
         'cookie': appConfig.tradetron.cookie
     }
+}
+
+/*
+[
+  { name: 'NIFTY 50', ltp: '16243.55', change: -1.542606550471115 },
+  { name: 'NIFTY BANK', ltp: '34376.35', change: -1.6253008359017218 }
+]
+*/
+async function IndexWatchList() {
+    let res = await fetch(TT_WATCHLIST, options);
+    let result = await res.json();
+    let watchlistItems = result.data.watchlist_items;
+    let items = [];
+    watchlistItems.forEach(item => {
+        items.push({"name":item.instruments.name, "ltp":item.ltp, "change":item.change_percent});
+    });
+    utils.setIndexDataCache(items);
+    return items;
 }
 
 async function Deployments(tradeOptions) {
@@ -154,5 +174,6 @@ async function Deployments2(tradeOptions) {
 
 module.exports = {
     Deployments,
-    Deployments2
+    Deployments2,
+    IndexWatchList
 };
