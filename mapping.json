@@ -262,9 +262,9 @@
     "729658" : {
         "strategy_owner" : "iFinstrats",
         "1810055" : {"name":"MarginBooster","index":1},
-        "1814744" : {"name":"IFS 1 (9:18)","index":2},
-        "1814777" : {"name":"IFS 2 (9:23)","index":3},
-        "1818199" : {"name":"IFS 3 (9:46)","index":4},
+        "1814777" : {"name":"IFS 1 (9:23)","index":2},
+        "1814744" : {"name":"IFS 2 (9:37)","index":3},
+        "1818199" : {"name":"IFS 3 (9:47)","index":4},
         "1818208" : {"name":"IFS 4 (9:53)","index":5}
     },
     "720279" : {
