@@ -85,7 +85,7 @@
         "517407":{"name": "Ruthless Gambler (Jr)", "index":44,"telegram_blocked": true},
         "473679":{"name": "Ruthless Gambler (Sr)", "index":45,"telegram_blocked": true},
         "715918":{"name": "Casablanca coach", "index":46,"telegram_blocked": true},
-        "454943":{"name": "Yo! Option Buyer! -N", "index":47,"telegram_blocked": true},
+        "454943":{"name": "Yo! Option Buyer! -N", "index":47, "kindOf": "positional"},
         "201277":{"name":"Yo! Option Buyer!","index":48,"telegram_blocked":true},
         "262779":{"name":"Lazy Boys combo","index":49,"telegram_blocked":true},
         "337756":{"name":"Banknifty lazy boy","index":50,"telegram_blocked":true},
@@ -116,7 +116,12 @@
         "1043876":{"name":"Daily Wages - Model 2 (1000)","index":75,"telegram_blocked":true},
         "1315527":{"name":"Daily Wages - Model 2 (1000) MIS","index":76,"telegram_blocked":true},
         "1316759":{"name":"Daily Wages - Model 2 (1000) - 1 counter a day","index":77,"telegram_blocked":true},
-        "1338836":{"name":"Mad 1000 (1 counter)","index":78,"telegram_blocked":true}
+        "1338836":{"name":"Mad 1000 (1 counter)","index":78,"telegram_blocked":true},
+        "1828896":{"name":"Yo! Option Buyer! V3","index":79,"kindOf": "positional"},
+        "1661632":{"name":"Daily Wages - Hybrid 500","index":80},
+        "1126123":{"name":"Yo! Option Buyer! V2","index":81, "kindOf": "positional"},
+        "1044602":{"name":"Yes!!! V2","index":83},
+        "1616223":{"name":"Captain Uncle","index":84}
     },
     "314258": {
         "strategy_owner" : "",
