@@ -297,5 +297,12 @@
         "1688981" : {"name":"Deal Breaker","index":12},
         "1721991" : {"name":"Nifty Sprint","index":13, "kindOf": "positional"},
         "1722692" : {"name":"Banknifty Sprint","index":14, "kindOf": "positional"}
+    },
+    "727145" : {
+        "strategy_owner" : "ShubhAlgos",
+        "1736506" : {"name":"Simple Bank Nifty Directional Selling","index":1},
+        "1808255" : {"name":"Hedged Bank Nifty Directional Selling","index":2},
+        "1839021" : {"name":"Advance BNF Straddle Strangle","index":3},
+        "1843171" : {"name":"BNF Iron Man","index":4}
     }
 }
